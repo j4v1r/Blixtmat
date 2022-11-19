@@ -9,8 +9,8 @@ const mysql = require('mysql2');
 
 var con = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'n0m3l0',
+    user: 'Alejandro',
+    password: 'gl0rfInd3#',
     database: 'blixtmat',
     port: 3306
 })
@@ -29,12 +29,16 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static(__dirname + '/public'))
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     res.render('pages/inicioSesion')
 })
 
-app.get('/about', function (req, res) {
+app.get('/about', (req, res) => {
     res.render('pages/registro');
+})
+
+app.get('/recargar', (req, res) => {
+    res.render('pages/recarga')
 })
 
 
@@ -47,16 +51,43 @@ app.post('/registro', (req, res) => {
     let usuario = req.body.nombre_user;
     let password = req.body.password;
 
-    con.query('INSERT into musuario (nombre_persona, apellido_persona, fecha_nacimiento, boleta, nombre_usuario, password, id_cusuario) values ("'+nombre_per+'", "'+
-    apellido+'", "'+fecha+'", "'+boleta+'","'+usuario+'", "'+password+'",1)', (err, respuesta, fields)=>{
-        if(err) return console.log("Error", err);
+    con.query('INSERT into musuario (nombre_persona, apellido_persona, fecha_nacimiento, boleta, nombre_usuario, password, id_cusuario) values ("' + nombre_per + '", "' +
+        apellido + '", "' + fecha + '", "' + boleta + '","' + usuario + '", "' + password + '",1)', (err, respuesta, fields) => {
+            if (err) return console.log("Error", err);
 
-        return res.redirect('/')
+            return res.redirect('/')
 
-    });
+        });
 
 });
 
-app.listen(process.env.PORT||8080, (req, res) => {
+
+// -- Funciones del empleado/administrador -- 
+
+app.post('/recarga', (req, res) => {
+    let identificador = req.body.boleta;
+    let saldo = parseFloat(req.body.recarga);
+    let recarga = 0;
+
+    con.query('select credito from musuario where boleta=' + identificador + '', (err1, respuesta1, fields1) => {
+        if (err1) {
+            console.log("ERROR", err1);
+        } else {
+            console.log(`El saldo actual es: ${respuesta1[0].credito}`)
+            recarga = respuesta1[0].credito + saldo;
+        }
+
+        console.log(`El saldo a actualizar es: ${recarga}`)
+
+        con.query('update musuario set credito=' + recarga + ' where boleta=' + identificador + '', (err, respuesta, fields) => {
+            if (err) return console.log("ERROR", err);
+
+            return res.redirect('/recargar')
+        })
+    })
+})
+
+
+app.listen(process.env.PORT || 8080, (req, res) => {
     console.log('Escuchando desde el puerto 8080')
 })

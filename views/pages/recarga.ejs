@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recarga</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fas fa-bars"></i>
+        </label>
+        <a href="#" class="enlace">
+            <img src="images/thumbnail.png" alt="" class="logo">
+        </a>
+        <ul>
+            <li><a href="crearmenu.html">MENU DEL DÍA</a></li>
+            <li><a href="venta.html">VENTAS</a></li>
+            <li><a href="recarga.html">RECARGO</a></li>
+            <li><a href="inventario.html">INVENTARIO</a></li>
+
+        </ul>
+    </nav>
+    <form action="/recarga" method="post">
+        <h2>Recargar saldo</h2>
+        <label for="">Boleta/No. Empleado</label>
+        <br><br>
+        <input type="text" name="boleta" placeholder="Ingresa la Boleta/No. Empleado">
+        <br><br>
+        <label for="">Monto a recargar:</label>
+        <br><br>
+        <input type="text" name="recarga" placeholder="Ingresa la cantidad a recargar">
+        
+
+        <button type="submit" value="RECARGAR" id="boton"></button>
+        <input type="reset" value="CANCELAR" id="boton">
+    </form>
+
+</body>
+
+</html>
