@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="scripts.js"></script>
+</head>
+<body>
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fas fa-bars"></i>
+        </label>
+        <a href="#" class="enlace">
+            <img src="images/thumbnail.png" alt="" class="logo">
+        </a>
+        <ul class>
+            <li><a href="menudeldía.html">INICIO</a></li>
+            <li><a href="productos.html">COMPRAR</a></li>
+            <li><a href="cestadecompras.html">CARRO DE COMPRAS</a></li>
+            <li><a href="miorden.html">MI ORDEN</a></li>
+            
+        </ul>
+
+    </nav>
+    <div class="page-nav">
+        <h1>Cesto de compras</h1>
+        <button id="checkout" class="button-checkout">Carrito</button>
+    </div>
+    <div id="page-content" class="page-content">
+        
+        <div id="product-cards" class="product-cards"></div>
+
+        <div id="order" class="order">
+            <h1>Orden</h1>
+            <h2 id="order-total">Total: $150</h2>
+            <table id="order-table" class="order-table">
+                <tr>
+                  <th>Cantidad</th>
+                  <th>Detalle</th>
+                  <th>Subtotal</th>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Hamburguesa de pollo</td>
+                  <td>$60</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Botella de agua de jamaica</td>
+                  <td>$20</td>
+                </tr>
+            </table>
+            <div id="order-actions" class="order-actions">
+                <p onclick="displayProducts()"><< volver</p>
+                <p onclick="pay()">confirmar >></p>
+            </div>
+        </div>
+    </div>
+</body>
