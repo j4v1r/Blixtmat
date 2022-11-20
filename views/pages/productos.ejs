@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    
+
+<head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Productos</title>
     <link rel="stylesheet" href="css/styles.css" />
-  </head>
-  <body>
+</head>
+
+<body>
     <nav>
         <input type="checkbox" id="check">
         <label for="check" class="checkbtn">
@@ -21,176 +23,195 @@
             <li><a href="/productos">COMPRAR</a></li>
             <li><a href="cestadecompras.html">CARRO DE COMPRAS</a></li>
             <li><a href="miorden.html">MI ORDEN</a></li>
-            
+
         </ul>
 
     </nav>
     <div class="page-nav">
-        <h1>Tortas</h1>
-        <a href="/webstore-feature-06.1-AgregaUnMetodoDePagosATuTiendaOnlineUsandoStripe/fe/index.html"><button id="checkout" class="button-checkout" onclick="pay()">Pagar</button></a>
+        <br><br><br><br><br>
+        <a href="/webstore-feature-06.1-AgregaUnMetodoDePagosATuTiendaOnlineUsandoStripe/fe/index.html"><button
+                id="checkout" class="button-checkout" onclick="pay()">Pagar</button></a>
     </div>
-    <div class="page-content">
-        <%respuesta.forEach((respuesta)=>{%>
-        <div class="product-container">
-            <h3><%=respuesta.nombre_producto%></h3>
-            <a href="tortaalpastor.html" type="enlace">
-            <img src="images/tortaalpastor.jpg" />
-            </a>
-            <h1><%=respuesta.precio_producto%></h1>
-            <button class="button-add" onclick="add('product-1', 25)">Agregar</button>
+
+    <%respuesta.forEach((respuesta)=>{%>
+        <div class="page-nav">
+            <h1>
+                <%=respuesta.tipo_csubproducto%>
+            </h1>
+        </div>
+        <div class="page-content">
+            <%respuesta1.forEach((respuesta1)=>{%>
+                <div class="product-container">
+                    <h3>
+                        <%=respuesta1.nombre_producto%>
+                    </h3>
+                    <a href="tortaalpastor.html" type="enlace">
+                        <img src="images/tortaalpastor.jpg" />
+                    </a>
+                    <h1>
+                        <%=respuesta1.precio_producto%>
+                    </h1>
+                    <button class="button-add" onclick="add('product-1', 25)">Agregar</button>
+                </div>
+                <%})%>
         </div>
         <%})%>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="page-nav">
-        <h1>Hamburguesas</h1>
-    </div>
-    <div class="page-content">
-        <div class="product-container">
-            <h3>Simple</h3>
-            <a href="hamburguesa_simple.html" type="enlace">
-            <img src="images/Hamburguesa-simple.png" />
-            </a>
-            <h1>$20</h1>
-            <button class="button-add" onclick="add('product-1', 25)">Agregar</button>
-        </div>
 
-        <div class="product-container">
-            <h3>Hamburguesa con queso</h3>
-            <a href="hamburguesa_queso.html" type="enlace">
-            <img src="images/hamburguesaconqueso.jpg" />
-            </a>
-            <h1>$22</h1>
-            <button class="button-add" onclick="add('product-2', 22)">Agregar</button>
-        </div>
+            
 
-        <div class="product-container">
-            <h3>Hamburguesa estilo chicago</h3>
-            <a href="hamburguesa_chicago.html" type="enlace">
-            <img src="images/hamburguesa_chicago.jpg" />
-            </a>
-            <h1>$23</h1>
-            <button class="button-add" onclick="add('product-3', 23)">Agregar</button>
-         </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="page-nav">
+                <h1>Hamburguesas</h1>
+            </div>
+            <div class="page-content">
+                <div class="product-container">
+                    <h3>Simple</h3>
+                    <a href="hamburguesa_simple.html" type="enlace">
+                        <img src="images/Hamburguesa-simple.png" />
+                    </a>
+                    <h1>$20</h1>
+                    <button class="button-add" onclick="add('product-1', 25)">Agregar</button>
+                </div>
 
-        <div class="product-container">
-            <a href="hamburguesa_depollo.html" type="enlace">
-            <h3>Hamburguesa de pollo</h3>
-            </a>
-            <img src="images/hamburquesadepollo.jpg" />
-            <h1>$30</h1>
-            <button class="button-add" onclick="add('product-4', 25)">Agregar</button>
-        </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="page-nav">
-        <h1>Pizzas</h1>
-    </div>
-    <div class="page-content">
-        <div class="product-container">
-            <h3>Peperonni</h3>
-            <a href="pizzapeperonni.html" type="enlace">
-            <img src="images/receta-Pizza-pepperoni.jpg" />
-            </a>
-            <h1>$25</h1>
-            <button class="button-add" onclick="add('product-1', 25)">Agregar</button>
-        </div>
+                <div class="product-container">
+                    <h3>Hamburguesa con queso</h3>
+                    <a href="hamburguesa_queso.html" type="enlace">
+                        <img src="images/hamburguesaconqueso.jpg" />
+                    </a>
+                    <h1>$22</h1>
+                    <button class="button-add" onclick="add('product-2', 22)">Agregar</button>
+                </div>
 
-        <div class="product-container">
-            <h3>Hawaina</h3>
-            <a href="pizzahawaina.html" type="enlace">
-            <img src="images/hawaina.jpg" />
-            </a>
-            <h1>$25</h1>
-            <button class="button-add" onclick="add('product-2', 22)">Agregar</button>
-        </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="page-nav">
-        <h1>Sincronizadas</h1>
-    </div>
-    <div class="page-content">
-        <div class="product-container">
-            <h3>Sencilla</h3>
-            <a href="sincronizada.html" type="enlace">
-            <img src="images/Sincronizadas.jpg" />
-            </a>
-            <h1>$17</h1>
-            <button class="button-add" onclick="add('product-1', 25)">Agregar</button>
-        </div>
+                <div class="product-container">
+                    <h3>Hamburguesa estilo chicago</h3>
+                    <a href="hamburguesa_chicago.html" type="enlace">
+                        <img src="images/hamburguesa_chicago.jpg" />
+                    </a>
+                    <h1>$23</h1>
+                    <button class="button-add" onclick="add('product-3', 23)">Agregar</button>
+                </div>
 
-        <div class="product-container">
-            <h3>Especial</h3>
-            <a href="sincronizadaespecial.html" type="enlace">
-            <img src="images/Sincronizadasespeciañ.jpg" />
-            </a>
-            <h1>$22</h1>
-            <button class="button-add" onclick="add('product-2', 22)">Agregar</button>
-        </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="page-nav">
-        <h1>Bebidas</h1>
-    </div>
-    <div class="page-content">
-        <div class="product-container">
-            <h3>Agua de horchata</h3>
-            <a href="aguahorchata.html" type="enlace">
-            <img src="images/aguadehorchata.jpg" />
-            </a>
-            <h1>$17</h1>
-            <button class="button-add" onclick="add('product-1', 25)">Agregar</button>
-        </div>
+                <div class="product-container">
+                    <a href="hamburguesa_depollo.html" type="enlace">
+                        <h3>Hamburguesa de pollo</h3>
+                    </a>
+                    <img src="images/hamburquesadepollo.jpg" />
+                    <h1>$30</h1>
+                    <button class="button-add" onclick="add('product-4', 25)">Agregar</button>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="page-nav">
+                <h1>Pizzas</h1>
+            </div>
+            <div class="page-content">
+                <div class="product-container">
+                    <h3>Peperonni</h3>
+                    <a href="pizzapeperonni.html" type="enlace">
+                        <img src="images/receta-Pizza-pepperoni.jpg" />
+                    </a>
+                    <h1>$25</h1>
+                    <button class="button-add" onclick="add('product-1', 25)">Agregar</button>
+                </div>
 
-        <div class="product-container">
-            <h3>Agua de jamaica</h3>
-            <a href="aguajamaica.html" type="enlace">
-            <img src="images/311-3118528_agua-de-jamaica-hibiscus-flower.png" />
-            </a>
-            <h1>$22</h1>
-            <button class="button-add" onclick="add('product-2', 22)">Agregar</button>
-        </div>
-        <div class="product-container">
-            <h3>Jarrito de uva</h3>
-            <a href="jarritosdeuva.html" type="enlace">
-            <img src="images/jarritouva.jpg" />
-            </a>
-            <h1>$22</h1>
-            <button class="button-add" onclick="add('product-2', 22)">Agregar</button>
-        </div>
-        <div class="product-container">
-            <h3>Dr Pepper</h3>
-            <a href="drpepper.html" type="enlace">
-            <img src="images/drpepper.jpg" />
-            </a>
-            <h1>$22</h1>
-            <button class="button-add" onclick="add('product-2', 22)">Agregar</button>
-        </div>
-        <div class="product-container">
-            <h3>Coca Cola</h3>
-            <a href="cocacola.html" type="enlace">
-            <img src="images/cocacola.jpg" />
-            </a>
-            <h1>$22</h1>
-            <button class="button-add" onclick="add('product-2', 22)">Agregar</button>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-  </body>
+                <div class="product-container">
+                    <h3>Hawaina</h3>
+                    <a href="pizzahawaina.html" type="enlace">
+                        <img src="images/hawaina.jpg" />
+                    </a>
+                    <h1>$25</h1>
+                    <button class="button-add" onclick="add('product-2', 22)">Agregar</button>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="page-nav">
+                <h1>Sincronizadas</h1>
+            </div>
+            <div class="page-content">
+                <div class="product-container">
+                    <h3>Sencilla</h3>
+                    <a href="sincronizada.html" type="enlace">
+                        <img src="images/Sincronizadas.jpg" />
+                    </a>
+                    <h1>$17</h1>
+                    <button class="button-add" onclick="add('product-1', 25)">Agregar</button>
+                </div>
+
+                <div class="product-container">
+                    <h3>Especial</h3>
+                    <a href="sincronizadaespecial.html" type="enlace">
+                        <img src="images/Sincronizadasespeciañ.jpg" />
+                    </a>
+                    <h1>$22</h1>
+                    <button class="button-add" onclick="add('product-2', 22)">Agregar</button>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="page-nav">
+                <h1>Bebidas</h1>
+            </div>
+            <div class="page-content">
+                <div class="product-container">
+                    <h3>Agua de horchata</h3>
+                    <a href="aguahorchata.html" type="enlace">
+                        <img src="images/aguadehorchata.jpg" />
+                    </a>
+                    <h1>$17</h1>
+                    <button class="button-add" onclick="add('product-1', 25)">Agregar</button>
+                </div>
+
+                <div class="product-container">
+                    <h3>Agua de jamaica</h3>
+                    <a href="aguajamaica.html" type="enlace">
+                        <img src="images/311-3118528_agua-de-jamaica-hibiscus-flower.png" />
+                    </a>
+                    <h1>$22</h1>
+                    <button class="button-add" onclick="add('product-2', 22)">Agregar</button>
+                </div>
+                <div class="product-container">
+                    <h3>Jarrito de uva</h3>
+                    <a href="jarritosdeuva.html" type="enlace">
+                        <img src="images/jarritouva.jpg" />
+                    </a>
+                    <h1>$22</h1>
+                    <button class="button-add" onclick="add('product-2', 22)">Agregar</button>
+                </div>
+                <div class="product-container">
+                    <h3>Dr Pepper</h3>
+                    <a href="drpepper.html" type="enlace">
+                        <img src="images/drpepper.jpg" />
+                    </a>
+                    <h1>$22</h1>
+                    <button class="button-add" onclick="add('product-2', 22)">Agregar</button>
+                </div>
+                <div class="product-container">
+                    <h3>Coca Cola</h3>
+                    <a href="cocacola.html" type="enlace">
+                        <img src="images/cocacola.jpg" />
+                    </a>
+                    <h1>$22</h1>
+                    <button class="button-add" onclick="add('product-2', 22)">Agregar</button>
+                </div>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+                crossorigin="anonymous"></script>
+</body>
+
 </html>

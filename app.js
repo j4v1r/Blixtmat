@@ -56,12 +56,21 @@ app.get('/menudia', (req, res) => {
 
 app.get('/productos', (req, res) => {
 
-    con.query('select * from mproducto', (err, respuesta, fields) => {
+    con.query('select * from csubproducto where id_csubproducto>4', (err, respuesta, fields) => {
         if (err) {
             console.log('Error', err)
         } else {
             console.log(respuesta)
-            res.render('pages/productos', { respuesta: respuesta })
+            con.query('select * from mproducto', (err1, respuesta1, fields1) => {
+                if (err1) {
+                    console.log('Error', err1)
+                } else {
+                    console.log(respuesta1)
+                    res.render('pages/productos', { respuesta: respuesta, respuesta1: respuesta1 })
+                }
+
+            })
+
         }
 
     })
