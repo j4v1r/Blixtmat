@@ -29,16 +29,15 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static(__dirname + '/public'))
 
+
+// -- Renders GENERAL -- 
+
 app.get('/', (req, res) => {
     res.render('pages/inicioSesion')
 })
 
 app.get('/about', (req, res) => {
     res.render('pages/registro');
-})
-
-app.get('/recargar', (req, res) => {
-    res.render('pages/recarga')
 })
 
 app.get('/menudia', (req, res) => {
@@ -48,18 +47,41 @@ app.get('/menudia', (req, res) => {
             console.log("Error", err)
         } else {
             console.log(respuesta);
-            res.render('pages/menudeldia', {entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3] })
+            res.render('pages/menudeldia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3] })
         }
 
     })
 
 })
 
+app.get('/productos', (req, res) => {
+
+    con.query('select * from mproducto', (err, respuesta, fields) => {
+        if (err) {
+            console.log('Error', err)
+        } else {
+            console.log(respuesta)
+            res.render('pages/productos', { respuesta: respuesta })
+        }
+
+    })
+
+})
+
+
+
+// -- Renders ADMIN/EMPLEADO --
+
 app.get('/crearmenu', (req, res) => {
     res.render('pages/crearmenu');
 })
 
+app.get('/recargar', (req, res) => {
+    res.render('pages/recarga')
+})
 
+
+// -- Funciones del CLIENTE -- 
 
 app.post('/registro', (req, res) => {
     let nombre_per = req.body.nombre_per;
@@ -80,7 +102,8 @@ app.post('/registro', (req, res) => {
 });
 
 
-// -- Funciones del empleado/administrador -- 
+
+// -- Funciones del ADMIN/EMPLEADO -- 
 
 app.post('/recarga', (req, res) => {
     let identificador = req.body.boleta;

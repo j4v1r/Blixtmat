@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Prouctos</title>
+    <title>Productos</title>
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
@@ -30,78 +30,16 @@
         <a href="/webstore-feature-06.1-AgregaUnMetodoDePagosATuTiendaOnlineUsandoStripe/fe/index.html"><button id="checkout" class="button-checkout" onclick="pay()">Pagar</button></a>
     </div>
     <div class="page-content">
+        <%respuesta.forEach((respuesta)=>{%>
         <div class="product-container">
-            <h3>Tortas al pastor</h3>
+            <h3><%=respuesta.nombre_producto%></h3>
             <a href="tortaalpastor.html" type="enlace">
             <img src="images/tortaalpastor.jpg" />
             </a>
-            <h1>$25</h1>
+            <h1><%=respuesta.precio_producto%></h1>
             <button class="button-add" onclick="add('product-1', 25)">Agregar</button>
         </div>
-
-        <div class="product-container">
-            <h3>Torta de salchicha</h3>
-            <a href="tortasalchicha.html" type="enlace">
-            <img src="images/tortasalchicha.jpg" />
-            </a>
-            <h1>$22</h1>
-            <button class="button-add" onclick="add('product-2', 22)">Agregar</button>
-        </div>
-
-        <div class="product-container">
-            <h3>Torta de milanesa con queso</h3>
-            <a href="tortademilanesa.html" type="enlace">
-            <img src="images/tortamilanesa.jpg" />
-            </a>
-            <h1>$23</h1>
-            <button class="button-add" onclick="add('product-3', 23)">Agregar</button>
-         </div>
-
-        <div class="product-container">
-            <h3>Molletes al pastor</h3>
-            <a href="molletesespeciales.html" type="enlace">
-            <img src="images/MOLLETES-22.jpg" />
-            </a>
-            <h1>$25</h1>
-            <button class="button-add" onclick="add('product-4', 25)">Agregar</button>
-        </div>
-    </div>
-    <div class="page-content">
-        <div class="product-container">
-            <h3>Cubana</h3>
-            <a href="cubana.html" type="enlace">
-            <img src="images/cubana.jpg" />
-            </a>
-            <h1>$28</h1>
-            <button class="button-add" onclick="add('product-1', 25)">Agregar</button>
-        </div>
-
-        <div class="product-container">
-            <h3>Texana</h3>
-            <a href="tortatexana.html" type="enlace">
-            <img src="images/texana.jpg" />
-            </a>
-            <h1>$28</h1>
-            <button class="button-add" onclick="add('product-2', 22)">Agregar</button>
-        </div>
-
-        <div class="product-container">
-            <h3>Canina</h3>
-            <a href="tortacanina.html" type="enlace">
-            <img src="images/canina.jpg" />
-            </a>
-            <h1>$28</h1>
-            <button class="button-add" onclick="add('product-3', 23)">Agregar</button>
-         </div>
-
-        <div class="product-container">
-            <h3>Suiza</h3>
-            <a href="suiza.html" type="enlace">
-            <img src="images/suiza.jpg" />
-            </a>
-            <h1>$28</h1>
-            <button class="button-add" onclick="add('product-4', 25)">Agregar</button>
-        </div>
+        <%})%>
     </div>
     <br>
     <br>
