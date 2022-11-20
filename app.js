@@ -41,6 +41,14 @@ app.get('/recargar', (req, res) => {
     res.render('pages/recarga')
 })
 
+app.get('/menudia', (req, res) => {
+    res.render('pages/menudeldia')
+})
+
+app.get('/crearmenu', (req, res) => {
+    res.render('pages/crearmenu');
+})
+
 
 
 app.post('/registro', (req, res) => {
@@ -85,6 +93,47 @@ app.post('/recarga', (req, res) => {
             return res.redirect('/recargar')
         })
     })
+})
+
+app.post('/crearmenu', (req, res) => {
+    let nom_entrada = req.body.entrada;
+    let desc_entrada = req.body.desc_entrada;
+
+    let nom_plato = req.body.plato_fuerte;
+    let desc_plato = req.body.desc_plato;
+
+    let nom_postre = req.body.postre;
+    let desc_postre = req.body.desc_postre;
+
+    let nom_bebida = req.body.bebida;
+    let desc_bebida = req.body.desc_bebida;
+
+    let precio_menu = req.body.precio_menu;
+    let hora_inicio = req.body.hora_inicio;
+    let hora_final = req.body.hora_final;
+
+    con.query('update dmenudia set nombre_menu="' + nom_entrada + '", descripcion_menu="' + desc_entrada + '" where id_dmenudia=1', (err, respuesta, fields) => {
+        if (err) return console.log("Error", err);
+
+        con.query('update dmenudia set nombre_menu="' + nom_plato + '", descripcion_menu="' + desc_plato + '" where id_dmenudia=2', (err, respuesta, fields) => {
+            if (err) return console.log("Error", err);
+
+            con.query('update dmenudia set nombre_menu="' + nom_postre + '", descripcion_menu="' + desc_postre + '" where id_dmenudia=3', (err, respuesta, fields) => {
+                if (err) return console.log("Error", err);
+
+                con.query('update dmenudia set nombre_menu="' + nom_bebida + '", descripcion_menu="' + desc_bebida + '" where id_dmenudia=1', (err, respuesta, fields) => {
+                    if (err) return console.log("Error", err);
+
+                    con.query('update mmenudia set precio_menu=' + precio_menu + ', hora_inicio="' + hora_inicio + '", hora_final="' + hora_final + '" where id_mmenudia=1', (err, respuesta, fields) => {
+                        if (err) return console.log("Error", err);
+
+                        return res.redirect('/menudia')
+                    })
+                })
+            })
+        })
+    })
+
 })
 
 

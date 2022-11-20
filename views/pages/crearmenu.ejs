@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <title>Crear Menu</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
     <nav>
         <input type="checkbox" id="check">
@@ -21,37 +23,41 @@
             <li><a href="venta.html">VENTAS</a></li>
             <li><a href="recarga.html">RECARGO</a></li>
             <li><a href="inventario.html">INVENTARIO</a></li>
-            
+
         </ul>
-    </nav> 
-    <form action="">
+    </nav>
+    <form action="/crearmenu" method="post">
         <h2>Menu del día</h2>
-        <input type="text" name="Entrada" placeholder="Entrada">
-        <textarea name="mensaje" id="" placeholder="Descripción de la entrada"></textarea>
-        <input type="text" name="precio" placeholder="Precio">
-        <input type="file" name="adjunto" accept=".pdf,.jpg,.png" multiple />
-
-
-        <input type="text" name="Bebida" placeholder="Bebida">
-        <input type="text" name="precio" placeholder="Precio">
+        <input type="text" name="entrada" placeholder="Entrada">
+        <textarea name="desc_entrada" id="" placeholder="Descripción de la entrada"></textarea>
         <input type="file" name="adjunto" accept=".pdf,.jpg,.png" multiple />
 
 
         <input type="text" name="plato_fuerte" placeholder="Plato fuerte">
-        <textarea name="mensaje" id="" placeholder="Descripción del plato fuerte"></textarea>
-        <input type="text" name="precio" placeholder="Precio">
+        <textarea name="desc_plato" id="" placeholder="Descripción del plato fuerte"></textarea>
         <input type="file" name="adjunto" accept=".pdf,.jpg,.png" multiple />
 
 
-
-        <input type="text" name="Postre" placeholder="Postre">
-        <textarea name="mensaje" id="" placeholder="Descripción del postre"></textarea>
-        <input type="text" name="precio" placeholder="Precio">
+        <input type="text" name="postre" placeholder="Postre">
+        <textarea name="desc_postre" id="" placeholder="Descripción del postre"></textarea>
         <input type="file" name="adjunto" accept=".pdf,.jpg,.png" multiple />
 
-        <input type="button" value="ENVIAR MENU" id="boton">
+
+        <input type="text" name="bebida" placeholder="Bebida">
+        <textarea name="desc_bebida" id="" placeholder="Descripción del postre"></textarea>
+        <input type="file" name="adjunto" accept=".pdf,.jpg,.png" multiple />
+
+        <h2>Hora y Precio Menu</h2>
+        <input type="number" name="precio_menu" placeholder="Precio (MX)">
+        <label>Hora inicio</label>
+        <input type="time" name="hora_inicio" >
+        <label>Hora final</label>
+        <input type="time" name="hora_final" >
+
+        <input type="submit" value="ENVIAR MENU" id="boton">
     </form>
 
 
 </body>
+
 </html>
