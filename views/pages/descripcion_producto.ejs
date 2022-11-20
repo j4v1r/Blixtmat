@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Orden</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
@@ -15,7 +15,7 @@
             <i class="fas fa-bars"></i>
         </label>
         <a href="#" class="enlace">
-            <img src="images/thumbnail.png" alt="" class="logo">
+            <img src="/images/thumbnail.png" alt="" class="logo">
         </a>
         <ul class>
             <li><a href="/menudia">INICIO</a></li>
@@ -32,16 +32,18 @@
 
         <section class="contenedor-3">
             <div class="contenedor-3_text">
-                <h2>Hamburguesa de pollo</h2>
+                <%respuesta1.forEach((respuesta1)=>{%>
+                <h2><%=respuesta1.nombre_producto%></h2>
                 <br>
-                <h3>Precio por Orden: $30</h3>
+                <h3>Precio por Orden: <%=respuesta1.precio_producto%></h3>
                 <br>
-                <h3>Cantidad de piezas: 1</h3>
+                <h3>Cantidad de piezas: 2</h3>
                 <br>
                 <h3>Estado: Disponible</h3>
                 <br>
-                <p>Hamburguesa con carne de pollo, lecucha, queso y tomate.
+                <p><%=respuesta1.descripcion%>
                 </p>
+                <%})%>
                 <a href="#">Agregar a la cesta</a>
             </div>
         </section>
