@@ -19,7 +19,7 @@
             <img src="images/thumbnail.png" alt="" class="logo">
         </a>
         <ul class>
-            <li><a href="menudeldía.html">INICIO</a></li>
+            <li><a href="/menudia">INICIO</a></li>
             <li><a href="productos.html">COMPRAR</a></li>
             <li><a href="cestadecompras.html">CARRO DE COMPRAS</a></li>
             <li><a href="miorden.html">MI ORDEN</a></li>
@@ -38,8 +38,7 @@
             </figure>
             <div class="contenido">
                 <h3>Entrada</h3>
-                <p>Crema de frijoles: Esta crema de frijol con un toque de chipotle ya es una receta clásica de la
-                    gastronomía mexicana.</p>
+                <p><%=entrada.nombre_menu%>: <%=entrada.descripcion_menu%>.</p>
 
             </div>
         </div>
@@ -49,8 +48,7 @@
             </figure>
             <div class="contenido">
                 <h3>Plato fuerte</h3>
-                <p>Alambre de res: La mayor fortaleza del alambre está en la combinación de muchos ingredientes que le
-                    dan un toque superior.</p>
+                <p><%=plato.nombre_menu%>: <%=plato.descripcion_menu%>.</p>
 
             </div>
         </div>
@@ -63,8 +61,7 @@
             </figure>
             <div class="contenido">
                 <h3>Postre</h3>
-                <p>Flan: Postre elaborado con una natilla que luego es refrigerado para obtener una textura cremosa y
-                    gelatinosa.</p>
+                <p><%=postre.nombre_menu%>: <%=postre.descripcion_menu%>.</p>
             </div>
         </div>
         <div class="card">
@@ -73,7 +70,7 @@
             </figure>
             <div class="contenido">
                 <h3>Bebida</h3>
-                <p>Vaso de 500ml de agua de jamaica o horchata</p>
+                <p><%=bebida.nombre_menu%>: <%=bebida.descripcion_menu%>.</p>
             </div>
         </div>
         <div class="card">
@@ -82,7 +79,7 @@
             </figure>
             <div class="contenido">
                 <h3>Precio y horario</h3>
-                <p>$50 pesos el precio total y disponible 12:30 pm a 6:00 pm del día </p>
+                <p>Precio total: <%=plato.precio_menu%></p><p> Disponible: <%=plato.hora_inicio%> a <%=plato.hora_final%> del día </p>
                 <a href="#">Pedir ahora</a>
             </div>
         </div>

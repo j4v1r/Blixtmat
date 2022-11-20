@@ -42,7 +42,17 @@ app.get('/recargar', (req, res) => {
 })
 
 app.get('/menudia', (req, res) => {
-    res.render('pages/menudeldia')
+
+    con.query('select * from vistamenu', (err, respuesta, fields) => {
+        if (err) {
+            console.log("Error", err)
+        } else {
+            console.log(respuesta);
+            res.render('pages/menudeldia', {entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3] })
+        }
+
+    })
+
 })
 
 app.get('/crearmenu', (req, res) => {
@@ -121,7 +131,7 @@ app.post('/crearmenu', (req, res) => {
             con.query('update dmenudia set nombre_menu="' + nom_postre + '", descripcion_menu="' + desc_postre + '" where id_dmenudia=3', (err, respuesta, fields) => {
                 if (err) return console.log("Error", err);
 
-                con.query('update dmenudia set nombre_menu="' + nom_bebida + '", descripcion_menu="' + desc_bebida + '" where id_dmenudia=1', (err, respuesta, fields) => {
+                con.query('update dmenudia set nombre_menu="' + nom_bebida + '", descripcion_menu="' + desc_bebida + '" where id_dmenudia=4', (err, respuesta, fields) => {
                     if (err) return console.log("Error", err);
 
                     con.query('update mmenudia set precio_menu=' + precio_menu + ', hora_inicio="' + hora_inicio + '", hora_final="' + hora_final + '" where id_mmenudia=1', (err, respuesta, fields) => {
