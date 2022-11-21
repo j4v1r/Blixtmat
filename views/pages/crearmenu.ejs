@@ -27,33 +27,35 @@
 
         </ul>
     </nav>
+    
     <form action="/crearmenu" method="post">
         <h2>Menu del día</h2>
-        <input type="text" name="entrada" placeholder="Entrada">
-        <textarea name="desc_entrada" id="" placeholder="Descripción de la entrada"></textarea>
+        
+        <input type="text" name="entrada" placeholder="Entrada" value="<%=entrada.nombre_menu%>">
+        <textarea name="desc_entrada" id="" placeholder="Descripción de la entrada"><%=entrada.descripcion_menu%></textarea>
+        <input type="file" name="adjunto" accept=".pdf,.jpg,.png" multiple />
+        
+
+        <input type="text" name="plato_fuerte" placeholder="Plato fuerte" value="<%=plato.nombre_menu%>">
+        <textarea name="desc_plato" id="" placeholder="Descripción del plato fuerte"><%=plato.descripcion_menu%></textarea>
         <input type="file" name="adjunto" accept=".pdf,.jpg,.png" multiple />
 
 
-        <input type="text" name="plato_fuerte" placeholder="Plato fuerte">
-        <textarea name="desc_plato" id="" placeholder="Descripción del plato fuerte"></textarea>
+        <input type="text" name="postre" placeholder="Postre" value="<%=postre.nombre_menu%>">
+        <textarea name="desc_postre" id="" placeholder="Descripción del postre"><%=postre.descripcion_menu%></textarea>
         <input type="file" name="adjunto" accept=".pdf,.jpg,.png" multiple />
 
 
-        <input type="text" name="postre" placeholder="Postre">
-        <textarea name="desc_postre" id="" placeholder="Descripción del postre"></textarea>
-        <input type="file" name="adjunto" accept=".pdf,.jpg,.png" multiple />
-
-
-        <input type="text" name="bebida" placeholder="Bebida">
-        <textarea name="desc_bebida" id="" placeholder="Descripción del postre"></textarea>
+        <input type="text" name="bebida" placeholder="Bebida" value="<%=bebida.nombre_menu%>">
+        <textarea name="desc_bebida" id="" placeholder="Descripción del postre"><%=bebida.descripcion_menu%></textarea>
         <input type="file" name="adjunto" accept=".pdf,.jpg,.png" multiple />
 
         <h2>Hora y Precio Menu</h2>
-        <input type="number" name="precio_menu" placeholder="Precio (MX)">
+        <input type="number" name="precio_menu" placeholder="Precio (MX)" value="<%=bebida.precio_menu%>">
         <label>Hora inicio</label>
-        <input type="time" name="hora_inicio" >
+        <input type="time" name="hora_inicio" value="<%=bebida.hora_inicio%>">
         <label>Hora final</label>
-        <input type="time" name="hora_final" >
+        <input type="time" name="hora_final" value="<%=bebida.hora_final%>">
 
         <input type="submit" value="ENVIAR MENU" id="boton">
     </form>

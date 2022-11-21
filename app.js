@@ -97,12 +97,9 @@ app.get('/productos', (req, res) => {
 
 })
 
-
-
 app.get('/inventario', (req, res) => {
     res.render('pages/inventario')
 })
-
 
 app.get('/desc_producto/:id', (req, res) => {
 
@@ -163,7 +160,16 @@ app.get('/productos', (req, res) => {
 // -- Renders ADMIN/EMPLEADO --
 
 app.get('/crearmenu', (req, res) => {
-    res.render('pages/crearmenu');
+
+    con.query('select * from vistamenu', (err, respuesta, fields) => {
+        if (err) {
+            console.log('Error', err)
+        } else {
+            console.log(respuesta)
+            res.render('pages/crearmenu', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3] });
+        }
+    })
+
 })
 
 app.get('/recargar', (req, res) => {
@@ -379,15 +385,15 @@ app.post('/editarProducto', (req, res) => {
     let desc_producto = req.body.desc_producto;
     let tipo_producto = req.body.tipo_producto;
     let imagen = req.body.link_imagen;
-    
-    con.query('update mproducto set nombre_producto="'+nom_producto+'", precio_producto='+precio_producto+', descripcion="'+desc_producto+'", id_csubproducto='+tipo_producto+' where id_mproducto='+id_mproducto+'', 
-    (err, respuesta, fields)=>{
-        if(err){
-            console.log('Error', err)
-        }else{
-            res.redirect('/productosEmp')
-        }
-    })
+
+    con.query('update mproducto set nombre_producto="' + nom_producto + '", precio_producto=' + precio_producto + ', descripcion="' + desc_producto + '", id_csubproducto=' + tipo_producto + ' where id_mproducto=' + id_mproducto + '',
+        (err, respuesta, fields) => {
+            if (err) {
+                console.log('Error', err)
+            } else {
+                res.redirect('/productosEmp')
+            }
+        })
 
 })
 
