@@ -1,8 +1,9 @@
 var express = require('express');
 var app = express();
 
-
 const bodyParser = require('body-parser');
+
+const session = require('express-session');
 
 // -- MySQL --
 const mysql = require('mysql2');
@@ -25,6 +26,12 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({
     extended: true
+}))
+
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
 }))
 
 app.use(express.static(__dirname + '/public'))
@@ -401,10 +408,38 @@ app.post('/editarProducto', (req, res) => {
 // -- INICIO DE SESIÓN --
 
 
-app.post('/iniciarSesion', (req, res)=>{
-    
+app.post('/iniciarSesion', (req, res) => {
+    let username = req.body.usuario;
+    let password = req.body.contrasena;
+
+    console.log(`El username es ${username} y contraseña ${password}`)
+
+    if (username && password) {
+        con.query('select * from musuario where nombre_usuario = ? and password = ?', [username, password], (err, respuesta, fields) => {
+            if (err) return console.log("Error inicio de sesión", err)
+
+            if (respuesta.length > 0) {
+                req.session.logged = true;
+                req.session.username = username;
+                req.session.tipo = respuesta[0].id_cusuario;
+                console.log(req.session.tipo)
+                res.redirect('/menudia')
+            } else {
+                res.send('USUARIO Y CONT EQUIVOCADOS');
+            }
+            res.end();
+        })
+    } else {
+        res.send('Ingresa Usuario y contraseña');
+        res.end();
+    }
 })
 
+app.get('/cerrarSesion', (req, res) => {
+    req.session.destroy();
+    console.log('Sesion cerrada')
+    res.redirect('/')
+})
 
 
 app.listen(process.env.PORT || 8080, (req, res) => {
