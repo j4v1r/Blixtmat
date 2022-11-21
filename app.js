@@ -97,46 +97,12 @@ app.get('/productos', (req, res) => {
 
 })
 
-app.get('/productosEmp', (req, res)=>{
-    con.query('select * from mproducto where id_csubproducto=5', (err5, respuesta5, fields5) => {
-        if (err5) {
-            console.log("Error5", err5)
-        } else {
-            con.query('select * from mproducto where id_csubproducto=6', (err6, respuesta6, fields6) => {
-                if (err6) {
-                    console.log("Error6", err6)
-                } else {
-                    con.query('select * from mproducto where id_csubproducto=7', (err7, respuesta7, fields7) => {
-                        if (err7) {
-                            console.log("Error7", err7)
-                        } else {
-                            con.query('select * from mproducto where id_csubproducto=8', (err8, respuesta8, fields8) => {
-                                if (err8) {
-                                    console.log("Error8", err8)
-                                } else {
-                                    con.query('select * from mproducto where id_csubproducto=9', (err9, respuesta9, fields5) => {
-                                        if (err9) {
-                                            console.log("Error9", err9)
-                                        } else {
-                                            con.query('select * from mproducto where id_csubproducto=10', (err10, respuesta10, fields10) => {
-                                                if (err10) {
-                                                    console.log("Error10", err10)
-                                                } else {
-                                                    res.render('pages/productosEmpleado', { respuesta5: respuesta5, respuesta6: respuesta6, respuesta7: respuesta7, respuesta8: respuesta8, respuesta9: respuesta9, respuesta10: respuesta10 })
-                                                }
-                                            })
-                                        }
-                                    })
-                                }
-                            })
-                        }
-                    })
-                }
-            })
-        }
-    })
 
+
+app.get('/inventario', (req, res) => {
+    res.render('pages/inventario')
 })
+
 
 app.get('/desc_producto/:id', (req, res) => {
 
@@ -147,7 +113,7 @@ app.get('/desc_producto/:id', (req, res) => {
             console.log('Error', err)
         } else {
             console.log(respuesta1)
-            res.render('pages/descripcion_producto', {respuesta1: respuesta1})
+            res.render('pages/descripcion_producto', { respuesta1: respuesta1 })
         }
 
     })
@@ -202,6 +168,83 @@ app.get('/crearmenu', (req, res) => {
 
 app.get('/recargar', (req, res) => {
     res.render('pages/recarga')
+})
+
+app.get('/productosEmp', (req, res) => {
+    con.query('select * from mproducto where id_csubproducto=5', (err5, respuesta5, fields5) => {
+        if (err5) {
+            console.log("Error5", err5)
+        } else {
+            con.query('select * from mproducto where id_csubproducto=6', (err6, respuesta6, fields6) => {
+                if (err6) {
+                    console.log("Error6", err6)
+                } else {
+                    con.query('select * from mproducto where id_csubproducto=7', (err7, respuesta7, fields7) => {
+                        if (err7) {
+                            console.log("Error7", err7)
+                        } else {
+                            con.query('select * from mproducto where id_csubproducto=8', (err8, respuesta8, fields8) => {
+                                if (err8) {
+                                    console.log("Error8", err8)
+                                } else {
+                                    con.query('select * from mproducto where id_csubproducto=9', (err9, respuesta9, fields5) => {
+                                        if (err9) {
+                                            console.log("Error9", err9)
+                                        } else {
+                                            con.query('select * from mproducto where id_csubproducto=10', (err10, respuesta10, fields10) => {
+                                                if (err10) {
+                                                    console.log("Error10", err10)
+                                                } else {
+                                                    res.render('pages/productosEmpleado', { respuesta5: respuesta5, respuesta6: respuesta6, respuesta7: respuesta7, respuesta8: respuesta8, respuesta9: respuesta9, respuesta10: respuesta10 })
+                                                }
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+        }
+    })
+
+})
+
+app.get('/agregarProducto', (req, res) => {
+
+    con.query('select * from csubproducto where id_csubproducto>4', (err, respuesta, fields) => {
+        if (err) {
+            console.log('Error', err)
+        } else {
+            console.log(respuesta)
+            res.render('pages/crearProducto', { respuesta: respuesta })
+        }
+    })
+
+})
+
+app.get('/editarProducto/:id', (req, res) => {
+
+    let id_mproducto = req.params.id;
+
+    con.query('select * from vistaProducto where id_mproducto=' + id_mproducto + '', (err, respuesta, fields) => {
+        if (err) {
+            console.log('Error', err)
+        } else {
+            console.log(respuesta)
+            con.query('select * from csubproducto where id_csubproducto>4', (err1, respuesta1, fields1) => {
+                if (err1) {
+                    console.log('Error', err1)
+                } else {
+                    console.log(respuesta1)
+                    res.render('pages/editar_producto', { respuesta: respuesta, respuesta1: respuesta1 })
+                }
+            })
+
+        }
+    })
+
 })
 
 
@@ -292,6 +335,62 @@ app.post('/crearmenu', (req, res) => {
     })
 
 })
+
+app.get('/borrarProducto/:id', (req, res) => {
+
+    let id_mproducto = req.params.id;
+
+    con.query('delete from mproducto where id_mproducto=' + id_mproducto + '', (err, respuesta, field) => {
+        if (err) {
+            console.log('Error', err)
+        } else {
+            console.log('Delete exitoso')
+            res.redirect('/productosEmp')
+        }
+    })
+
+})
+
+app.post('/agregarProducto', (req, res) => {
+
+    let nom_producto = req.body.nom_producto;
+    let precio_producto = req.body.precio_producto;
+    let desc_producto = req.body.desc_producto;
+    let tipo_producto = req.body.tipo_producto;
+    let imagen = req.body.link_imagen;
+
+    con.query('insert into mproducto (nombre_producto, precio_producto, id_csubproducto, descripcion) values ("' + nom_producto + '", ' + precio_producto + ', ' + tipo_producto + ', "' + desc_producto + '")',
+        (err, respuesta, fields) => {
+            if (err) {
+                console.log('Error', err)
+            } else {
+                console.log('Registro producto')
+                res.redirect('/productosEmp')
+            }
+        })
+
+})
+
+app.post('/editarProducto', (req, res) => {
+
+    let id_mproducto = req.body.id_mproducto;
+    let nom_producto = req.body.nom_producto;
+    let precio_producto = req.body.precio_producto;
+    let desc_producto = req.body.desc_producto;
+    let tipo_producto = req.body.tipo_producto;
+    let imagen = req.body.link_imagen;
+    
+    con.query('update mproducto set nombre_producto="'+nom_producto+'", precio_producto='+precio_producto+', descripcion="'+desc_producto+'", id_csubproducto='+tipo_producto+' where id_mproducto='+id_mproducto+'', 
+    (err, respuesta, fields)=>{
+        if(err){
+            console.log('Error', err)
+        }else{
+            res.redirect('/productosEmp')
+        }
+    })
+
+})
+
 
 
 app.listen(process.env.PORT || 8080, (req, res) => {
