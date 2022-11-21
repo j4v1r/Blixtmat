@@ -246,7 +246,48 @@ app.get('/menudia', (req, res) => {
 
 app.get('/productos', (req, res) => {
 
-    if (req.session.logged) {
+
+    if (req.isAuthenticated()) {
+
+        con.query('select * from mproducto where id_csubproducto=5', (err5, respuesta5, fields5) => {
+            if (err5) {
+                console.log("Error5", err5)
+            } else {
+                con.query('select * from mproducto where id_csubproducto=6', (err6, respuesta6, fields6) => {
+                    if (err6) {
+                        console.log("Error6", err6)
+                    } else {
+                        con.query('select * from mproducto where id_csubproducto=7', (err7, respuesta7, fields7) => {
+                            if (err7) {
+                                console.log("Error7", err7)
+                            } else {
+                                con.query('select * from mproducto where id_csubproducto=8', (err8, respuesta8, fields8) => {
+                                    if (err8) {
+                                        console.log("Error8", err8)
+                                    } else {
+                                        con.query('select * from mproducto where id_csubproducto=9', (err9, respuesta9, fields5) => {
+                                            if (err9) {
+                                                console.log("Error9", err9)
+                                            } else {
+                                                con.query('select * from mproducto where id_csubproducto=10', (err10, respuesta10, fields10) => {
+                                                    if (err10) {
+                                                        console.log("Error10", err10)
+                                                    } else {
+                                                        res.render('pages/productos', { respuesta5: respuesta5, respuesta6: respuesta6, respuesta7: respuesta7, respuesta8: respuesta8, respuesta9: respuesta9, respuesta10: respuesta10 })
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        })
+
+    } else if (req.session.logged) {
 
         con.query('select * from mproducto where id_csubproducto=5', (err5, respuesta5, fields5) => {
             if (err5) {
@@ -298,7 +339,21 @@ app.get('/inventario', (req, res) => {
 
 app.get('/desc_producto/:id', (req, res) => {
 
-    if (req.session.logged) {
+    if (req.isAuthenticated()) {
+
+        let id_mproducto = req.params.id;
+        console.log(id_mproducto)
+        con.query('select * from mproducto where id_mproducto=' + id_mproducto + '', (err, respuesta1, fields) => {
+            if (err) {
+                console.log('Error', err)
+            } else {
+                console.log(respuesta1)
+                res.render('pages/descripcion_producto', { respuesta1: respuesta1, tipo: req.user[0].id_cusuario })
+            }
+
+        })
+
+    } else if (req.session.logged) {
 
         let id_mproducto = req.params.id;
         console.log(id_mproducto)
@@ -364,7 +419,7 @@ app.get('/productos', (req, res) => {
 
 app.get('/crearmenu', (req, res) => {
 
-    if (req.session.logged && req.session.tipo > 1) {
+    if (req.isAuthenticated() && req.user[0].id_cusuario > 1) {
 
         con.query('select * from vistamenu', (err, respuesta, fields) => {
             if (err) {
@@ -375,7 +430,18 @@ app.get('/crearmenu', (req, res) => {
             }
         })
 
-    } else if (req.session.logged && req.session.tipo == 1) {
+    } else if (req.session.logged && req.session.tipo > 1) {
+
+        con.query('select * from vistamenu', (err, respuesta, fields) => {
+            if (err) {
+                console.log('Error', err)
+            } else {
+                console.log(respuesta)
+                res.render('pages/crearmenu', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3] });
+            }
+        })
+
+    } else if (req.session.logged && req.session.tipo == 1 || req.isAuthenticated() && req.user[0].id_cusuario == 1) {
 
         res.redirect('/menudia')
     } else {
@@ -386,11 +452,15 @@ app.get('/crearmenu', (req, res) => {
 
 app.get('/recargar', (req, res) => {
 
-    if (req.session.logged && req.session.tipo > 1) {
+    if (req.isAuthenticated() && req.user[0].id_cusuario > 1) {
 
         res.render('pages/recarga')
 
-    } else if (req.session.logged && req.session.tipo == 1) {
+    } else if (req.session.logged && req.session.tipo > 1) {
+
+        res.render('pages/recarga')
+
+    } else if (req.session.logged && req.session.tipo == 1 || req.isAuthenticated() && req.user[0].id_cusuario == 1) {
 
         res.redirect('/menudia')
     } else {
@@ -400,7 +470,9 @@ app.get('/recargar', (req, res) => {
 })
 
 app.get('/productosEmp', (req, res) => {
-    if (req.session.logged && req.session.tipo > 1) {
+
+
+    if (req.isAuthenticated() && req.user[0].id_cusuario > 1) {
 
         con.query('select * from mproducto where id_csubproducto=5', (err5, respuesta5, fields5) => {
             if (err5) {
@@ -440,7 +512,47 @@ app.get('/productosEmp', (req, res) => {
             }
         })
 
-    } else if (req.session.logged && req.session.tipo == 1) {
+    } else if (req.session.logged && req.session.tipo > 1) {
+
+        con.query('select * from mproducto where id_csubproducto=5', (err5, respuesta5, fields5) => {
+            if (err5) {
+                console.log("Error5", err5)
+            } else {
+                con.query('select * from mproducto where id_csubproducto=6', (err6, respuesta6, fields6) => {
+                    if (err6) {
+                        console.log("Error6", err6)
+                    } else {
+                        con.query('select * from mproducto where id_csubproducto=7', (err7, respuesta7, fields7) => {
+                            if (err7) {
+                                console.log("Error7", err7)
+                            } else {
+                                con.query('select * from mproducto where id_csubproducto=8', (err8, respuesta8, fields8) => {
+                                    if (err8) {
+                                        console.log("Error8", err8)
+                                    } else {
+                                        con.query('select * from mproducto where id_csubproducto=9', (err9, respuesta9, fields5) => {
+                                            if (err9) {
+                                                console.log("Error9", err9)
+                                            } else {
+                                                con.query('select * from mproducto where id_csubproducto=10', (err10, respuesta10, fields10) => {
+                                                    if (err10) {
+                                                        console.log("Error10", err10)
+                                                    } else {
+                                                        res.render('pages/productosEmpleado', { respuesta5: respuesta5, respuesta6: respuesta6, respuesta7: respuesta7, respuesta8: respuesta8, respuesta9: respuesta9, respuesta10: respuesta10 })
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        })
+
+    } else if (req.session.logged && req.session.tipo == 1 || req.isAuthenticated() && req.user[0].id_cusuario == 1) {
 
         res.redirect('/menudia')
     } else {
@@ -452,8 +564,7 @@ app.get('/productosEmp', (req, res) => {
 
 app.get('/agregarProducto', (req, res) => {
 
-    if (req.session.logged && req.session.tipo > 1) {
-
+    if (req.isAuthenticated() && req.user[0].id_cusuario > 1) {
 
         con.query('select * from csubproducto where id_csubproducto>4', (err, respuesta, fields) => {
             if (err) {
@@ -464,7 +575,19 @@ app.get('/agregarProducto', (req, res) => {
             }
         })
 
-    } else if (req.session.logged && req.session.tipo == 1) {
+
+    } else if (req.session.logged && req.session.tipo > 1) {
+
+        con.query('select * from csubproducto where id_csubproducto>4', (err, respuesta, fields) => {
+            if (err) {
+                console.log('Error', err)
+            } else {
+                console.log(respuesta)
+                res.render('pages/crearProducto', { respuesta: respuesta })
+            }
+        })
+
+    } else if (req.session.logged && req.session.tipo == 1 || req.isAuthenticated() && req.user[0].id_cusuario == 1) {
 
         res.redirect('/menudia')
     } else {
@@ -476,7 +599,28 @@ app.get('/agregarProducto', (req, res) => {
 
 app.get('/editarProducto/:id', (req, res) => {
 
-    if (req.session.logged && req.session.tipo > 1) {
+    if (req.isAuthenticated() && req.user[0].id_cusuario > 1) {
+
+        let id_mproducto = req.params.id;
+
+        con.query('select * from vistaProducto where id_mproducto=' + id_mproducto + '', (err, respuesta, fields) => {
+            if (err) {
+                console.log('Error', err)
+            } else {
+                console.log(respuesta)
+                con.query('select * from csubproducto where id_csubproducto>4', (err1, respuesta1, fields1) => {
+                    if (err1) {
+                        console.log('Error', err1)
+                    } else {
+                        console.log(respuesta1)
+                        res.render('pages/editar_producto', { respuesta: respuesta, respuesta1: respuesta1 })
+                    }
+                })
+
+            }
+        })
+
+    } else if (req.session.logged && req.session.tipo > 1) {
 
         let id_mproducto = req.params.id;
 
