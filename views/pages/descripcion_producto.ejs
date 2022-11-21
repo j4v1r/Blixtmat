@@ -9,23 +9,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <nav>
-        <input type="checkbox" id="check">
-        <label for="check" class="checkbtn">
-            <i class="fas fa-bars"></i>
-        </label>
-        <a href="#" class="enlace">
-            <img src="/images/thumbnail.png" alt="" class="logo">
-        </a>
-        <ul class>
-            <li><a href="/menudia">INICIO</a></li>
-            <li><a href="/productos">COMPRAR</a></li>
-            <li><a href="cestadecompras.html">CARRO DE COMPRAS</a></li>
-            <li><a href="miorden.html">MI ORDEN</a></li>
-            
-        </ul>
+    
+    <%if(tipo==1){%>
+        <%- include('../partials/menu-cliente');%>
+    <%}else{%>
+        <%- include('../partials/menu-empleado');%>
+    <%}%>
 
-    </nav>
         <br>
         <br>
         <br>

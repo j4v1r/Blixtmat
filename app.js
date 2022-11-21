@@ -54,7 +54,7 @@ app.get('/menudia', (req, res) => {
             console.log("Error", err)
         } else {
             console.log(respuesta);
-            res.render('pages/menudeldia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3] })
+            res.render('pages/menudeldia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo:req.session.tipo })
         }
 
     })
@@ -117,7 +117,7 @@ app.get('/desc_producto/:id', (req, res) => {
             console.log('Error', err)
         } else {
             console.log(respuesta1)
-            res.render('pages/descripcion_producto', { respuesta1: respuesta1 })
+            res.render('pages/descripcion_producto', { respuesta1: respuesta1, tipo:req.session.tipo  })
         }
 
     })

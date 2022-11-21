@@ -10,23 +10,9 @@
 </head>
 
 <body>
-    <nav>
-        <input type="checkbox" id="check">
-        <label for="check" class="checkbtn">
-            <i class="fas fa-bars"></i>
-        </label>
-        <a href="#" class="enlace">
-            <img src="/images/thumbnail.png" alt="" class="logo">
-        </a>
-        <ul>
-            <li><a href="/menudia">MENU DEL DÍA</a></li>
-            <li><a href="/crearmenu">DEFINIR MENU</a></li>
-            <li><a href="venta.html">VENTAS</a></li>
-            <li><a href="/recargar">RECARGAR</a></li>
-            <li><a href="/productosEmp">INVENTARIO</a></li>
+    
+    <%- include('../partials/menu-empleado');%>
 
-        </ul>
-    </nav>
     <%respuesta.forEach((respuesta)=>{%>
     <form action="/editarProducto" method="post">
         <h2>Editar "<%=respuesta.nombre_producto%>"</h2>

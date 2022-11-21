@@ -10,23 +10,13 @@
 </head>
 
 <body>
-    <nav>
-        <input type="checkbox" id="check">
-        <label for="check" class="checkbtn">
-            <i class="fas fa-bars"></i>
-        </label>
-        <a href="#" class="enlace">
-            <img src="images/thumbnail.png" alt="" class="logo">
-        </a>
-        <ul class>
-            <li><a href="/menudia">INICIO</a></li>
-            <li><a href="/productos">COMPRAR</a></li>
-            <li><a href="cestadecompras.html">CARRO DE COMPRAS</a></li>
-            <li><a href="miorden.html">MI ORDEN</a></li>
-            <li><a href="/cerrarSesion">CERRAR SESIÓN</a></li>
-        </ul>
 
-    </nav>
+    <%if(tipo==1){%>
+        <%- include('../partials/menu-cliente');%>
+    <%}else{%>
+        <%- include('../partials/menu-empleado');%>
+    <%}%>
+
     <div class="page-nav">
         <h1>Menu del día</h1>
         <button id="checkout" class="button-checkout">Carrito</button>
@@ -38,7 +28,9 @@
             </figure>
             <div class="contenido">
                 <h3>Entrada</h3>
-                <p><%=entrada.nombre_menu%>: <%=entrada.descripcion_menu%>.</p>
+                <p>
+                    <%=entrada.nombre_menu%>: <%=entrada.descripcion_menu%>.
+                </p>
 
             </div>
         </div>
@@ -48,7 +40,9 @@
             </figure>
             <div class="contenido">
                 <h3>Plato fuerte</h3>
-                <p><%=plato.nombre_menu%>: <%=plato.descripcion_menu%>.</p>
+                <p>
+                    <%=plato.nombre_menu%>: <%=plato.descripcion_menu%>.
+                </p>
 
             </div>
         </div>
@@ -61,7 +55,9 @@
             </figure>
             <div class="contenido">
                 <h3>Postre</h3>
-                <p><%=postre.nombre_menu%>: <%=postre.descripcion_menu%>.</p>
+                <p>
+                    <%=postre.nombre_menu%>: <%=postre.descripcion_menu%>.
+                </p>
             </div>
         </div>
         <div class="card">
@@ -70,7 +66,9 @@
             </figure>
             <div class="contenido">
                 <h3>Bebida</h3>
-                <p><%=bebida.nombre_menu%>: <%=bebida.descripcion_menu%>.</p>
+                <p>
+                    <%=bebida.nombre_menu%>: <%=bebida.descripcion_menu%>.
+                </p>
             </div>
         </div>
         <div class="card">
@@ -79,13 +77,14 @@
             </figure>
             <div class="contenido">
                 <h3>Precio y horario</h3>
-                <p>Precio total: <%=plato.precio_menu%></p><p> Disponible: <%=plato.hora_inicio%> a <%=plato.hora_final%> del día </p>
+                <p>Precio total: <%=plato.precio_menu%>
+                </p>
+                <p> Disponible: <%=plato.hora_inicio%> a <%=plato.hora_final%> del día </p>
                 <a href="#">Pedir ahora</a>
             </div>
         </div>
     </div>
-
-
+                
 </body>
 
 </html>
