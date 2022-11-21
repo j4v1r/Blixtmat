@@ -398,6 +398,14 @@ app.post('/editarProducto', (req, res) => {
 })
 
 
+// -- INICIO DE SESIÓN --
+
+
+app.post('/iniciarSesion', (req, res)=>{
+    
+})
+
+
 
 app.listen(process.env.PORT || 8080, (req, res) => {
     console.log('Escuchando desde el puerto 8080')
