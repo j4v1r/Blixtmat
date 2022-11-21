@@ -5,6 +5,13 @@ const bodyParser = require('body-parser');
 
 const session = require('express-session');
 
+// -- Inicio de sesión con Google -- 
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth2').Strategy;
+const GOOGLE_CLIENT_ID = '173992933976-ku8apq4lvfsr988jjqav3fln4rk5aupb.apps.googleusercontent.com';
+const GOOGLE_CLIENT_SECRET = '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';
+
+
 // -- MySQL --
 const mysql = require('mysql2');
 
@@ -34,14 +41,162 @@ app.use(session({
     saveUninitialized: true
 }))
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.static(__dirname + '/public'))
+
+
+// -- Inicio de sesión Google -- 
+
+passport.use(new GoogleStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:8080/google/callback",
+    passReqToCallback: true
+},
+    function (request, response, accessToken, refreshToken, profile, done) {
+        const id = profile.id;
+        const email = profile.emails[0].value;
+        const firstName = profile.name.givenName;
+        const lastName = profile.name.familyName;
+        const profilePhoto = profile.photos[0].value;
+        const source = "google";
+        const fecha = "2005-06-11";
+        const boleta = 4545;
+
+        console.log(email);
+        con.query('select * from musuario where nombre_usuario="' + email + '"', (err, respuesta, fields) => {
+            console.log(respuesta.length)
+            console.log(`La contraseña es ${respuesta[0].password}`)
+            if (err) {
+                console.log('ERROR', err)
+            } else if (respuesta.length == 0) {
+                con.query('INSERT into musuario (nombre_persona, apellido_persona, fecha_nacimiento, boleta, nombre_usuario, password, id_cusuario) values ("' + firstName + '", "' +
+                    lastName + '", "' + fecha + '", "' + boleta + '","' + email + '", "' + source + '",1)', (err1, respuesta1, fields1) => {
+                        if (err1) {
+                            console.log('Error', err1)
+                        } else {
+                            return done(null, respuesta1)
+                        }
+
+                    });
+            } else if (respuesta.length == 1) {
+                return done(null, respuesta)
+            } else {
+                return ('/')
+            }
+
+        })
+    }
+));
+
+passport.serializeUser(function (user, done) {
+    console.log(user[0].nombre_persona)
+    done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+    console.log(user)
+    done(null, user);
+});
+
+app.get('/auth/google',
+    passport.authenticate('google', { scope: ['email', 'profile'] })
+)
+
+app.get('/google/callback',
+    passport.authenticate('google', {
+        successRedirect: '/menudia',
+        failureRedirect: '/auth/failure',
+    })
+);
+
+app.get('/logout', (req, res, next) => {
+    req.logout(function (err) {
+        if (err) { return next(err); }
+        req.session.destroy();
+        res.redirect('/')
+    })
+});
+
+app.get('/auth/failure', (req, res) =>
+    res.send('Something went wrong')
+)
+
+
+
+
+// -- Inicio y registro de Sesión con BD -- 
+
+app.post('/registro', (req, res) => {
+    let nombre_per = req.body.nombre_per;
+    let apellido = req.body.apellido;
+    let fecha = req.body.fecha;
+    let boleta = req.body.identificador;
+    let usuario = req.body.nombre_user;
+    let password = req.body.password;
+
+    con.query('INSERT into musuario (nombre_persona, apellido_persona, fecha_nacimiento, boleta, nombre_usuario, password, id_cusuario) values ("' + nombre_per + '", "' +
+        apellido + '", "' + fecha + '", "' + boleta + '","' + usuario + '", "' + password + '",1)', (err, respuesta, fields) => {
+            if (err) return console.log("Error", err);
+
+            return res.redirect('/')
+
+        });
+
+});
+
+app.post('/iniciarSesion', (req, res) => {
+    let username = req.body.usuario;
+    let password = req.body.contrasena;
+
+    console.log(`El username es ${username} y contraseña ${password}`)
+
+    if (username && password) {
+        con.query('select * from musuario where nombre_usuario = ? and password = ?', [username, password], (err, respuesta, fields) => {
+            if (err) return console.log("Error inicio de sesión", err)
+
+            if (respuesta.length > 0) {
+                req.session.logged = true;
+                req.session.username = username;
+                req.session.tipo = respuesta[0].id_cusuario;
+                console.log(req.session.tipo)
+                res.redirect('/menudia')
+            } else {
+                res.send('USUARIO Y CONT EQUIVOCADOS');
+            }
+            res.end();
+        })
+    } else {
+        res.send('Ingresa Usuario y contraseña');
+        res.end();
+    }
+})
+
+app.get('/cerrarSesion', (req, res) => {
+    req.session.destroy();
+    console.log('Sesion cerrada')
+    res.redirect('/')
+})
+
+
 
 
 // -- Renders GENERAL -- 
 
 app.get('/', (req, res) => {
 
-    if (req.session.logged) {
+    if (req.isAuthenticated()) {
+        con.query('select * from vistamenu', (err, respuesta, fields) => {
+            if (err) {
+                console.log("Error", err)
+            } else {
+                console.log(respuesta);
+                res.render('pages/menudeldia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.user[0].id_cusuario })
+            }
+        })
+    } else if (req.session.logged) {
         con.query('select * from vistamenu', (err, respuesta, fields) => {
             if (err) {
                 console.log("Error", err)
@@ -62,7 +217,17 @@ app.get('/about', (req, res) => {
 
 app.get('/menudia', (req, res) => {
 
-    if (req.session.logged) {
+    if (req.isAuthenticated()) {
+        con.query('select * from vistamenu', (err, respuesta, fields) => {
+            if (err) {
+                console.log("Error", err)
+            } else {
+                console.log(respuesta);
+                res.render('pages/menudeldia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.user[0].id_cusuario })
+            }
+
+        })
+    } else if (req.session.logged) {
         con.query('select * from vistamenu', (err, respuesta, fields) => {
             if (err) {
                 console.log("Error", err)
@@ -193,6 +358,8 @@ app.get('/productos', (req, res) => {
 */
 
 
+
+
 // -- Renders ADMIN/EMPLEADO --
 
 app.get('/crearmenu', (req, res) => {
@@ -298,7 +465,7 @@ app.get('/agregarProducto', (req, res) => {
         })
 
     } else if (req.session.logged && req.session.tipo == 1) {
-        
+
         res.redirect('/menudia')
     } else {
 
@@ -341,25 +508,10 @@ app.get('/editarProducto/:id', (req, res) => {
 })
 
 
+
+
 // -- Funciones del CLIENTE -- 
 
-app.post('/registro', (req, res) => {
-    let nombre_per = req.body.nombre_per;
-    let apellido = req.body.apellido;
-    let fecha = req.body.fecha;
-    let boleta = req.body.identificador;
-    let usuario = req.body.nombre_user;
-    let password = req.body.password;
-
-    con.query('INSERT into musuario (nombre_persona, apellido_persona, fecha_nacimiento, boleta, nombre_usuario, password, id_cusuario) values ("' + nombre_per + '", "' +
-        apellido + '", "' + fecha + '", "' + boleta + '","' + usuario + '", "' + password + '",1)', (err, respuesta, fields) => {
-            if (err) return console.log("Error", err);
-
-            return res.redirect('/')
-
-        });
-
-});
 
 
 
@@ -485,41 +637,7 @@ app.post('/editarProducto', (req, res) => {
 })
 
 
-// -- INICIO DE SESIÓN --
 
-
-app.post('/iniciarSesion', (req, res) => {
-    let username = req.body.usuario;
-    let password = req.body.contrasena;
-
-    console.log(`El username es ${username} y contraseña ${password}`)
-
-    if (username && password) {
-        con.query('select * from musuario where nombre_usuario = ? and password = ?', [username, password], (err, respuesta, fields) => {
-            if (err) return console.log("Error inicio de sesión", err)
-
-            if (respuesta.length > 0) {
-                req.session.logged = true;
-                req.session.username = username;
-                req.session.tipo = respuesta[0].id_cusuario;
-                console.log(req.session.tipo)
-                res.redirect('/menudia')
-            } else {
-                res.send('USUARIO Y CONT EQUIVOCADOS');
-            }
-            res.end();
-        })
-    } else {
-        res.send('Ingresa Usuario y contraseña');
-        res.end();
-    }
-})
-
-app.get('/cerrarSesion', (req, res) => {
-    req.session.destroy();
-    console.log('Sesion cerrada')
-    res.redirect('/')
-})
 
 
 app.listen(process.env.PORT || 8080, (req, res) => {
