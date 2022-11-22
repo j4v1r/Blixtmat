@@ -691,25 +691,29 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
 
     console.log(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
 
-    con.query('select * from mcompra where id_musuario=' + id_musuario + ' order by fecha_mcompra desc', (err, respuesta, fields) => {
+    con.query('select * from mcompra where id_musuario=' + id_musuario + ' and id_cedocompra=2 order by fecha_mcompra, hora_mcompra desc', (err, respuesta, fields) => {
 
         console.log(respuesta)
         let fecha = JSON.stringify(respuesta[0].fecha_mcompra)
         console.log(fecha)
-        let ano = parseInt(fecha.charAt(1)+fecha.charAt(2)+fecha.charAt(3)+fecha.charAt(4));
+        let horas = respuesta[0].hora_mcompra;
+
+        let ano = parseInt(fecha.charAt(1) + fecha.charAt(2) + fecha.charAt(3) + fecha.charAt(4));
         console.log(ano, typeof ano)
-        let mes = parseInt(fecha.charAt(6)+fecha.charAt(7));
+        let mes = parseInt(fecha.charAt(6) + fecha.charAt(7));
         console.log(mes, typeof mes)
-        let dia = parseInt(fecha.charAt(9)+fecha.charAt(10));
+        let dia = parseInt(fecha.charAt(9) + fecha.charAt(10));
         console.log(dia, typeof dia)
-        let hora = parseInt(fecha.charAt(12)+fecha.charAt(13))+18;
+
+
+        let hora = parseInt(horas.charAt(0) + horas.charAt(1));
         console.log(hora, typeof hora)
-        let minuto = parseInt(fecha.charAt(15)+fecha.charAt(16));
+        let minuto = parseInt(horas.charAt(3) + horas.charAt(4));
         console.log(minuto, typeof minuto)
 
         if (err) {
             console.log('Error', err)
-        } else if (dia==date && mes==month && ano==year && hora==hours && minuto-minutes<5) {
+        } else if ((dia == date && mes == month && ano == year && hora == hours && minutes - minuto <= 5) || (dia == date && mes == month && ano == year && hora == hours && minuto == minutes) || (dia == date && mes == month && ano == year && hours - hora == 1 && minuto - minutes >= 55)) {
             console.log('La primera mamada jala')
             res.redirect('/menudia')
         } else {
