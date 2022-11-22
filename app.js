@@ -691,7 +691,7 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
 
     console.log(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
 
-    con.query('select * from mcompra where id_musuario=' + id_musuario + ' and id_cedocompra=2 order by fecha_mcompra, hora_mcompra desc', (err, respuesta, fields) => {
+    con.query('select * from mcompra where id_musuario=' + id_musuario + ' and id_cedocompra=2 order by id_mcompra desc', (err, respuesta, fields) => {
 
         console.log(respuesta)
         let fecha = JSON.stringify(respuesta[0].fecha_mcompra)
@@ -714,8 +714,20 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
         if (err) {
             console.log('Error', err)
         } else if ((dia == date && mes == month && ano == year && hora == hours && minutes - minuto <= 5) || (dia == date && mes == month && ano == year && hora == hours && minuto == minutes) || (dia == date && mes == month && ano == year && hours - hora == 1 && minuto - minutes >= 55)) {
-            console.log('La primera mamada jala')
-            res.redirect('/menudia')
+            console.log('Ha habido un intento de compra en los ultimos 5 minutos')
+            con.query('insert into dcarrito (cant_producto, id_mproducto) values (1, 7)', (err1, respuesta1, fields1) => {
+                if (err1) {
+                    console.log('Error1', err1)
+                } else {
+                    con.query('insert into ecarrito (id_dcarrito, id_mcompra) values (LAST_INSERT_ID(), ' + respuesta[0].id_mcompra +')', (err2, respuesta2, fields2) => {
+                        if (err2) {
+                            console.log('Error2', err2)
+                        } else {
+                            res.redirect('/menudia')
+                        }
+                    })
+                }
+            })
         } else {
             res.redirect('/menudia')
         }
