@@ -158,10 +158,13 @@ app.post('/iniciarSesion', (req, res) => {
             if (err) return console.log("Error inicio de sesión", err)
 
             if (respuesta.length > 0) {
+                console.log(respuesta[0].id_musuario)
                 req.session.logged = true;
                 req.session.username = username;
                 req.session.tipo = respuesta[0].id_cusuario;
+                req.session.id_musuario = respuesta[0].id_musuario;
                 console.log(req.session.tipo)
+                console.log(req.session.id_musuario)
                 res.redirect('/menudia')
             } else {
                 res.send('USUARIO Y CONT EQUIVOCADOS');
@@ -223,7 +226,7 @@ app.get('/menudia', (req, res) => {
                 console.log("Error", err)
             } else {
                 console.log(respuesta);
-                res.render('pages/menudeldia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.user[0].id_cusuario })
+                res.render('pages/menudeldia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.user[0].id_cusuario, id: req.user[0].id_musuario })
             }
 
         })
@@ -233,7 +236,7 @@ app.get('/menudia', (req, res) => {
                 console.log("Error", err)
             } else {
                 console.log(respuesta);
-                res.render('pages/menudeldia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.session.tipo })
+                res.render('pages/menudeldia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.session.tipo, id: req.session.id_musuario })
             }
 
         })
@@ -655,6 +658,58 @@ app.get('/editarProducto/:id', (req, res) => {
 
 
 // -- Funciones del CLIENTE -- 
+
+app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
+
+    let id_musuario = req.params.id;
+    let id_mmenu = req.params.id_menu;
+    let date_ob = new Date();
+
+    // current day
+    let date = ("0" + date_ob.getDate()).slice(-2);
+
+    // current month
+    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+
+    // current year
+    let year = date_ob.getFullYear();
+
+    // current hours
+    let hours = date_ob.getHours();
+
+    // current minutes
+    let minutes = date_ob.getMinutes();
+
+    // current seconds
+    let seconds = date_ob.getSeconds();
+
+    console.log(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
+
+    con.query('select * from mcompra where id_musuario=' + id_musuario + ' order by fecha_mcompra desc', (err, respuesta, fields) => {
+
+        let fecha = JSON.stringify(respuesta[0].fecha_mcompra)
+        console.log(fecha)
+        let dia = fecha.charAt(1)+fecha.charAt(2)+fecha.charAt(3)+fecha.charAt(4);
+        console.log(dia, typeof dia)
+        let mes = fecha.charAt(6)+fecha.charAt(7);
+        console.log(mes, typeof mes)
+        let ano = fecha.charAt(9)+fecha.charAt(10);
+        console.log(ano, typeof ano)
+        let hora = fecha.charAt(12)+fecha.charAt(13);
+        console.log(hora, typeof hora)
+        let minuto = fecha.charAt(15)+fecha.charAt(16);
+        console.log(minuto, typeof minuto)
+
+        if (err) {
+            console.log('Error', err)
+        } else if (respuesta.length>0) {
+            res.redirect('/menudia')
+        } else {
+            res.redirect('/menudia')
+        }
+    })
+
+})
 
 
 
