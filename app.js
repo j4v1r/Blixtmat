@@ -693,22 +693,24 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
 
     con.query('select * from mcompra where id_musuario=' + id_musuario + ' order by fecha_mcompra desc', (err, respuesta, fields) => {
 
+        console.log(respuesta)
         let fecha = JSON.stringify(respuesta[0].fecha_mcompra)
         console.log(fecha)
-        let dia = parseInt(fecha.charAt(1)+fecha.charAt(2)+fecha.charAt(3)+fecha.charAt(4));
-        console.log(dia, typeof dia)
+        let ano = parseInt(fecha.charAt(1)+fecha.charAt(2)+fecha.charAt(3)+fecha.charAt(4));
+        console.log(ano, typeof ano)
         let mes = parseInt(fecha.charAt(6)+fecha.charAt(7));
         console.log(mes, typeof mes)
-        let ano = parseInt(fecha.charAt(9)+fecha.charAt(10));
-        console.log(ano, typeof ano)
-        let hora = parseInt(fecha.charAt(12)+fecha.charAt(13));
+        let dia = parseInt(fecha.charAt(9)+fecha.charAt(10));
+        console.log(dia, typeof dia)
+        let hora = parseInt(fecha.charAt(12)+fecha.charAt(13))+18;
         console.log(hora, typeof hora)
         let minuto = parseInt(fecha.charAt(15)+fecha.charAt(16));
         console.log(minuto, typeof minuto)
 
         if (err) {
             console.log('Error', err)
-        } else if (dia==date) {
+        } else if (dia==date && mes==month && ano==year && hora==hours && minuto-minutes<5) {
+            console.log('La primera mamada jala')
             res.redirect('/menudia')
         } else {
             res.redirect('/menudia')
