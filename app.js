@@ -719,7 +719,7 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
                 if (err1) {
                     console.log('Error1', err1)
                 } else {
-                    con.query('insert into ecarrito (id_dcarrito, id_mcompra) values (LAST_INSERT_ID(), ' + respuesta[0].id_mcompra +')', (err2, respuesta2, fields2) => {
+                    con.query('insert into ecarrito (id_dcarrito, id_mcompra) values (LAST_INSERT_ID(), '+ respuesta[0].id_mcompra +')', (err2, respuesta2, fields2) => {
                         if (err2) {
                             console.log('Error2', err2)
                         } else {
