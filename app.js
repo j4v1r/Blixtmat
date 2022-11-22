@@ -666,22 +666,28 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
     let date_ob = new Date();
 
     // current day
-    let date = ("0" + date_ob.getDate()).slice(-2);
+    let date = parseInt(("0" + date_ob.getDate()).slice(-2));
+    console.log(date, typeof date)
 
     // current month
-    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+    let month = parseInt(("0" + (date_ob.getMonth() + 1)).slice(-2));
+    console.log(month, typeof month)
 
     // current year
     let year = date_ob.getFullYear();
+    console.log(year, typeof year)
 
     // current hours
     let hours = date_ob.getHours();
+    console.log(hours)
 
     // current minutes
     let minutes = date_ob.getMinutes();
+    console.log(minutes)
 
     // current seconds
     let seconds = date_ob.getSeconds();
+    console.log(seconds)
 
     console.log(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
 
@@ -689,20 +695,20 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
 
         let fecha = JSON.stringify(respuesta[0].fecha_mcompra)
         console.log(fecha)
-        let dia = fecha.charAt(1)+fecha.charAt(2)+fecha.charAt(3)+fecha.charAt(4);
+        let dia = parseInt(fecha.charAt(1)+fecha.charAt(2)+fecha.charAt(3)+fecha.charAt(4));
         console.log(dia, typeof dia)
-        let mes = fecha.charAt(6)+fecha.charAt(7);
+        let mes = parseInt(fecha.charAt(6)+fecha.charAt(7));
         console.log(mes, typeof mes)
-        let ano = fecha.charAt(9)+fecha.charAt(10);
+        let ano = parseInt(fecha.charAt(9)+fecha.charAt(10));
         console.log(ano, typeof ano)
-        let hora = fecha.charAt(12)+fecha.charAt(13);
+        let hora = parseInt(fecha.charAt(12)+fecha.charAt(13));
         console.log(hora, typeof hora)
-        let minuto = fecha.charAt(15)+fecha.charAt(16);
+        let minuto = parseInt(fecha.charAt(15)+fecha.charAt(16));
         console.log(minuto, typeof minuto)
 
         if (err) {
             console.log('Error', err)
-        } else if (respuesta.length>0) {
+        } else if (dia==date) {
             res.redirect('/menudia')
         } else {
             res.redirect('/menudia')
