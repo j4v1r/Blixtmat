@@ -13,11 +13,11 @@ const GOOGLE_CLIENT_SECRET = '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';
 
 
 // -- MySQL --
-const DB_HOST= process.env.DB_HOST || 'localhost';
-const DB_USER= process.env.PORT || 'Alejandro';
-const DB_PASSWORD= process.env.DB_PASSWORD || 'gl0rfInd3#';
-const DB_NAME= process.env.DB_NAME || 'blixtmat';
-const DB_PORT= process.env.DB_PORT || 3306;
+const DB_HOST = process.env.DB_HOST || 'localhost';
+const DB_USER = process.env.PORT || 'Alejandro';
+const DB_PASSWORD = process.env.DB_PASSWORD || 'gl0rfInd3#';
+const DB_NAME = process.env.DB_NAME || 'blixtmat';
+const DB_PORT = process.env.DB_PORT || 3306;
 
 const mysql = require('mysql2');
 
@@ -725,7 +725,7 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
                 if (err1) {
                     console.log('Error1', err1)
                 } else {
-                    con.query('insert into ecarrito (id_dcarrito, id_mcompra) values (LAST_INSERT_ID(), '+ respuesta[0].id_mcompra +')', (err2, respuesta2, fields2) => {
+                    con.query('insert into ecarrito (id_dcarrito, id_mcompra) values (LAST_INSERT_ID(), ' + respuesta[0].id_mcompra + ')', (err2, respuesta2, fields2) => {
                         if (err2) {
                             console.log('Error2', err2)
                         } else {
@@ -734,8 +734,34 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
                     })
                 }
             })
-        } else {
-            res.redirect('/menudia')
+        } else if ((dia == date && mes == month && ano == year && hora == hours && minutes - minuto > 5) || (dia == date && mes == month && ano == year && hours - hora == 1 && minuto - minutes < 55)) {
+            console.log('NO ha habido un intento de compra en los ultimos 5 minutos')
+            let fecha_actual = year + "-" + month + "-" + date;
+            let hora_actual = hours + ":" + minutes + ":" + seconds;
+            con.query('insert into mcompra (fecha_mcompra, id_cedocompra, id_musuario, hora_mcompra) values ("' + fecha_actual + '", 2, ' + id_musuario + ', "' + hora_actual + '")', (err3, respuesta3, fields3) => {
+                console.log(respuesta3.insertId);
+                if (err3) {
+                    console.log('Error3', err3)
+                } else {
+                    let id_mcompra = respuesta3.insertId;
+                    console.log(id_mcompra, typeof id_mcompra);
+                    con.query('insert into dcarrito (cant_producto, id_mproducto) values (1, 7)', (err5, respuesta5, fields5) => {
+                        if (err5) {
+                            console.log('Error5', err5)
+                        } else {
+                            con.query('insert into ecarrito (id_dcarrito, id_mcompra) values (LAST_INSERT_ID(), ' + id_mcompra + ')', (err6, respuesta6, fields6) => {
+                                if (err6) {
+                                    console.log('Error6', err6)
+                                } else {
+                                    res.redirect('/menudia')
+                                }
+                            })
+                        }
+                    })
+
+
+                }
+            })
         }
     })
 
