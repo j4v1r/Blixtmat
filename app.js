@@ -13,14 +13,20 @@ const GOOGLE_CLIENT_SECRET = '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';
 
 
 // -- MySQL --
+const DB_HOST= process.env.DB_HOST || 'localhost';
+const DB_USER= process.env.PORT || 'Alejandro';
+const DB_PASSWORD= process.env.DB_PASSWORD || 'gl0rfInd3#';
+const DB_NAME= process.env.DB_NAME || 'blixtmat';
+const DB_PORT= process.env.DB_PORT || 3306;
+
 const mysql = require('mysql2');
 
 var con = mysql.createConnection({
-    host: 'localhost',
-    user: 'Alejandro',
-    password: 'gl0rfInd3#',
-    database: 'blixtmat',
-    port: 3306
+    host: DB_HOST,
+    user: DB_USER,
+    password: DB_PASSWORD,
+    database: DB_NAME,
+    port: DB_PORT
 })
 
 con.connect();
