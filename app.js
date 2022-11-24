@@ -721,7 +721,7 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
             console.log('Error', err)
         } else if ((dia == date && mes == month && ano == year && hora == hours && minutes - minuto <= 5) || (dia == date && mes == month && ano == year && hora == hours && minuto == minutes) || (dia == date && mes == month && ano == year && hours - hora == 1 && minuto - minutes >= 55)) {
             console.log('Ha habido un intento de compra en los ultimos 5 minutos')
-            con.query('insert into dcarrito (cant_producto, id_mproducto) values (1, 7)', (err1, respuesta1, fields1) => {
+            con.query('insert into dcarrito (cant_producto, id_mproducto) values (1, 1)', (err1, respuesta1, fields1) => {
                 if (err1) {
                     console.log('Error1', err1)
                 } else {
@@ -734,7 +734,7 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
                     })
                 }
             })
-        } else if ((dia == date && mes == month && ano == year && hora == hours && minutes - minuto > 5) || (dia == date && mes == month && ano == year && hours - hora == 1 && minuto - minutes < 55)) {
+        } else if ((dia == date && mes == month && ano == year && hora == hours && minutes - minuto > 5) || (dia == date && mes == month && ano == year && hours - hora == 1 && minuto - minutes < 55) || dia!=date) {
             console.log('NO ha habido un intento de compra en los ultimos 5 minutos')
             let fecha_actual = year + "-" + month + "-" + date;
             let hora_actual = hours + ":" + minutes + ":" + seconds;
@@ -745,7 +745,7 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
                 } else {
                     let id_mcompra = respuesta3.insertId;
                     console.log(id_mcompra, typeof id_mcompra);
-                    con.query('insert into dcarrito (cant_producto, id_mproducto) values (1, 7)', (err5, respuesta5, fields5) => {
+                    con.query('insert into dcarrito (cant_producto, id_mproducto) values (1, 1)', (err5, respuesta5, fields5) => {
                         if (err5) {
                             console.log('Error5', err5)
                         } else {
