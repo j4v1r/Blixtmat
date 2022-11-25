@@ -169,6 +169,7 @@ app.post('/iniciarSesion', (req, res) => {
                 req.session.username = username;
                 req.session.tipo = respuesta[0].id_cusuario;
                 req.session.id_musuario = respuesta[0].id_musuario;
+                req.session.credito = respuesta[0].credito;
                 console.log(req.session.tipo)
                 console.log(req.session.id_musuario)
                 res.redirect('/menudia')
@@ -237,7 +238,7 @@ app.get('/menudia', (req, res) => {
                 console.log("Error", err)
             } else {
                 console.log(respuesta);
-                res.render('pages/menudeldia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.user[0].id_cusuario, id: req.user[0].id_musuario })
+                res.render('pages/menudeldia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.user[0].id_cusuario, id: req.user[0].id_musuario, credito: req.user[0].credito })
             }
 
         })
@@ -247,7 +248,7 @@ app.get('/menudia', (req, res) => {
                 console.log("Error", err)
             } else {
                 console.log(respuesta);
-                res.render('pages/menudeldia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.session.tipo, id: req.session.id_musuario })
+                res.render('pages/menudeldia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.session.tipo, id: req.session.id_musuario, credito: req.session.credito })
             }
 
         })
@@ -259,7 +260,6 @@ app.get('/menudia', (req, res) => {
 })
 
 app.get('/productos', (req, res) => {
-
 
     if (req.isAuthenticated()) {
 
@@ -287,7 +287,7 @@ app.get('/productos', (req, res) => {
                                                     if (err10) {
                                                         console.log("Error10", err10)
                                                     } else {
-                                                        res.render('pages/productos', { respuesta5: respuesta5, respuesta6: respuesta6, respuesta7: respuesta7, respuesta8: respuesta8, respuesta9: respuesta9, respuesta10: respuesta10 })
+                                                        res.render('pages/productos', { respuesta5: respuesta5, respuesta6: respuesta6, respuesta7: respuesta7, respuesta8: respuesta8, respuesta9: respuesta9, respuesta10: respuesta10, credito: req.user[0].credito })
                                                     }
                                                 })
                                             }
@@ -327,7 +327,7 @@ app.get('/productos', (req, res) => {
                                                     if (err10) {
                                                         console.log("Error10", err10)
                                                     } else {
-                                                        res.render('pages/productos', { respuesta5: respuesta5, respuesta6: respuesta6, respuesta7: respuesta7, respuesta8: respuesta8, respuesta9: respuesta9, respuesta10: respuesta10 })
+                                                        res.render('pages/productos', { respuesta5: respuesta5, respuesta6: respuesta6, respuesta7: respuesta7, respuesta8: respuesta8, respuesta9: respuesta9, respuesta10: respuesta10, credito: req.session.credito })
                                                     }
                                                 })
                                             }
@@ -362,7 +362,7 @@ app.get('/desc_producto/:id', (req, res) => {
                 console.log('Error', err)
             } else {
                 console.log(respuesta1)
-                res.render('pages/descripcion_producto', { respuesta1: respuesta1, tipo: req.user[0].id_cusuario })
+                res.render('pages/descripcion_producto', { respuesta1: respuesta1, tipo: req.user[0].id_cusuario, credito: req.user[0].credito })
             }
 
         })
@@ -376,7 +376,7 @@ app.get('/desc_producto/:id', (req, res) => {
                 console.log('Error', err)
             } else {
                 console.log(respuesta1)
-                res.render('pages/descripcion_producto', { respuesta1: respuesta1, tipo: req.session.tipo })
+                res.render('pages/descripcion_producto', { respuesta1: respuesta1, tipo: req.session.tipo, credito: req.session.credito })
             }
 
         })
@@ -681,7 +681,7 @@ app.get('/perfil', (req, res) => {
                 console.log("Error", err)
             } else {
                 console.log(respuesta);
-                res.render('pages/perfilCliente', { respuesta: respuesta[0], id: req.user[0].id_musuario })
+                res.render('pages/perfilCliente', { respuesta: respuesta[0], id: req.user[0].id_musuario, credito: req.user[0].credito })
             }
 
         })
@@ -692,7 +692,7 @@ app.get('/perfil', (req, res) => {
                 console.log("Error", err)
             } else {
                 console.log(respuesta[0].fecha_nacimiento);
-                res.render('pages/perfilCliente', { respuesta: respuesta[0], id: req.session.id_musuario })
+                res.render('pages/perfilCliente', { respuesta: respuesta[0], id: req.session.id_musuario, credito: req.session.credito })
             }
 
         })
@@ -830,8 +830,6 @@ app.post('/actualizarUsuario', (req, res) => {
             res.redirect('/perfil')
         }
     })
-
-
 
 })
 
