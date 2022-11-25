@@ -31,7 +31,11 @@
                     <%=respuesta5.nombre_producto%>
                 </h3>
                 <a href="/desc_producto/<%=respuesta5.id_mproducto%>" type="enlace">
-                    <img src="images/tortaalpastor.jpg" />
+                    <%if(respuesta5.imagen==null){%>
+                        <img src="images/nodisponible.png" />
+                    <%}else{%>
+                        <img src="<%=respuesta5.imagen%>" />
+                    <%}%>
                 </a>
                 <h1>
                     $<%=respuesta5.precio_producto%>
@@ -57,7 +61,11 @@
                     <%=respuesta6.nombre_producto%>
                 </h3>
                 <a href="/desc_producto/<%=respuesta6.id_mproducto%>l" type="enlace">
-                    <img src="images/tortaalpastor.jpg" />
+                    <%if(respuesta6.imagen==null){%>
+                        <img src="images/nodisponible.png" />
+                    <%}else{%>
+                        <img src="<%=respuesta6.imagen%>" />
+                    <%}%>
                 </a>
                 <h1>
                     $<%=respuesta6.precio_producto%>
@@ -83,7 +91,11 @@
                     <%=respuesta7.nombre_producto%>
                 </h3>
                 <a href="/desc_producto/<%=respuesta7.id_mproducto%>" type="enlace">
-                    <img src="images/tortaalpastor.jpg" />
+                    <%if(respuesta7.imagen==null){%>
+                        <img src="images/nodisponible.png" />
+                    <%}else{%>
+                        <img src="<%=respuesta7.imagen%>" />
+                    <%}%>
                 </a>
                 <h1>
                     $<%=respuesta7.precio_producto%>
@@ -109,7 +121,11 @@
                     <%=respuesta8.nombre_producto%>
                 </h3>
                 <a href="/desc_producto/<%=respuesta8.id_mproducto%>" type="enlace">
-                    <img src="images/tortaalpastor.jpg" />
+                    <%if(respuesta8.imagen==null){%>
+                        <img src="images/nodisponible.png" />
+                    <%}else{%>
+                        <img src="<%=respuesta8.imagen%>" />
+                    <%}%>
                 </a>
                 <h1>
                     $<%=respuesta8.precio_producto%>
@@ -136,7 +152,11 @@
                     <%=respuesta9.nombre_producto%>
                 </h3>
                 <a href="/desc_producto/<%=respuesta9.id_mproducto%>" type="enlace">
-                    <img src="images/tortaalpastor.jpg" />
+                    <%if(respuesta9.imagen==null){%>
+                        <img src="images/nodisponible.png" />
+                    <%}else{%>
+                        <img src="<%=respuesta9.imagen%>" />
+                    <%}%>
                 </a>
                 <h1>
                     $<%=respuesta9.precio_producto%>
@@ -163,7 +183,11 @@
                     <%=respuesta10.nombre_producto%>
                 </h3>
                 <a href="/desc_producto/<%=respuesta10.id_mproducto%>" type="enlace">
-                    <img src="images/tortaalpastor.jpg" />
+                    <%if(respuesta10.imagen==null){%>
+                        <img src="images/nodisponible.png" />
+                    <%}else{%>
+                        <img src="<%=respuesta10.imagen%>" />
+                    <%}%>
                 </a>
                 <h1>
                     $<%=respuesta10.precio_producto%>

@@ -58,7 +58,7 @@ app.use(express.static(__dirname + '/public'))
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://blixtmat.herokuapp.com/google/callback",
+    callbackURL: "http://localhost:8080/google/callback",
     passReqToCallback: true
 },
     function (request, response, accessToken, refreshToken, profile, done) {
@@ -672,6 +672,38 @@ app.get('/editarProducto/:id', (req, res) => {
 
 app.get('/confirmar')
 
+app.get('/perfil', (req, res) => {
+
+    if (req.isAuthenticated()) {
+        let id = req.user[0].id_musuario;
+        con.query('select * from musuario where id_musuario=' + id + '', (err, respuesta, fields) => {
+            if (err) {
+                console.log("Error", err)
+            } else {
+                console.log(respuesta);
+                res.render('pages/perfilCliente', { respuesta: respuesta[0], id: req.user[0].id_musuario })
+            }
+
+        })
+    } else if (req.session.logged) {
+        let id = req.session.id_musuario;
+        con.query('select * from musuario where id_musuario=' + id + '', (err, respuesta, fields) => {
+            if (err) {
+                console.log("Error", err)
+            } else {
+                console.log(respuesta[0].fecha_nacimiento);
+                res.render('pages/perfilCliente', { respuesta: respuesta[0], id: req.session.id_musuario })
+            }
+
+        })
+
+    } else {
+        res.render('pages/inicioSesion')
+    }
+
+
+})
+
 
 
 // ----------------------------- FUNCIONALIDADES ----------------------------- //
@@ -749,7 +781,7 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
                     })
                 }
             })
-        } else if ((dia == date && mes == month && ano == year && hora == hours && minutes - minuto > 5) || (dia == date && mes == month && ano == year && hours - hora == 1 && minuto - minutes < 55) || dia!=date) {
+        } else if ((dia == date && mes == month && ano == year && hora == hours && minutes - minuto > 5) || (dia == date && mes == month && ano == year && hours - hora == 1 && minuto - minutes < 55) || dia != date) {
             console.log('NO ha habido un intento de compra en los ultimos 5 minutos')
             let fecha_actual = year + "-" + month + "-" + date;
             let hora_actual = hours + ":" + minutes + ":" + seconds;
@@ -779,6 +811,16 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
             })
         }
     })
+
+})
+
+app.get('/actualizarUsuario', (req, res) => {
+    let nombre_persona = req.body.nombre;
+    let apellido_persona = req.body.app;
+    let boleta = req.body.boleta;
+    let nom_user = req.body.nom_user;
+    let contrasena = req.body.password;
+
 
 })
 
