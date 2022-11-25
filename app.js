@@ -58,7 +58,7 @@ app.use(express.static(__dirname + '/public'))
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:8080/google/callback",
+    callbackURL: "https://blixtmat.herokuapp.com/google/callback",
     passReqToCallback: true
 },
     function (request, response, accessToken, refreshToken, profile, done) {
@@ -74,7 +74,6 @@ passport.use(new GoogleStrategy({
         console.log(email);
         con.query('select * from musuario where nombre_usuario="' + email + '"', (err, respuesta, fields) => {
             console.log(respuesta.length)
-            console.log(`La contraseña es ${respuesta[0].password}`)
             if (err) {
                 console.log('ERROR', err)
             } else if (respuesta.length == 0) {
@@ -83,7 +82,10 @@ passport.use(new GoogleStrategy({
                         if (err1) {
                             console.log('Error', err1)
                         } else {
-                            return done(null, respuesta1)
+                            con.query('select * from musuario where nombre_usuario="' + email + '"', (err2, respuesta2, fields)=>{
+                                return done(null, respuesta2)
+                            })
+                            
                         }
 
                     });
@@ -98,12 +100,10 @@ passport.use(new GoogleStrategy({
 ));
 
 passport.serializeUser(function (user, done) {
-    console.log(user[0].nombre_persona)
     done(null, user);
 });
 
 passport.deserializeUser(function (user, done) {
-    console.log(user)
     done(null, user);
 });
 
