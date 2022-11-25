@@ -814,12 +814,23 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
 
 })
 
-app.get('/actualizarUsuario', (req, res) => {
+app.post('/actualizarUsuario', (req, res) => {
+
+    let id_musuario = req.body.id_musuario;
     let nombre_persona = req.body.nombre;
     let apellido_persona = req.body.app;
     let boleta = req.body.boleta;
     let nom_user = req.body.nom_user;
     let contrasena = req.body.password;
+
+    con.query('update musuario set nombre_persona="' + nombre_persona + '", apellido_persona="' + apellido_persona + '", boleta=' + boleta + ', nombre_usuario="' + nom_user + '", password="' + contrasena + '" where id_musuario='+id_musuario+'', (err, respuesta, fields) => {
+        if(err){
+            console.log('Error', err)
+        }else{
+            res.redirect('/perfil')
+        }
+    })
+
 
 
 })

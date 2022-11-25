@@ -22,7 +22,11 @@
 
         <section class="contenedor-3">
             <div class="contenedor-3_img">
-                <img src="/images/canina.jpg" alt="">
+                <%if(respuesta1[0].imagen==null){%>
+                    <img src="/images/nodisponible.png" />
+                <%}else{%>
+                    <img src="<%=respuesta1[0].imagen%>" />
+                <%}%>
             </div>
             <div class="contenedor-3_text">
                 <%respuesta1.forEach((respuesta1)=>{%>
