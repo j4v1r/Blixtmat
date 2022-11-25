@@ -78,8 +78,8 @@ passport.use(new GoogleStrategy({
             if (err) {
                 console.log('ERROR', err)
             } else if (respuesta.length == 0) {
-                con.query('INSERT into musuario (nombre_persona, apellido_persona, fecha_nacimiento, boleta, nombre_usuario, password, id_cusuario) values ("' + firstName + '", "' +
-                    lastName + '", "' + fecha + '", "' + boleta + '","' + email + '", "' + source + '",1)', (err1, respuesta1, fields1) => {
+                con.query('INSERT into musuario (nombre_persona, apellido_persona, fecha_nacimiento, boleta, nombre_usuario, password, id_cusuario, credito) values ("' + firstName + '", "' +
+                    lastName + '", "' + fecha + '", "' + boleta + '","' + email + '", "' + source + '",1,0)', (err1, respuesta1, fields1) => {
                         if (err1) {
                             console.log('Error', err1)
                         } else {
@@ -143,8 +143,8 @@ app.post('/registro', (req, res) => {
     let usuario = req.body.nombre_user;
     let password = req.body.password;
 
-    con.query('INSERT into musuario (nombre_persona, apellido_persona, fecha_nacimiento, boleta, nombre_usuario, password, id_cusuario) values ("' + nombre_per + '", "' +
-        apellido + '", "' + fecha + '", "' + boleta + '","' + usuario + '", "' + password + '",1)', (err, respuesta, fields) => {
+    con.query('INSERT into musuario (nombre_persona, apellido_persona, fecha_nacimiento, boleta, nombre_usuario, password, id_cusuario, credito) values ("' + nombre_per + '", "' +
+        apellido + '", "' + fecha + '", "' + boleta + '","' + usuario + '", "' + password + '",1,0)', (err, respuesta, fields) => {
             if (err) return console.log("Error", err);
 
             return res.redirect('/')

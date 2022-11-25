@@ -80,7 +80,11 @@
                 <p>Precio total: <%=plato.precio_menu%>
                 </p>
                 <p> Disponible: <%=plato.hora_inicio%> a <%=plato.hora_final%> del día </p>
-                <a href="/ordenarMenu/<%=id%>/<%=bebida.id_mmenudia%>">Pedir ahora</a>
+                <%if(tipo==1){%>
+                    <a href="/ordenarMenu/<%=id%>/<%=bebida.id_mmenudia%>">Pedir ahora</a>
+                <%}else{%>
+                <%}%>
+                
             </div>
         </div>
     </div>
