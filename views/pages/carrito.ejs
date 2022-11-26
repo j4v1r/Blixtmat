@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Confirmar compra</title>
+</head>
+
+<body>
+
+    <%- include('../partials/menu-cliente');%>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th>Datos del cliente</th>
+                    <th></th>
+                    <th></th>
+                    <th>Fecha estimada de entrega</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Consola">Nombre del alumno: <br> <%=nombre%>
+                    </td>
+                    <td data-label="Precio">Boleta/No. Empleado: <br> <%=boleta%></td>
+                    <td data-label="Ventas">Telefono:No se</td>
+                    <td data-label="Fecha de lanzamiento">Hora de entrega:<input type="number" name="nom_cliente"
+                            id="nom_cliente"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Descripción de productos</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Precio total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="descripcion">Nom Producto</td>
+                    <td data-label="cantidad"><input type="number" name="cantidad" id="cantidad_product"></td>
+                    <td data-label="precio">Precio Individual</td>
+                    <td data-label="precio total">Precio total</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

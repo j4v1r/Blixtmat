@@ -82,10 +82,10 @@ passport.use(new GoogleStrategy({
                         if (err1) {
                             console.log('Error', err1)
                         } else {
-                            con.query('select * from musuario where nombre_usuario="' + email + '"', (err2, respuesta2, fields)=>{
+                            con.query('select * from musuario where nombre_usuario="' + email + '"', (err2, respuesta2, fields) => {
                                 return done(null, respuesta2)
                             })
-                            
+
                         }
 
                     });
@@ -170,6 +170,8 @@ app.post('/iniciarSesion', (req, res) => {
                 req.session.tipo = respuesta[0].id_cusuario;
                 req.session.id_musuario = respuesta[0].id_musuario;
                 req.session.credito = respuesta[0].credito;
+                req.session.nombre = respuesta[0].nombre_persona;
+                req.session.boleta = respuesta[0].boleta;
                 console.log(req.session.tipo)
                 console.log(req.session.id_musuario)
                 res.redirect('/menudia')
@@ -670,7 +672,83 @@ app.get('/editarProducto/:id', (req, res) => {
 
 // -- Renders CLIENTE -- 
 
-app.get('/confirmar')
+app.get('/carrito', (req, res) => {
+
+    let id_musuario = req.session.id_musuario;
+    console.log(id_musuario)
+    let id_mmenu = req.params.id_menu;
+    let date_ob = new Date();
+
+    // current day
+    let date = parseInt(("0" + date_ob.getDate()).slice(-2));
+    console.log(date, typeof date)
+
+    // current month
+    let month = parseInt(("0" + (date_ob.getMonth() + 1)).slice(-2));
+    console.log(month, typeof month)
+
+    // current year
+    let year = date_ob.getFullYear();
+    console.log(year, typeof year)
+
+    // current hours
+    let hours = date_ob.getHours();
+    console.log(hours)
+
+    // current minutes
+    let minutes = date_ob.getMinutes();
+    console.log(minutes)
+
+    // current seconds
+    let seconds = date_ob.getSeconds();
+    console.log(seconds)
+
+    console.log(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
+
+    con.query('select * from mcompra where id_musuario=' + id_musuario + ' and id_cedocompra=2 order by id_mcompra desc', (err, respuesta, fields) => {
+
+        console.log(respuesta)
+        let fecha = JSON.stringify(respuesta[0].fecha_mcompra)
+        console.log(fecha)
+        let horas = respuesta[0].hora_mcompra;
+
+        let ano = parseInt(fecha.charAt(1) + fecha.charAt(2) + fecha.charAt(3) + fecha.charAt(4));
+        console.log(ano, typeof ano)
+        let mes = parseInt(fecha.charAt(6) + fecha.charAt(7));
+        console.log(mes, typeof mes)
+        let dia = parseInt(fecha.charAt(9) + fecha.charAt(10));
+        console.log(dia, typeof dia)
+
+        let hora = parseInt(horas.charAt(0) + horas.charAt(1));
+        console.log(hora, typeof hora)
+        let minuto = parseInt(horas.charAt(3) + horas.charAt(4));
+        console.log(minuto, typeof minuto)
+
+        if (err) {
+            console.log('Error', err)
+        } else if ((dia == date && mes == month && ano == year && hora == hours && minutes - minuto <= 5) || (dia == date && mes == month && ano == year && hora == hours && minuto == minutes) || (dia == date && mes == month && ano == year && hours - hora == 1 && minuto - minutes >= 55)) {
+            console.log('HA habido un intento de compra en los ultimos 5 minutos')
+            res.render('pages/carrito', {credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta})
+            /*con.query('insert into dcarrito (cant_producto, id_mproducto) values (1, 1)', (err1, respuesta1, fields1) => {
+                if (err1) {
+                    console.log('Error1', err1)
+                } else {
+                    con.query('insert into ecarrito (id_dcarrito, id_mcompra) values (LAST_INSERT_ID(), ' + respuesta[0].id_mcompra + ')', (err2, respuesta2, fields2) => {
+                        if (err2) {
+                            console.log('Error2', err2)
+                        } else {
+                            res.redirect('/menudia')
+                        }
+                    })
+                }
+            })*/
+            
+        } else {
+            res.render('pages/carrito', {credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta})
+        }
+    })
+
+})
 
 app.get('/perfil', (req, res) => {
 
@@ -746,7 +824,6 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
 
     con.query('select * from mcompra where id_musuario=' + id_musuario + ' and id_cedocompra=2 order by id_mcompra desc', (err, respuesta, fields) => {
 
-        console.log(respuesta)
         let fecha = JSON.stringify(respuesta[0].fecha_mcompra)
         console.log(fecha)
         let horas = respuesta[0].hora_mcompra;
@@ -757,7 +834,6 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
         console.log(mes, typeof mes)
         let dia = parseInt(fecha.charAt(9) + fecha.charAt(10));
         console.log(dia, typeof dia)
-
 
         let hora = parseInt(horas.charAt(0) + horas.charAt(1));
         console.log(hora, typeof hora)
@@ -781,7 +857,7 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
                     })
                 }
             })
-        } else if ((dia == date && mes == month && ano == year && hora == hours && minutes - minuto > 5) || (dia == date && mes == month && ano == year && hours - hora == 1 && minuto - minutes < 55) || dia != date) {
+        } else if ((dia == date && mes == month && ano == year && hora == hours && minutes - minuto > 5) || (dia == date && mes == month && ano == year && hours - hora == 1 && minuto - minutes < 55) || dia != date || hours!=hora || respuesta.length==0) {
             console.log('NO ha habido un intento de compra en los ultimos 5 minutos')
             let fecha_actual = year + "-" + month + "-" + date;
             let hora_actual = hours + ":" + minutes + ":" + seconds;
@@ -823,10 +899,10 @@ app.post('/actualizarUsuario', (req, res) => {
     let nom_user = req.body.nom_user;
     let contrasena = req.body.password;
 
-    con.query('update musuario set nombre_persona="' + nombre_persona + '", apellido_persona="' + apellido_persona + '", boleta=' + boleta + ', nombre_usuario="' + nom_user + '", password="' + contrasena + '" where id_musuario='+id_musuario+'', (err, respuesta, fields) => {
-        if(err){
+    con.query('update musuario set nombre_persona="' + nombre_persona + '", apellido_persona="' + apellido_persona + '", boleta=' + boleta + ', nombre_usuario="' + nom_user + '", password="' + contrasena + '" where id_musuario=' + id_musuario + '', (err, respuesta, fields) => {
+        if (err) {
             console.log('Error', err)
-        }else{
+        } else {
             res.redirect('/perfil')
         }
     })
