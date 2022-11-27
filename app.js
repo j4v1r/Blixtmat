@@ -705,12 +705,12 @@ app.get('/carrito', (req, res) => {
 
     console.log(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
 
-    con.query('select * from mcompra where id_musuario=' + id_musuario + ' and id_cedocompra=2 order by id_mcompra desc', (err, respuesta, fields) => {
+    con.query('select * from mcompra where id_musuario=' + id_musuario + ' and id_cedocompra=2 order by id_mcompra desc', (err0, respuesta0, fields0) => {
 
-        console.log(respuesta)
-        let fecha = JSON.stringify(respuesta[0].fecha_mcompra)
+        console.log(respuesta0)
+        let fecha = JSON.stringify(respuesta0[0].fecha_mcompra)
         console.log(fecha)
-        let horas = respuesta[0].hora_mcompra;
+        let horas = respuesta0[0].hora_mcompra;
 
         let ano = parseInt(fecha.charAt(1) + fecha.charAt(2) + fecha.charAt(3) + fecha.charAt(4));
         console.log(ano, typeof ano)
@@ -724,30 +724,26 @@ app.get('/carrito', (req, res) => {
         let minuto = parseInt(horas.charAt(3) + horas.charAt(4));
         console.log(minuto, typeof minuto)
 
-        if (err) {
-            console.log('Error', err)
+
+        if (err0) {
+            console.log('Error0', err0)
         } else if ((dia == date && mes == month && ano == year && hora == hours && minutes - minuto <= 5) || (dia == date && mes == month && ano == year && hora == hours && minuto == minutes) || (dia == date && mes == month && ano == year && hours - hora == 1 && minuto - minutes >= 55)) {
-            console.log('HA habido un intento de compra en los ultimos 5 minutos')
-            res.render('pages/carrito', {credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta})
-            /*con.query('insert into dcarrito (cant_producto, id_mproducto) values (1, 1)', (err1, respuesta1, fields1) => {
-                if (err1) {
-                    console.log('Error1', err1)
+            let id_mcompra = respuesta0[0].id_mcompra;
+            console.log(id_mcompra)
+
+            con.query('select * from vistacarrito where id_musuario=' + id_musuario + ' and id_mcompra=' + id_mcompra + '', (err, respuesta, fields) => {
+
+                if (err) {
+                    console.log('Error', err)
                 } else {
-                    con.query('insert into ecarrito (id_dcarrito, id_mcompra) values (LAST_INSERT_ID(), ' + respuesta[0].id_mcompra + ')', (err2, respuesta2, fields2) => {
-                        if (err2) {
-                            console.log('Error2', err2)
-                        } else {
-                            res.redirect('/menudia')
-                        }
-                    })
+                    console.log('HA habido un intento de compra en los ultimos 5 minutos')
+                    res.render('pages/carrito', { credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta, respuesta: respuesta })
                 }
-            })*/
-            
-        } else {
-            res.render('pages/carrito', {credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta})
+            })
+        }else{
+            res.redirect('/menudia')
         }
     })
-
 })
 
 app.get('/perfil', (req, res) => {
@@ -857,7 +853,7 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
                     })
                 }
             })
-        } else if ((dia == date && mes == month && ano == year && hora == hours && minutes - minuto > 5) || (dia == date && mes == month && ano == year && hours - hora == 1 && minuto - minutes < 55) || dia != date || hours!=hora || respuesta.length==0) {
+        } else if ((dia == date && mes == month && ano == year && hora == hours && minutes - minuto > 5) || (dia == date && mes == month && ano == year && hours - hora == 1 && minuto - minutes < 55) || dia != date || hours != hora || respuesta.length == 0) {
             console.log('NO ha habido un intento de compra en los ultimos 5 minutos')
             let fecha_actual = year + "-" + month + "-" + date;
             let hora_actual = hours + ":" + minutes + ":" + seconds;
