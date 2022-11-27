@@ -769,7 +769,7 @@ app.get('/carrito', (req, res) => {
                         console.log('Error', err)
                     } else {
                         console.log('HA habido un intento de compra en los ultimos 5 minutos')
-                        res.render('pages/carrito', { credito: req.user[0].credito, nombre: req.user[0].nombre, boleta: req.user[0].boleta, respuesta: respuesta, id_mcompra: id_mcompra })
+                        res.render('pages/carrito', { credito: req.user[0].credito, nombre: req.user[0].nombre, boleta: req.user[0].boleta, respuesta: respuesta, id_mcompra: id_mcompra, hora: respuesta[0].hora_entrega })
                     }
                 })
             } else {
@@ -813,7 +813,7 @@ app.get('/carrito', (req, res) => {
                         console.log('Error', err)
                     } else {
                         console.log('HA habido un intento de compra en los ultimos 5 minutos')
-                        res.render('pages/carrito', { credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta, respuesta: respuesta, id_mcompra: id_mcompra })
+                        res.render('pages/carrito', { credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta, respuesta: respuesta, id_mcompra: id_mcompra, hora: respuesta[0].hora_entrega })
                     }
                 })
             } else {
@@ -1126,7 +1126,7 @@ app.post('/mandarCarrito', (req, res) => {
         if (err) {
             console.log('Error en mandar carrito', err)
         } else {
-            res.redirect('/perfil')
+            res.redirect('/miorden')
         }
     })
 
@@ -1134,9 +1134,39 @@ app.post('/mandarCarrito', (req, res) => {
 
 app.get('/cancelarPedido/:id_mcompra', (req, res) => {
 
-    let id_mcompra = req.params.id_mcompra;
+    let date_ob = new Date();
 
-    con.query('')
+    // current day
+    let date = parseInt(("0" + date_ob.getDate()).slice(-2));
+
+    // current month
+    let month = parseInt(("0" + (date_ob.getMonth() + 1)).slice(-2));
+
+    // current year
+    let year = date_ob.getFullYear();
+
+    // current hours
+    let hours = date_ob.getHours();
+
+    // current minutes
+    let minutes = date_ob.getMinutes();
+
+    // current seconds
+    let seconds = date_ob.getSeconds();
+
+    let id_mcompra = req.params.id_mcompra;
+    let fecha_actual = year + "-" + month + "-" + date;
+    let hora_actual = hours + ":" + minutes + ":" + seconds;
+
+    con.query('update mcompra set hora_mcompra = "' + hora_actual + '", fecha_mcompra = "' + fecha_actual + '", id_cedocompra=2 where id_mcompra = ' + id_mcompra + '', (err, respuesta, fields) => {
+
+        if(err){
+            console.log('Error al cancelar pedido', err)
+        }else{
+            res.redirect('/carrito')
+        }
+
+    })
 
 })
 
