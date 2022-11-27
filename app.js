@@ -672,6 +672,37 @@ app.get('/editarProducto/:id', (req, res) => {
 
 // -- Renders CLIENTE -- 
 
+app.get('/perfil', (req, res) => {
+
+    if (req.isAuthenticated()) {
+        let id = req.user[0].id_musuario;
+        con.query('select * from musuario where id_musuario=' + id + '', (err, respuesta, fields) => {
+            if (err) {
+                console.log("Error", err)
+            } else {
+                console.log(respuesta);
+                res.render('pages/perfilCliente', { respuesta: respuesta[0], id: req.user[0].id_musuario, credito: req.user[0].credito })
+            }
+
+        })
+    } else if (req.session.logged) {
+        let id = req.session.id_musuario;
+        con.query('select * from musuario where id_musuario=' + id + '', (err, respuesta, fields) => {
+            if (err) {
+                console.log("Error", err)
+            } else {
+                console.log(respuesta[0].fecha_nacimiento);
+                res.render('pages/perfilCliente', { respuesta: respuesta[0], id: req.session.id_musuario, credito: req.session.credito })
+            }
+
+        })
+
+    } else {
+        res.render('pages/inicioSesion')
+    }
+
+})
+
 app.get('/carrito', (req, res) => {
 
     let date_ob = new Date();
@@ -796,27 +827,28 @@ app.get('/carrito', (req, res) => {
 
 })
 
-app.get('/perfil', (req, res) => {
+app.get('/miorden', (req, res) => {
 
     if (req.isAuthenticated()) {
-        let id = req.user[0].id_musuario;
-        con.query('select * from musuario where id_musuario=' + id + '', (err, respuesta, fields) => {
+        let id_musuario = req.user[0].id_musuario;
+        con.query('select * from vistacarrito where id_musuario=' + id_musuario + ' and id_cedocompra=3 order by id_mcompra desc ', (err, respuesta, fields) => {
             if (err) {
                 console.log("Error", err)
             } else {
                 console.log(respuesta);
-                res.render('pages/perfilCliente', { respuesta: respuesta[0], id: req.user[0].id_musuario, credito: req.user[0].credito })
+                res.render('pages/miorden', { respuesta: respuesta, id: id_musuario, credito: req.user[0].credito, nombre: req.user[0].nombre, boleta: req.user[0].boleta, hora: respuesta[0].hora_entrega, id_mcompra: respuesta[0].id_mcompra })
             }
 
         })
+
     } else if (req.session.logged) {
-        let id = req.session.id_musuario;
-        con.query('select * from musuario where id_musuario=' + id + '', (err, respuesta, fields) => {
+        let id_musuario = req.session.id_musuario;
+        con.query('select * from vistacarrito where id_musuario=' + id_musuario + ' and id_cedocompra=3 order by id_mcompra desc ', (err, respuesta, fields) => {
             if (err) {
                 console.log("Error", err)
             } else {
-                console.log(respuesta[0].fecha_nacimiento);
-                res.render('pages/perfilCliente', { respuesta: respuesta[0], id: req.session.id_musuario, credito: req.session.credito })
+                console.log(respuesta);
+                res.render('pages/miorden', { respuesta: respuesta, id: id_musuario, credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta, hora: respuesta[0].hora_entrega, id_mcompra: respuesta[0].id_mcompra })
             }
 
         })
@@ -826,6 +858,8 @@ app.get('/perfil', (req, res) => {
     }
 
 })
+
+
 
 
 
@@ -1089,12 +1123,20 @@ app.post('/mandarCarrito', (req, res) => {
     let hora_entrega = req.body.hora_entrega;
 
     con.query('update mcompra set hora_entrega = "' + hora_entrega + '", id_cedocompra=3 where id_mcompra=' + id_mcompra + '', (err, respuesta, fields) => {
-        if(err){
+        if (err) {
             console.log('Error en mandar carrito', err)
-        }else{
+        } else {
             res.redirect('/perfil')
         }
     })
+
+})
+
+app.get('/cancelarPedido/:id_mcompra', (req, res) => {
+
+    let id_mcompra = req.params.id_mcompra;
+
+    con.query('')
 
 })
 

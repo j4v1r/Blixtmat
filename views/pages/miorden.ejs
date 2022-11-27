@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Carrito</title>
+</head>
+
+<body>
+
+    <%- include('../partials/menu-cliente');%>
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio <br>(Individual)</th>
+                        <th>Precio <br>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%respuesta.forEach((respuesta)=>{%>
+                        <tr>
+                            <td data-label="descripcion">
+                                <%=respuesta.nombre_producto%>
+                            </td>
+                            <td data-label="cantidad">
+                                <%=respuesta.cant_producto%>
+                            </td>
+                            <td data-label="precio">
+                                <%=respuesta.precio_producto%>
+                            </td>
+                            <td data-label="precio total">
+                                <%=respuesta.monto_dcarrito%>
+                            </td>
+                        </tr>
+                        <%})%>
+                </tbody>
+            </table>
+        </div>
+        <div class="container">
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th>Datos del cliente</th>
+                        <th></th>
+                        <th></th>
+                        <th>Fecha estimada de entrega</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Consola">Nombre del alumno: <br><br>
+                            <%=nombre%>
+                        </td>
+                        <td data-label="Precio">Boleta/No. Empleado: <br><br>
+                            <%=boleta%>
+                        </td>
+                        <td data-label="Ventas">Telefono:No se</td>
+                        <td data-label="Fecha de lanzamiento">Hora de entrega: <br><br>
+                            <%=hora%>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td data-label="Fecha de lanzamiento"> <a href="/cancelarPedido/<%=id_mcompra%>">CANCELAR</a> </td>
+                    </tr>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+</body>
+
+</html>
