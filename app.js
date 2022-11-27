@@ -950,7 +950,18 @@ app.get('/ordenarMenu/:id/:id_menu', (req, res) => {
                         if (err2) {
                             console.log('Error2', err2)
                         } else {
-                            res.redirect('/carrito')
+                            let fecha_actual = year + "-" + month + "-" + date;
+                            let hora_actual = hours + ":" + minutes + ":" + seconds;
+
+                            con.query('update mcompra set hora_mcompra = "' + hora_actual + '", fecha_mcompra = "' + fecha_actual + '", id_cedocompra=2 where id_mcompra = ' + respuesta[0].id_mcompra + '', (err3, respuesta3, fields3) => {
+
+                                if (err3) {
+                                    console.log('Error al agregar producto', err3)
+                                } else {
+                                    res.redirect('/carrito')
+                                }
+
+                            })
                         }
                     })
                 }
@@ -1050,11 +1061,24 @@ app.get('/ordenarProducto/:id/:id_producto', (req, res) => {
                         if (err2) {
                             console.log('Error2', err2)
                         } else {
-                            res.redirect('/carrito')
+                            let fecha_actual = year + "-" + month + "-" + date;
+                            let hora_actual = hours + ":" + minutes + ":" + seconds;
+
+                            con.query('update mcompra set hora_mcompra = "' + hora_actual + '", fecha_mcompra = "' + fecha_actual + '", id_cedocompra=2 where id_mcompra = ' + respuesta[0].id_mcompra + '', (err3, respuesta3, fields3) => {
+
+                                if (err3) {
+                                    console.log('Error al agregar producto', err3)
+                                } else {
+                                    res.redirect('/carrito')
+                                }
+
+                            })
+
                         }
                     })
                 }
             })
+
         } else if ((dia == date && mes == month && ano == year && hora == hours && minutes - minuto > 5) || (dia == date && mes == month && ano == year && hours - hora == 1 && minuto - minutes < 55) || dia != date || hours != hora || respuesta.length == 0) {
             console.log('NO ha habido un intento de compra en los ultimos 5 minutos')
             let fecha_actual = year + "-" + month + "-" + date;
@@ -1160,9 +1184,9 @@ app.get('/cancelarPedido/:id_mcompra', (req, res) => {
 
     con.query('update mcompra set hora_mcompra = "' + hora_actual + '", fecha_mcompra = "' + fecha_actual + '", id_cedocompra=2 where id_mcompra = ' + id_mcompra + '', (err, respuesta, fields) => {
 
-        if(err){
+        if (err) {
             console.log('Error al cancelar pedido', err)
-        }else{
+        } else {
             res.redirect('/carrito')
         }
 
