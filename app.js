@@ -592,7 +592,7 @@ app.get('/ordenes', (req, res) => {
 
     if (req.isAuthenticated() && req.user[0].id_cusuario > 1) {
 
-        con.query('select * from mcompra where id_cedocompra=3', (err, respuesta, fields) => {
+        con.query('select * from comprausuario where id_cedocompra=3 order by hora_entrega asc', (err, respuesta, fields) => {
             if (err) {
                 console.log('ERROR', err)
             } else {
@@ -610,7 +610,7 @@ app.get('/ordenes', (req, res) => {
 
     } else if (req.session.logged && req.session.tipo > 1) {
 
-        con.query('select * from mcompra where id_cedocompra=3', (err, respuesta, fields) => {
+        con.query('select * from comprausuario where id_cedocompra=3 order by hora_entrega asc', (err, respuesta, fields) => {
             if (err) {
                 console.log('ERROR', err)
             } else {

@@ -33,25 +33,21 @@
                     <tbody>
                         <%respuesta1.forEach((respuesta1)=>{
                             if(respuesta1.id_mcompra==respuesta.id_mcompra){%>
-                                <tr>
-                                    <td data-label="descripcion">
-                                        <%=respuesta1.nombre_producto%>
-                                    </td>
-                                    <td data-label="cantidad">
-    
-                                    </td>
-                                    <td data-label="precio">
-    
-                                    </td>
-                                    <td data-label="precio total">
-    
-                                    </td>
-                                </tr>
-                            <%}else{
-
-                            }
-                        
-                        })%>
+                            <tr>
+                                <td data-label="descripcion">
+                                    <%=respuesta1.nombre_producto%>
+                                </td>
+                                <td data-label="cantidad">
+                                    <%=respuesta1.cant_producto%>
+                                </td>
+                                <td data-label="precio">
+                                    <%=respuesta1.precio_producto%>
+                                </td>
+                                <td data-label="precio total">
+                                    <%=respuesta1.monto_dcarrito%>
+                                </td>
+                            </tr>
+                            <%}else{ } })%>
                     </tbody>
                 </table>
             </div>
@@ -60,25 +56,30 @@
 
                     <thead>
                         <tr>
-                            <th>Datos del cliente</th>
+                            <th>Datos del pedido</th>
                             <th></th>
                             <th></th>
-                            <th>Fecha estimada de entrega</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td data-label="Consola">Nombre del alumno: <br><br> <%=respuesta.id_musuario%>
+                            <td data-label="Consola">Nombre cliente: <br><br>
+                                <%=respuesta.nombre_persona%>
                             </td>
                             <td data-label="Precio">Boleta/No. Empleado: <br><br>
+                                <%=respuesta.boleta%>
                             </td>
-                            <td data-label="Ventas">Telefono:No se</td>
+                            <td data-label="Ventas">Teléfono: <br><br>
+                                No se
+                            </td>
                             <td data-label="Fecha de lanzamiento">Hora de entrega: <br><br>
+                                <%=respuesta.hora_entrega%>
                         <tr>
                             <td></td>
                             <td></td>
-                            <td></td>
                             <td data-label="Fecha de lanzamiento"> <a href="">CANCELAR</a> </td>
+                            <td data-label="Fecha de lanzamiento"> <a href="">FINALIZADO</a> </td>
                         </tr>
                         </tr>
                     </tbody>
