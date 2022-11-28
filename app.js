@@ -667,6 +667,54 @@ app.get('/editarProducto/:id', (req, res) => {
 
 })
 
+app.get('/ordenes', (req, res) => {
+
+
+    if (req.isAuthenticated() && req.user[0].id_cusuario > 1) {
+
+        con.query('select * from mcompra where id_cedocompra=3', (err, respuesta, fields) => {
+            if (err) {
+                console.log('ERROR', err)
+            } else {
+                console.log(fields)
+                con.query('select * from vistacarrito where id_cedocompra=3', (err1, respuesta1, fields1) => {
+                    if (err1) {
+                        console.log('Error1', err1)
+                    } else {
+                        console.log(respuesta1)
+                        res.render('pages/ordenes', { respuesta: respuesta, respuesta1: respuesta1 })
+                    }
+                })
+            }
+        })
+
+    } else if (req.session.logged && req.session.tipo > 1) {
+
+        con.query('select * from mcompra where id_cedocompra=3', (err, respuesta, fields) => {
+            if (err) {
+                console.log('ERROR', err)
+            } else {
+                console.log(fields)
+                con.query('select * from vistacarrito where id_cedocompra=3', (err1, respuesta1, fields1) => {
+                    if (err1) {
+                        console.log('Error1', err1)
+                    } else {
+                        console.log(respuesta1)
+                        res.render('pages/ordenes', { respuesta: respuesta, respuesta1: respuesta1 })
+                    }
+                })
+            }
+        })
+        
+    } else if (req.session.logged && req.session.tipo == 1) {
+
+        res.redirect('/menudia')
+    } else {
+
+        res.render('pages/inicioSesion')
+    }
+
+})
 
 
 

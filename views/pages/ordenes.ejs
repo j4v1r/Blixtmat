@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Carrito</title>
+</head>
+
+<body>
+
+    <%- include('../partials/menu-empleado');%>
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <%respuesta.forEach((respuesta)=>{%>
+
+            <div class="container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio <br>(Individual)</th>
+                            <th>Precio <br>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%respuesta1.forEach((respuesta1)=>{
+                            if(respuesta1.id_mcompra==respuesta.id_mcompra){%>
+                                <tr>
+                                    <td data-label="descripcion">
+                                        <%=respuesta1.nombre_producto%>
+                                    </td>
+                                    <td data-label="cantidad">
+    
+                                    </td>
+                                    <td data-label="precio">
+    
+                                    </td>
+                                    <td data-label="precio total">
+    
+                                    </td>
+                                </tr>
+                            <%}else{
+
+                            }
+                        
+                        })%>
+                    </tbody>
+                </table>
+            </div>
+            <div class="container">
+                <table class="table">
+
+                    <thead>
+                        <tr>
+                            <th>Datos del cliente</th>
+                            <th></th>
+                            <th></th>
+                            <th>Fecha estimada de entrega</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Consola">Nombre del alumno: <br><br> <%=respuesta.id_musuario%>
+                            </td>
+                            <td data-label="Precio">Boleta/No. Empleado: <br><br>
+                            </td>
+                            <td data-label="Ventas">Telefono:No se</td>
+                            <td data-label="Fecha de lanzamiento">Hora de entrega: <br><br>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td data-label="Fecha de lanzamiento"> <a href="">CANCELAR</a> </td>
+                        </tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br><br><br><br>
+            <%})%>
+</body>
+
+</html>
