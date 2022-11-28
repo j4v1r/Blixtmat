@@ -265,82 +265,42 @@ app.get('/productos', (req, res) => {
 
     if (req.isAuthenticated()) {
 
-        con.query('select * from mproducto where id_csubproducto=5', (err5, respuesta5, fields5) => {
-            if (err5) {
-                console.log("Error5", err5)
+        con.query('select * from csubproducto where id_csubproducto>4', (err, respuesta, fields) => {
+
+            if (err) {
+                console.log('Error', err)
             } else {
-                con.query('select * from mproducto where id_csubproducto=6', (err6, respuesta6, fields6) => {
-                    if (err6) {
-                        console.log("Error6", err6)
+                con.query('select * from mproducto where id_mproducto>1', (err1, respuesta1, fields1) => {
+
+                    if (err1) {
+                        console.log('Error1', err1)
                     } else {
-                        con.query('select * from mproducto where id_csubproducto=7', (err7, respuesta7, fields7) => {
-                            if (err7) {
-                                console.log("Error7", err7)
-                            } else {
-                                con.query('select * from mproducto where id_csubproducto=8', (err8, respuesta8, fields8) => {
-                                    if (err8) {
-                                        console.log("Error8", err8)
-                                    } else {
-                                        con.query('select * from mproducto where id_csubproducto=9', (err9, respuesta9, fields5) => {
-                                            if (err9) {
-                                                console.log("Error9", err9)
-                                            } else {
-                                                con.query('select * from mproducto where id_csubproducto=10', (err10, respuesta10, fields10) => {
-                                                    if (err10) {
-                                                        console.log("Error10", err10)
-                                                    } else {
-                                                        res.render('pages/productos', { respuesta5: respuesta5, respuesta6: respuesta6, respuesta7: respuesta7, respuesta8: respuesta8, respuesta9: respuesta9, respuesta10: respuesta10, credito: req.user[0].credito, id: req.user[0].id_musuario })
-                                                    }
-                                                })
-                                            }
-                                        })
-                                    }
-                                })
-                            }
-                        })
+                        res.render('pages/productos', { respuesta: respuesta, respuesta1: respuesta1, credito: req.user[0].credito, id: req.user[0].id_musuario })
                     }
+
                 })
             }
+
         })
 
     } else if (req.session.logged) {
 
-        con.query('select * from mproducto where id_csubproducto=5', (err5, respuesta5, fields5) => {
-            if (err5) {
-                console.log("Error5", err5)
+        con.query('select * from csubproducto where id_csubproducto>4', (err, respuesta, fields) => {
+
+            if (err) {
+                console.log('Error', err)
             } else {
-                con.query('select * from mproducto where id_csubproducto=6', (err6, respuesta6, fields6) => {
-                    if (err6) {
-                        console.log("Error6", err6)
+                con.query('select * from mproducto where id_mproducto>1', (err1, respuesta1, fields1) => {
+
+                    if (err1) {
+                        console.log('Error1', err1)
                     } else {
-                        con.query('select * from mproducto where id_csubproducto=7', (err7, respuesta7, fields7) => {
-                            if (err7) {
-                                console.log("Error7", err7)
-                            } else {
-                                con.query('select * from mproducto where id_csubproducto=8', (err8, respuesta8, fields8) => {
-                                    if (err8) {
-                                        console.log("Error8", err8)
-                                    } else {
-                                        con.query('select * from mproducto where id_csubproducto=9', (err9, respuesta9, fields5) => {
-                                            if (err9) {
-                                                console.log("Error9", err9)
-                                            } else {
-                                                con.query('select * from mproducto where id_csubproducto=10', (err10, respuesta10, fields10) => {
-                                                    if (err10) {
-                                                        console.log("Error10", err10)
-                                                    } else {
-                                                        res.render('pages/productos', { respuesta5: respuesta5, respuesta6: respuesta6, respuesta7: respuesta7, respuesta8: respuesta8, respuesta9: respuesta9, respuesta10: respuesta10, credito: req.session.credito, id: req.session.id_musuario })
-                                                    }
-                                                })
-                                            }
-                                        })
-                                    }
-                                })
-                            }
-                        })
+                        res.render('pages/productos', { respuesta: respuesta, respuesta1: respuesta1, credito: req.session.credito, id: req.session.id_musuario })
                     }
+
                 })
             }
+
         })
 
     } else {
@@ -490,82 +450,42 @@ app.get('/productosEmp', (req, res) => {
 
     if (req.isAuthenticated() && req.user[0].id_cusuario > 1) {
 
-        con.query('select * from mproducto where id_csubproducto=5', (err5, respuesta5, fields5) => {
-            if (err5) {
-                console.log("Error5", err5)
+        con.query('select * from csubproducto where id_csubproducto>4', (err, respuesta, fields) => {
+
+            if (err) {
+                console.log('Error', err)
             } else {
-                con.query('select * from mproducto where id_csubproducto=6', (err6, respuesta6, fields6) => {
-                    if (err6) {
-                        console.log("Error6", err6)
+                con.query('select * from mproducto where id_mproducto>1', (err1, respuesta1, fields1) => {
+
+                    if (err1) {
+                        console.log('Error1', err1)
                     } else {
-                        con.query('select * from mproducto where id_csubproducto=7', (err7, respuesta7, fields7) => {
-                            if (err7) {
-                                console.log("Error7", err7)
-                            } else {
-                                con.query('select * from mproducto where id_csubproducto=8', (err8, respuesta8, fields8) => {
-                                    if (err8) {
-                                        console.log("Error8", err8)
-                                    } else {
-                                        con.query('select * from mproducto where id_csubproducto=9', (err9, respuesta9, fields5) => {
-                                            if (err9) {
-                                                console.log("Error9", err9)
-                                            } else {
-                                                con.query('select * from mproducto where id_csubproducto=10', (err10, respuesta10, fields10) => {
-                                                    if (err10) {
-                                                        console.log("Error10", err10)
-                                                    } else {
-                                                        res.render('pages/productosEmpleado', { respuesta5: respuesta5, respuesta6: respuesta6, respuesta7: respuesta7, respuesta8: respuesta8, respuesta9: respuesta9, respuesta10: respuesta10 })
-                                                    }
-                                                })
-                                            }
-                                        })
-                                    }
-                                })
-                            }
-                        })
+                        res.render('pages/productosEmpleado', { respuesta: respuesta, respuesta1: respuesta1})
                     }
+
                 })
             }
+
         })
 
     } else if (req.session.logged && req.session.tipo > 1) {
 
-        con.query('select * from mproducto where id_csubproducto=5', (err5, respuesta5, fields5) => {
-            if (err5) {
-                console.log("Error5", err5)
+        con.query('select * from csubproducto where id_csubproducto>4', (err, respuesta, fields) => {
+
+            if (err) {
+                console.log('Error', err)
             } else {
-                con.query('select * from mproducto where id_csubproducto=6', (err6, respuesta6, fields6) => {
-                    if (err6) {
-                        console.log("Error6", err6)
+                con.query('select * from mproducto where id_mproducto>1', (err1, respuesta1, fields1) => {
+
+                    if (err1) {
+                        console.log('Error1', err1)
                     } else {
-                        con.query('select * from mproducto where id_csubproducto=7', (err7, respuesta7, fields7) => {
-                            if (err7) {
-                                console.log("Error7", err7)
-                            } else {
-                                con.query('select * from mproducto where id_csubproducto=8', (err8, respuesta8, fields8) => {
-                                    if (err8) {
-                                        console.log("Error8", err8)
-                                    } else {
-                                        con.query('select * from mproducto where id_csubproducto=9', (err9, respuesta9, fields5) => {
-                                            if (err9) {
-                                                console.log("Error9", err9)
-                                            } else {
-                                                con.query('select * from mproducto where id_csubproducto=10', (err10, respuesta10, fields10) => {
-                                                    if (err10) {
-                                                        console.log("Error10", err10)
-                                                    } else {
-                                                        res.render('pages/productosEmpleado', { respuesta5: respuesta5, respuesta6: respuesta6, respuesta7: respuesta7, respuesta8: respuesta8, respuesta9: respuesta9, respuesta10: respuesta10 })
-                                                    }
-                                                })
-                                            }
-                                        })
-                                    }
-                                })
-                            }
-                        })
+                        res.render('pages/productosEmpleado', { respuesta: respuesta, respuesta1: respuesta1})
                     }
+
                 })
             }
+
         })
 
     } else if (req.session.logged && req.session.tipo == 1 || req.isAuthenticated() && req.user[0].id_cusuario == 1) {
@@ -705,7 +625,7 @@ app.get('/ordenes', (req, res) => {
                 })
             }
         })
-        
+
     } else if (req.session.logged && req.session.tipo == 1) {
 
         res.redirect('/menudia')

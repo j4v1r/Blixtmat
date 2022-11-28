@@ -12,196 +12,55 @@
 
     <%- include('../partials/menu-empleado');%>
 
-    <div class="page-nav">
-        <br><br><br><br><br>
-        <a href="/agregarProducto"><button
-                id="checkout" class="button-checkout" onclick="location.href='/agregarProducto'">Agregar Producto</button></a>
-    </div>
+        <div class="page-nav">
+            <br><br><br><br><br>
+            <a href="/agregarProducto"><button id="checkout" class="button-checkout"
+                    onclick="location.href='/agregarProducto'">Agregar Producto</button></a>
+        </div>
 
+        <%respuesta.forEach((respuesta)=>{%>
 
-    <div class="page-nav">
-        <h1>
-            Torta
-        </h1>
-    </div>
-    <div class="page-content">
-        <%respuesta5.forEach((respuesta5)=>{%>
-            <div class="product-container">
-                <h3>
-                    <%=respuesta5.nombre_producto%>
-                </h3>
-                <a href="/desc_producto/<%=respuesta5.id_mproducto%>" type="enlace">
-                    <%if(respuesta5.imagen==null){%>
-                        <img src="images/nodisponible.png" />
-                    <%}else{%>
-                        <img src="<%=respuesta5.imagen%>" />
-                    <%}%>
-                </a>
+            <div class="page-nav">
                 <h1>
-                    $<%=respuesta5.precio_producto%>
+                    <%=respuesta.tipo_csubproducto%>
                 </h1>
-                <button class="button-eliminar" onclick="location.href='/borrarProducto/<%=respuesta5.id_mproducto%>'">Eliminar</button>
-                <button class="button-add" onclick="location.href='/editarProducto/<%=respuesta5.id_mproducto%>'">Editar</button>
             </div>
+            <div class="page-content">
+                <%respuesta1.forEach((respuesta1)=>{
+                    if(respuesta1.id_csubproducto==respuesta.id_csubproducto){%>
+                    <div class="product-container">
+                        <h3>
+                            <%=respuesta1.nombre_producto%>
+                        </h3>
+                        <a href="/desc_producto/<%=respuesta1.id_mproducto%>" type="enlace">
+                            <%if(respuesta1.imagen==null){%>
+                                <img src="images/nodisponible.png" />
+                                <%}else{%>
+                                    <img src="<%=respuesta1.imagen%>" />
+                                    <%}%>
+                        </a>
+                        <h1>
+                            $<%=respuesta1.precio_producto%>
+                        </h1>
+                        <button class="button-eliminar"
+                            onclick="location.href='/borrarProducto/<%=respuesta1.id_mproducto%>'">Eliminar</button>
+                        <button class="button-add"
+                            onclick="location.href='/editarProducto/<%=respuesta1.id_mproducto%>'">Editar</button>
+                    </div>
+                    <%}else{ } })%>
+
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
             <%})%>
 
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="page-nav">
-        <h1>Mollete</h1>
-    </div>
-    <div class="page-content">
-        <%respuesta6.forEach((respuesta6)=>{%>
-            <div class="product-container">
-                <h3>
-                    <%=respuesta6.nombre_producto%>
-                </h3>
-                <a href="/desc_producto/<%=respuesta6.id_mproducto%>l" type="enlace">
-                    <%if(respuesta6.imagen==null){%>
-                        <img src="images/nodisponible.png" />
-                    <%}else{%>
-                        <img src="<%=respuesta6.imagen%>" />
-                    <%}%>
-                </a>
-                <h1>
-                    $<%=respuesta6.precio_producto%>
-                </h1>
-                <button class="button-eliminar" onclick="location.href='/borrarProducto/<%=respuesta6.id_mproducto%>'">Eliminar</button>
-                <button class="button-add" onclick="location.href='/editarProducto/<%=respuesta6.id_mproducto%>'">Editar</button>
-            </div>
-            <%})%>
-
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="page-nav">
-        <h1>Hamburguesa</h1>
-    </div>
-    <div class="page-content">
-        <%respuesta7.forEach((respuesta7)=>{%>
-            <div class="product-container">
-                <h3>
-                    <%=respuesta7.nombre_producto%>
-                </h3>
-                <a href="/desc_producto/<%=respuesta7.id_mproducto%>" type="enlace">
-                    <%if(respuesta7.imagen==null){%>
-                        <img src="images/nodisponible.png" />
-                    <%}else{%>
-                        <img src="<%=respuesta7.imagen%>" />
-                    <%}%>
-                </a>
-                <h1>
-                    $<%=respuesta7.precio_producto%>
-                </h1>
-                <button class="button-eliminar" onclick="location.href='/borrarProducto/<%=respuesta7.id_mproducto%>'">Eliminar</button>
-                <button class="button-add" onclick="location.href='/editarProducto/<%=respuesta7.id_mproducto%>'">Editar</button>
-            </div>
-            <%})%>
-
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="page-nav">
-        <h1>Cuernito</h1>
-    </div>
-    <div class="page-content">
-        <%respuesta8.forEach((respuesta8)=>{%>
-            <div class="product-container">
-                <h3>
-                    <%=respuesta8.nombre_producto%>
-                </h3>
-                <a href="/desc_producto/<%=respuesta8.id_mproducto%>" type="enlace">
-                    <%if(respuesta8.imagen==null){%>
-                        <img src="images/nodisponible.png" />
-                    <%}else{%>
-                        <img src="<%=respuesta8.imagen%>" />
-                    <%}%>
-                </a>
-                <h1>
-                    $<%=respuesta8.precio_producto%>
-                </h1>
-                <button class="button-eliminar" onclick="location.href='/borrarProducto/<%=respuesta8.id_mproducto%>'">Eliminar</button>
-                <button class="button-add" onclick="location.href='/editarProducto/<%=respuesta8.id_mproducto%>'">Editar</button>
-            </div>
-            <%})%>
-
-
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="page-nav">
-        <h1>Pizza</h1>
-    </div>
-    <div class="page-content">
-        <%respuesta9.forEach((respuesta9)=>{%>
-            <div class="product-container">
-                <h3>
-                    <%=respuesta9.nombre_producto%>
-                </h3>
-                <a href="/desc_producto/<%=respuesta9.id_mproducto%>" type="enlace">
-                    <%if(respuesta9.imagen==null){%>
-                        <img src="images/nodisponible.png" />
-                    <%}else{%>
-                        <img src="<%=respuesta9.imagen%>" />
-                    <%}%>
-                </a>
-                <h1>
-                    $<%=respuesta9.precio_producto%>
-                </h1>
-                <button class="button-eliminar" onclick="location.href='/borrarProducto/<%=respuesta9.id_mproducto%>'">Eliminar</button>
-                <button class="button-add" onclick="location.href='/editarProducto/<%=respuesta9.id_mproducto%>'">Editar</button>
-            </div>
-            <%})%>
-
-
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="page-nav">
-        <h1>Sincronizada</h1>
-    </div>
-    <div class="page-content">
-        <%respuesta10.forEach((respuesta10)=>{%>
-            <div class="product-container">
-                <h3>
-                    <%=respuesta10.nombre_producto%>
-                </h3>
-                <a href="/desc_producto/<%=respuesta10.id_mproducto%>" type="enlace">
-                    <%if(respuesta10.imagen==null){%>
-                        <img src="images/nodisponible.png" />
-                    <%}else{%>
-                        <img src="<%=respuesta10.imagen%>" />
-                    <%}%>
-                </a>
-                <h1>
-                    $<%=respuesta10.precio_producto%>
-                </h1>
-                <button class="button-eliminar" onclick="location.href='/borrarProducto/<%=respuesta10.id_mproducto%>'">Eliminar</button>
-                <button class="button-add" onclick="location.href='/editarProducto/<%=respuesta10.id_mproducto%>'">Editar</button>
-            </div>
-            <%})%>
-
-
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+                    crossorigin="anonymous"></script>
 </body>
 
 </html>
