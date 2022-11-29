@@ -22,11 +22,7 @@
 
         <section class="contenedor-3">
             <div class="contenedor-3_img">
-                <%if(respuesta1[0].imagen==null){%>
-                    <img src="/images/nodisponible.png" />
-                <%}else{%>
-                    <img src="<%=respuesta1[0].imagen%>" />
-                <%}%>
+                
             </div>
             <div class="contenedor-3_text">
                 <%respuesta1.forEach((respuesta1)=>{%>
@@ -34,14 +30,14 @@
                 <br>
                 <h3>Precio por Orden: <%=respuesta1.precio_producto%></h3>
                 <br>
-                <h3>Cantidad de piezas: 2</h3>
-                <br>
                 <h3>Estado: Disponible</h3>
                 <br>
                 <p><%=respuesta1.descripcion%>
                 </p>
+                <a href='/ordenarProducto/<%=id%>/<%=respuesta1.id_mproducto%>'>Agregar a la cesta</a>
                 <%})%>
-                <a href="#">Agregar a la cesta</a>
+                
+                
             </div>
         </section>
 

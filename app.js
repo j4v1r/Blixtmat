@@ -324,7 +324,7 @@ app.get('/desc_producto/:id', (req, res) => {
                 console.log('Error', err)
             } else {
                 console.log(respuesta1)
-                res.render('pages/descripcion_producto', { respuesta1: respuesta1, tipo: req.user[0].id_cusuario, credito: req.user[0].credito })
+                res.render('pages/descripcion_producto', { respuesta1: respuesta1, tipo: req.user[0].id_cusuario, credito: req.user[0].credito, id: req.user[0].id_musuario })
             }
 
         })
@@ -338,7 +338,7 @@ app.get('/desc_producto/:id', (req, res) => {
                 console.log('Error', err)
             } else {
                 console.log(respuesta1)
-                res.render('pages/descripcion_producto', { respuesta1: respuesta1, tipo: req.session.tipo, credito: req.session.credito })
+                res.render('pages/descripcion_producto', { respuesta1: respuesta1, tipo: req.session.tipo, credito: req.session.credito, id: req.session.id_musuario })
             }
 
         })
