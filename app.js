@@ -349,44 +349,6 @@ app.get('/desc_producto/:id', (req, res) => {
 
 })
 
-/*
-app.get('/productos', (req, res) => {
-
-    con.query('select * from csubproducto where id_csubproducto>4', (err, respuesta, fields) => {
-        if (err) {
-            console.log('Error', err)
-        } else {
-            console.log(respuesta.length)
-            res.render('pages/productos', { respuesta: respuesta})
-            for(let i=5; i<respuesta.length+5;i++ ){
-                let salida = `respuesta${i}`;
-                console.log(salida)
-                con.query('select * from mproducto where id_csubproducto='+i+'', (err, salida, fields)=>{
-                    if(err){
-                        console.log("Error",err)
-                    }else{
-                        console.log(salida);
-                        //console.log(`Esto es el length de las queries: ${salida}`)
-                    }
-                })
-            }
-            /*
-            con.query('select * from mproducto', (err1, respuesta1, fields1) => {
-                if (err1) {
-                    console.log('Error', err1)
-                } else {
-                    console.log(respuesta1)
-                    
-                }
-
-            })
-
-        }
-
-    })
-
-})
-*/
 
 
 
@@ -460,7 +422,7 @@ app.get('/productosEmp', (req, res) => {
                     if (err1) {
                         console.log('Error1', err1)
                     } else {
-                        res.render('pages/productosEmpleado', { respuesta: respuesta, respuesta1: respuesta1})
+                        res.render('pages/productosEmpleado', { respuesta: respuesta, respuesta1: respuesta1 })
                     }
 
                 })
@@ -480,7 +442,7 @@ app.get('/productosEmp', (req, res) => {
                     if (err1) {
                         console.log('Error1', err1)
                     } else {
-                        res.render('pages/productosEmpleado', { respuesta: respuesta, respuesta1: respuesta1})
+                        res.render('pages/productosEmpleado', { respuesta: respuesta, respuesta1: respuesta1 })
                     }
 
                 })
@@ -1285,6 +1247,43 @@ app.post('/editarProducto', (req, res) => {
                 res.redirect('/productosEmp')
             }
         })
+
+})
+
+app.get('/finalizarPedido/:id_mcompra/:id_musuario', (req, res) => {
+
+    let id_mcompra = req.params.id_mcompra;
+    let id_musuario = req.params.id_musuario;
+
+    con.query('update mcompra set id_cedocompra=1 where id_mcompra=' + id_mcompra + '', (err, respuesta, fields) => {
+        if (err) {
+            console.log('Error al finalizar pedido', err)
+        } else {
+            con.query('select monto_mcompra from mcompra where id_mcompra=' + id_mcompra + '', (err1, respuesta1, fields1) => {
+                if (err1) {
+                    console.log('Error1 de finalizar pedido', err1)
+                } else {
+                    con.query('select credito from musuario where id_musuario =' + id_musuario + '', (err2, respuesta2, fields2) => {
+                        if (err2) {
+                            console.log('Error2 de finalizar pedido', err2)
+                        } else {
+                            let descontar = respuesta1[0].monto_mcompra;
+                            let credito = respuesta2[0].credito;
+                            let nuevo_credito = credito - descontar;
+
+                            con.query('update musuario set credito=' + nuevo_credito + ' where id_musuario=' + id_musuario + '', (err3, respuesta3, fields3) => {
+                                if(err3){
+                                    console.log('Error 3 en finalizar pedido', err3)
+                                }else{
+                                    res.redirect('/ordenes')
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+        }
+    })
 
 })
 
