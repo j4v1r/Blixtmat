@@ -539,7 +539,7 @@ app.get('/editarProducto/:id', (req, res) => {
 
         let id_mproducto = req.params.id;
 
-        con.query('select * from vistaProducto where id_mproducto=' + id_mproducto + '', (err, respuesta, fields) => {
+        con.query('select * from vistaproducto where id_mproducto=' + id_mproducto + '', (err, respuesta, fields) => {
             if (err) {
                 console.log('Error', err)
             } else {
@@ -560,7 +560,7 @@ app.get('/editarProducto/:id', (req, res) => {
 
         let id_mproducto = req.params.id;
 
-        con.query('select * from vistaProducto where id_mproducto=' + id_mproducto + '', (err, respuesta, fields) => {
+        con.query('select * from vistaproducto where id_mproducto=' + id_mproducto + '', (err, respuesta, fields) => {
             if (err) {
                 console.log('Error', err)
             } else {
