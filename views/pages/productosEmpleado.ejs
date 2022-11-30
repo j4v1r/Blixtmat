@@ -16,11 +16,24 @@
         <%- include('../partials/menu-admin');%>
     <%}%>
 
+
+    <%if(tipo==3){%>
+    <%}else{%>
+        <div class="page-nav">
+            <br><br><br><br><br>
+            <a href="/agregarSeccion"><button id="checkout" class="button-checkout"
+                    onclick="location.href='/agregarSeccion'">Agregar Sección</button></a>
+        </div>
+    <%}%>
+
+    
         <div class="page-nav">
             <br><br><br><br><br>
             <a href="/agregarProducto"><button id="checkout" class="button-checkout"
                     onclick="location.href='/agregarProducto'">Agregar Producto</button></a>
         </div>
+        
+
 
         <%respuesta.forEach((respuesta)=>{%>
 

@@ -689,6 +689,25 @@ app.get('/editEmpleado/:id_musuario', (req, res) => {
 
 })
 
+app.get('/agregarSeccion', (req, res) => {
+
+    if (req.isAuthenticated() && req.user[0].id_cusuario == 2) {
+
+        res.render('pages/crearSeccion', { tipo: req.user[0].id_cusuario });
+
+    } else if (req.session.logged && req.session.tipo == 2) {
+
+        res.render('pages/crearSeccion', { tipo: req.session.tipo });
+
+    } else if ((req.session.logged && req.session.tipo == 1) || (req.session.logged && req.session.tipo == 3)) {
+
+        res.redirect('/menudia')
+    } else {
+
+        res.render('pages/inicioSesion')
+    }
+
+})
 
 
 
@@ -928,7 +947,7 @@ app.get('/detallePedido/:id_mcompra', (req, res) => {
                 res.render('pages/detPedido', { respuesta: respuesta, credito: req.user[0].credito })
             }
         })
-        
+
     } else if (req.session.logged) {
 
         con.query('select * from vistacarrito where id_mcompra=' + id_mcompra + '', (err, respuesta, fields) => {
@@ -1549,6 +1568,18 @@ app.post('/actualizarEmpleado', (req, res) => {
         }
     })
 
+})
+
+app.post('/agregarSeccion', (req, res) => {
+    let nom_seccion = req.body.nom_seccion;
+
+    con.query('insert into csubproducto (tipo_csubproducto, id_cproducto) values ("' + nom_seccion + '", 1)', (err, respuesta, fields) => {
+        if(err){
+            console.log('Error', err)
+        }else{
+            res.redirect('/productosEmp')
+        }
+    })
 })
 
 
