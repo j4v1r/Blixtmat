@@ -602,14 +602,95 @@ app.get('/ordenes', (req, res) => {
 })
 
 app.get('/empleados', (req, res) => {
-    con.query('select * from musuario where id_cusuario=3', (err, respuesta, fields) => {
-        if (err) {
-            console.log('Error', err)
-        } else {
-            res.render('pages/empleados', { respuesta: respuesta })
-        }
-    })
+
+    if (req.isAuthenticated() && req.user[0].id_cusuario == 2) {
+
+        con.query('select * from musuario where id_cusuario=3', (err, respuesta, fields) => {
+            if (err) {
+                console.log('Error', err)
+            } else {
+                res.render('pages/empleados', { respuesta: respuesta })
+            }
+        })
+
+    } else if (req.session.logged && req.session.tipo == 2) {
+
+        con.query('select * from musuario where id_cusuario=3', (err, respuesta, fields) => {
+            if (err) {
+                console.log('Error', err)
+            } else {
+                res.render('pages/empleados', { respuesta: respuesta })
+            }
+        })
+
+    } else if ((req.session.logged && req.session.tipo == 1) || (req.session.logged && req.session.tipo == 3)) {
+
+        res.redirect('/menudia')
+    } else {
+
+        res.render('pages/inicioSesion')
+    }
+
 })
+
+app.get('/agregarEmpleado', (req, res) => {
+
+    if (req.isAuthenticated() && req.user[0].id_cusuario == 2) {
+
+        res.render('pages/agregarEmpleado');
+
+    } else if (req.session.logged && req.session.tipo == 2) {
+
+        res.render('pages/agregarEmpleado');
+
+    } else if ((req.session.logged && req.session.tipo == 1) || (req.session.logged && req.session.tipo == 3)) {
+
+        res.redirect('/menudia')
+    } else {
+
+        res.render('pages/inicioSesion')
+    }
+
+})
+
+app.get('/editEmpleado/:id_musuario', (req, res) => {
+
+    let id_musuario = req.params.id_musuario;
+
+    if (req.isAuthenticated() && req.user[0].id_cusuario == 2) {
+
+        con.query('select * from musuario where id_musuario=' + id_musuario + '', (err, respuesta, fields) => {
+            if (err) {
+                console.log("Error", err)
+            } else {
+                console.log(respuesta);
+                res.render('pages/editarEmpleado', { respuesta: respuesta[0] })
+            }
+        })
+
+    } else if (req.session.logged && req.session.tipo == 2) {
+
+        con.query('select * from musuario where id_musuario=' + id_musuario + '', (err, respuesta, fields) => {
+            if (err) {
+                console.log("Error", err)
+            } else {
+                console.log(respuesta);
+                res.render('pages/editarEmpleado', { respuesta: respuesta[0] })
+            }
+        })
+
+    } else if ((req.session.logged && req.session.tipo == 1) || (req.session.logged && req.session.tipo == 3)) {
+
+        res.redirect('/menudia')
+    } else {
+
+        res.render('pages/inicioSesion')
+    }
+    
+})
+
+
+
 
 
 // -- Renders CLIENTE -- 
@@ -805,7 +886,9 @@ app.get('/miorden', (req, res) => {
 
 
 
+
 // ----------------------------- FUNCIONALIDADES ----------------------------- //
+
 
 
 
@@ -1360,6 +1443,45 @@ app.get('/finalizarPedido/:id_mcompra/:id_musuario', (req, res) => {
                     })
                 }
             })
+        }
+    })
+
+})
+
+app.post('/anadirEmpleado', (req, res) => {
+    let nombre_per = req.body.nombre_per;
+    let apellido = req.body.apellido;
+    let fecha = req.body.fecha;
+    let boleta = req.body.identificador;
+    let usuario = req.body.usuario_emp;
+    let password = req.body.contra_emp;
+    let celular = req.body.celular;
+
+    con.query('INSERT into musuario (nombre_persona, apellido_persona, fecha_nacimiento, boleta, nombre_usuario, password, id_cusuario, credito, celular) values ("' + nombre_per + '", "' +
+        apellido + '", "' + fecha + '", "' + boleta + '","' + usuario + '", "' + password + '",3,0,"' + celular + '")', (err, respuesta, fields) => {
+            if (err) return console.log("Error", err);
+
+            return res.redirect('/empleados')
+
+        });
+
+})
+
+app.post('/actualizarEmpleado', (req, res) => {
+
+    let id_musuario = req.body.id_musuario;
+    let nombre_persona = req.body.nombre;
+    let apellido_persona = req.body.app;
+    let boleta = req.body.boleta;
+    let nom_user = req.body.nom_user;
+    let contrasena = req.body.password;
+    let celular = req.body.celular;
+
+    con.query('update musuario set nombre_persona="' + nombre_persona + '", apellido_persona="' + apellido_persona + '", boleta=' + boleta + ', nombre_usuario="' + nom_user + '", password="' + contrasena + '", celular="' + celular + '" where id_musuario=' + id_musuario + '', (err, respuesta, fields) => {
+        if (err) {
+            console.log('Error', err)
+        } else {
+            res.redirect('/empleados')
         }
     })
 

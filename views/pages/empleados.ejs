@@ -13,29 +13,33 @@
 
     <%- include('../partials/menu-admin');%>
 
-        <br>
-        <br>
+        <div class="page-nav">
+            <br><br><br><br><br>
+            <a href="/agregarEmpleado"><button id="checkout" class="button-checkout"
+                    onclick="location.href='/agregarEmpleado'">Añadir Empleado</button></a>
+        </div>
+
         <br>
         <br>
 
-        
-
-            <div class="container">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>No. Empleado</th>
-                            <th>Celular</th>
-                            <th>Nombre de Usuario</th>
-                            <th>Contraseña</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%respuesta.forEach((respuesta)=>{%>
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>No. Empleado</th>
+                        <th>Celular</th>
+                        <th>Nombre de Usuario</th>
+                        <th>Contraseña</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%respuesta.forEach((respuesta)=>{%>
                         <tr>
                             <td data-label="descripcion">
-                                <%=respuesta.nombre_persona%><%=respuesta.apellido_persona%>
+                                <%=respuesta.nombre_persona%>
+                                    <%=respuesta.apellido_persona%>
                             </td>
                             <td data-label="cantidad">
                                 <%=respuesta.boleta%>
@@ -49,12 +53,15 @@
                             <td data-label="precio total">
                                 <%=respuesta.password%>
                             </td>
+                            <td data-label="precio total">
+                                <a href="/editEmpleado/<%=respuesta.id_musuario%>">EDITAR</a>
+                            </td>
                         </tr>
                         <%})%>
-                    </tbody>
-                </table>
-            </div>
-            <br><br><br><br>
+                </tbody>
+            </table>
+        </div>
+        <br><br><br><br>
 </body>
 
 </html>

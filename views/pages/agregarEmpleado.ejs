@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Añadir Empleado</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <%- include('../partials/menu-admin');%>
+
+
+        <form action="/anadirEmpleado" method="post">
+            <h2>Añadir Empleado</h2>
+            <input type="text" placeholder="Nombre(s)" name="nombre_per">
+            <input type="text" placeholder="Apellido(s)" name="apellido">
+            <input type="date" name="fecha" placeholder="Fecha Nacimiento">
+            <input type="text" placeholder="No. Empleado" name="identificador">
+            <input type="text" placeholder="No. Celular" name="celular">
+            <input type="text" placeholder="Nombre Usuario" name="usuario_emp">
+            <input type="password" placeholder="Contraseña" name="contra_emp">
+
+            <input type="submit" value="AGREGAR" id="boton">
+        </form>
+
+
+</body>
+
+</html>

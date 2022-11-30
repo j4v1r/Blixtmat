@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    
+    <%- include('../partials/menu-admin');%>
+
+    <br>
+    <form action="/actualizarEmpleado" method="post">
+        <h2>Editar Empleado: <%=respuesta.nombre_persona%></h2>
+        <label for="">Nombre(s)</label>
+        <br><br>
+        <input type="text" name="nombre" placeholder="Ingresa tu(s) nombres(s)" value="<%=respuesta.nombre_persona%>">
+        <br><br>
+        <label for="">Apellido(s)</label>
+        <br><br>
+        <input type="text" name="app" placeholder="Ingresa tu(s) apellido(s)" value="<%=respuesta.apellido_persona%>">
+        <br><br>
+        <label for="">No. Empleado</label>
+        <br><br>
+        <input type="text" name="boleta" placeholder="Ingresa tu boleta" value="<%=respuesta.boleta%>">
+        <br><br>
+        <label for="">Celular</label>
+        <br><br>
+        <input type="text" name="celular" placeholder="Ingresa tu número de celular" value="<%=respuesta.celular%>">
+        <br><br>
+        <label for="">Nombre de Usuario</label>
+        <br><br>
+        <input type="text" name="nom_user" placeholder="Ingresa tu nombre de usuario" value="<%=respuesta.nombre_usuario%>">
+        <br><br>
+        <label for="">Contraseña</label>
+        <br><br>
+        <input type="text" name="password" placeholder="Ingresa tu contraseña" value="<%=respuesta.password%>">
+        <br><br>
+        <input type="hidden" name="id_musuario" value="<%=respuesta.id_musuario%>">
+
+        <input type="submit" value="ACTUALIZAR" id="boton">
+    </form>
+    <br><br><br>
+
+</body>
+
+</html>
