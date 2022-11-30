@@ -69,7 +69,8 @@ passport.use(new GoogleStrategy({
         const profilePhoto = profile.photos[0].value;
         const source = "google";
         const fecha = "2005-06-11";
-        const boleta = 4545;
+        const boleta = 0000;
+        const celular = 00000000;
 
         console.log(email);
         con.query('select * from musuario where nombre_usuario="' + email + '"', (err, respuesta, fields) => {
@@ -77,8 +78,8 @@ passport.use(new GoogleStrategy({
             if (err) {
                 console.log('ERROR', err)
             } else if (respuesta.length == 0) {
-                con.query('INSERT into musuario (nombre_persona, apellido_persona, fecha_nacimiento, boleta, nombre_usuario, password, id_cusuario, credito) values ("' + firstName + '", "' +
-                    lastName + '", "' + fecha + '", "' + boleta + '","' + email + '", "' + source + '",1,0)', (err1, respuesta1, fields1) => {
+                con.query('INSERT into musuario (nombre_persona, apellido_persona, fecha_nacimiento, boleta, nombre_usuario, password, id_cusuario, credito, celular) values ("' + firstName + '", "' +
+                    lastName + '", "' + fecha + '", "' + boleta + '","' + email + '", "' + source + '",1,0, "' + celular + '")', (err1, respuesta1, fields1) => {
                         if (err1) {
                             console.log('Error', err1)
                         } else {
@@ -366,7 +367,7 @@ app.get('/crearmenu', (req, res) => {
                 console.log('Error', err)
             } else {
                 console.log(respuesta)
-                res.render('pages/crearmenu', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3] });
+                res.render('pages/crearmenu', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.user[0].id_cusuario });
             }
         })
 
@@ -377,7 +378,7 @@ app.get('/crearmenu', (req, res) => {
                 console.log('Error', err)
             } else {
                 console.log(respuesta)
-                res.render('pages/crearmenu', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3] });
+                res.render('pages/crearmenu', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.session.tipo });
             }
         })
 
@@ -394,11 +395,11 @@ app.get('/recargar', (req, res) => {
 
     if (req.isAuthenticated() && req.user[0].id_cusuario > 1) {
 
-        res.render('pages/recarga')
+        res.render('pages/recarga', { tipo: req.user[0].id_cusuario })
 
     } else if (req.session.logged && req.session.tipo > 1) {
 
-        res.render('pages/recarga')
+        res.render('pages/recarga', { tipo: req.session.tipo })
 
     } else if (req.session.logged && req.session.tipo == 1 || req.isAuthenticated() && req.user[0].id_cusuario == 1) {
 
@@ -424,7 +425,7 @@ app.get('/productosEmp', (req, res) => {
                     if (err1) {
                         console.log('Error1', err1)
                     } else {
-                        res.render('pages/productosEmpleado', { respuesta: respuesta, respuesta1: respuesta1 })
+                        res.render('pages/productosEmpleado', { respuesta: respuesta, respuesta1: respuesta1, tipo: req.user[0].id_cusuario })
                     }
 
                 })
@@ -444,7 +445,7 @@ app.get('/productosEmp', (req, res) => {
                     if (err1) {
                         console.log('Error1', err1)
                     } else {
-                        res.render('pages/productosEmpleado', { respuesta: respuesta, respuesta1: respuesta1 })
+                        res.render('pages/productosEmpleado', { respuesta: respuesta, respuesta1: respuesta1, tipo: req.session.tipo })
                     }
 
                 })
@@ -471,7 +472,7 @@ app.get('/agregarProducto', (req, res) => {
                 console.log('Error', err)
             } else {
                 console.log(respuesta)
-                res.render('pages/crearProducto', { respuesta: respuesta })
+                res.render('pages/crearProducto', { respuesta: respuesta, tipo: req.user[0].id_cusuario })
             }
         })
 
@@ -483,7 +484,7 @@ app.get('/agregarProducto', (req, res) => {
                 console.log('Error', err)
             } else {
                 console.log(respuesta)
-                res.render('pages/crearProducto', { respuesta: respuesta })
+                res.render('pages/crearProducto', { respuesta: respuesta, tipo: req.session.tipo })
             }
         })
 
@@ -513,7 +514,7 @@ app.get('/editarProducto/:id', (req, res) => {
                         console.log('Error', err1)
                     } else {
                         console.log(respuesta1)
-                        res.render('pages/editar_producto', { respuesta: respuesta, respuesta1: respuesta1 })
+                        res.render('pages/editar_producto', { respuesta: respuesta, respuesta1: respuesta1, tipo: req.user[0].id_cusuario })
                     }
                 })
 
@@ -534,7 +535,7 @@ app.get('/editarProducto/:id', (req, res) => {
                         console.log('Error', err1)
                     } else {
                         console.log(respuesta1)
-                        res.render('pages/editar_producto', { respuesta: respuesta, respuesta1: respuesta1 })
+                        res.render('pages/editar_producto', { respuesta: respuesta, respuesta1: respuesta1, tipo: req.session.tipo })
                     }
                 })
 
@@ -566,7 +567,7 @@ app.get('/ordenes', (req, res) => {
                         console.log('Error1', err1)
                     } else {
                         console.log(respuesta1)
-                        res.render('pages/ordenes', { respuesta: respuesta, respuesta1: respuesta1 })
+                        res.render('pages/ordenes', { respuesta: respuesta, respuesta1: respuesta1, tipo: req.user[0].id_cusuario })
                     }
                 })
             }
@@ -584,7 +585,7 @@ app.get('/ordenes', (req, res) => {
                         console.log('Error1', err1)
                     } else {
                         console.log(respuesta1)
-                        res.render('pages/ordenes', { respuesta: respuesta, respuesta1: respuesta1 })
+                        res.render('pages/ordenes', { respuesta: respuesta, respuesta1: respuesta1, tipo: req.session.tipo })
                     }
                 })
             }
@@ -600,6 +601,15 @@ app.get('/ordenes', (req, res) => {
 
 })
 
+app.get('/empleados', (req, res) => {
+    con.query('select * from musuario where id_cusuario=3', (err, respuesta, fields) => {
+        if (err) {
+            console.log('Error', err)
+        } else {
+            res.render('pages/empleados', { respuesta: respuesta })
+        }
+    })
+})
 
 
 // -- Renders CLIENTE -- 

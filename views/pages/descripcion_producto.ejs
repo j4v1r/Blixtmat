@@ -12,8 +12,10 @@
     
     <%if(tipo==1){%>
         <%- include('../partials/menu-cliente');%>
-    <%}else{%>
+    <%}else if(tipo==3){%>
         <%- include('../partials/menu-empleado');%>
+    <%}else{%>
+        <%- include('../partials/menu-admin');%>
     <%}%>
 
         <br>

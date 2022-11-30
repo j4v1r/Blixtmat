@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Ordenes</title>
+</head>
+
+<body>
+
+    <%- include('../partials/menu-admin');%>
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+        
+
+            <div class="container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>No. Empleado</th>
+                            <th>Celular</th>
+                            <th>Nombre de Usuario</th>
+                            <th>Contraseña</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%respuesta.forEach((respuesta)=>{%>
+                        <tr>
+                            <td data-label="descripcion">
+                                <%=respuesta.nombre_persona%><%=respuesta.apellido_persona%>
+                            </td>
+                            <td data-label="cantidad">
+                                <%=respuesta.boleta%>
+                            </td>
+                            <td data-label="precio total">
+                                <%=respuesta.celular%>
+                            </td>
+                            <td data-label="precio">
+                                <%=respuesta.nombre_usuario%>
+                            </td>
+                            <td data-label="precio total">
+                                <%=respuesta.password%>
+                            </td>
+                        </tr>
+                        <%})%>
+                    </tbody>
+                </table>
+            </div>
+            <br><br><br><br>
+</body>
+
+</html>

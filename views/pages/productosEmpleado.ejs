@@ -10,7 +10,11 @@
 
 <body>
 
-    <%- include('../partials/menu-empleado');%>
+    <%if(tipo==3){%>
+        <%- include('../partials/menu-empleado');%>
+    <%}else{%>
+        <%- include('../partials/menu-admin');%>
+    <%}%>
 
         <div class="page-nav">
             <br><br><br><br><br>
