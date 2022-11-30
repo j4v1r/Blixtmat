@@ -873,26 +873,38 @@ app.get('/miorden', (req, res) => {
 
     if (req.isAuthenticated()) {
         let id_musuario = req.user[0].id_musuario;
-        con.query('select * from vistacarrito where id_musuario=' + id_musuario + ' and id_cedocompra=3 order by id_mcompra desc ', (err, respuesta, fields) => {
-            if (err) {
-                console.log("Error", err)
+        con.query('select * from comprausuario where id_cedocompra=3 and id_musuario=' + id_musuario + '', (err0, respuesta0, fields0) => {
+            if (err0) {
+                console.log('error0', err0)
             } else {
-                console.log(respuesta);
-                res.render('pages/miorden', { respuesta: respuesta, id: id_musuario, credito: req.user[0].credito, nombre: req.user[0].nombre, boleta: req.user[0].boleta, hora: respuesta[0].hora_entrega, id_mcompra: respuesta[0].id_mcompra, celular: req.user[0].celular })
-            }
+                con.query('select * from vistacarrito where id_musuario=' + id_musuario + ' and id_cedocompra=3 order by id_mcompra desc ', (err, respuesta, fields) => {
+                    if (err) {
+                        console.log("Error", err)
+                    } else {
+                        console.log(respuesta);
+                        res.render('pages/miorden', { respuesta0: respuesta0, respuesta: respuesta, id: id_musuario, credito: req.user[0].credito, nombre: req.user[0].nombre, boleta: req.user[0].boleta, hora: respuesta[0].hora_entrega, id_mcompra: respuesta[0].id_mcompra, celular: req.user[0].celular })
+                    }
 
+                })
+            }
         })
 
     } else if (req.session.logged) {
         let id_musuario = req.session.id_musuario;
-        con.query('select * from vistacarrito where id_musuario=' + id_musuario + ' and id_cedocompra=3 order by id_mcompra desc ', (err, respuesta, fields) => {
-            if (err) {
-                console.log("Error", err)
+        con.query('select * from comprausuario where id_cedocompra=3 and id_musuario=' + id_musuario + '', (err0, respuesta0, fields0) => {
+            if (err0) {
+                console.log('Error0', err0)
             } else {
-                console.log(respuesta);
-                res.render('pages/miorden', { respuesta: respuesta, id: id_musuario, credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta, hora: respuesta[0].hora_entrega, id_mcompra: respuesta[0].id_mcompra, celular: req.session.celular })
-            }
+                con.query('select * from vistacarrito where id_musuario=' + id_musuario + ' and id_cedocompra=3 order by id_mcompra desc ', (err, respuesta, fields) => {
+                    if (err) {
+                        console.log("Error", err)
+                    } else {
+                        console.log(respuesta);
+                        res.render('pages/miorden', { respuesta0: respuesta0, respuesta: respuesta, id: id_musuario, credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta, hora: respuesta[0].hora_entrega, id_mcompra: respuesta[0].id_mcompra, celular: req.session.celular })
+                    }
 
+                })
+            }
         })
 
     } else {
@@ -1419,16 +1431,16 @@ app.post('/crearmenu', (req, res) => {
     let hora_inicio = req.body.hora_inicio;
     let hora_final = req.body.hora_final;
 
-    con.query('update dmenudia set nombre_menu="' + nom_entrada + '", descripcion_menu="' + desc_entrada + '", imagen_menu="'+img_entrada+'" where id_dmenudia=1', (err, respuesta, fields) => {
+    con.query('update dmenudia set nombre_menu="' + nom_entrada + '", descripcion_menu="' + desc_entrada + '", imagen_menu="' + img_entrada + '" where id_dmenudia=1', (err, respuesta, fields) => {
         if (err) return console.log("Error", err);
 
-        con.query('update dmenudia set nombre_menu="' + nom_plato + '", descripcion_menu="' + desc_plato + '", imagen_menu="'+img_plato+'" where id_dmenudia=2', (err1, respuesta, fields) => {
+        con.query('update dmenudia set nombre_menu="' + nom_plato + '", descripcion_menu="' + desc_plato + '", imagen_menu="' + img_plato + '" where id_dmenudia=2', (err1, respuesta, fields) => {
             if (err1) return console.log("Error1", err);
 
-            con.query('update dmenudia set nombre_menu="' + nom_postre + '", descripcion_menu="' + desc_postre + '", imagen_menu="'+img_postre+'" where id_dmenudia=3', (err2, respuesta, fields) => {
+            con.query('update dmenudia set nombre_menu="' + nom_postre + '", descripcion_menu="' + desc_postre + '", imagen_menu="' + img_postre + '" where id_dmenudia=3', (err2, respuesta, fields) => {
                 if (err2) return console.log("Error2", err);
 
-                con.query('update dmenudia set nombre_menu="' + nom_bebida + '", descripcion_menu="' + desc_bebida + '", imagen_menu="'+img_bebida+'" where id_dmenudia=4', (err3, respuesta, fields) => {
+                con.query('update dmenudia set nombre_menu="' + nom_bebida + '", descripcion_menu="' + desc_bebida + '", imagen_menu="' + img_bebida + '" where id_dmenudia=4', (err3, respuesta, fields) => {
                     if (err3) return console.log("Error3", err);
 
                     con.query('update mmenudia set precio_menu=' + precio_menu + ', hora_inicio="' + hora_inicio + '", hora_final="' + hora_final + '" where id_mmenudia=1', (err4, respuesta, fields) => {
@@ -1578,9 +1590,9 @@ app.post('/agregarSeccion', (req, res) => {
     let nom_seccion = req.body.nom_seccion;
 
     con.query('insert into csubproducto (tipo_csubproducto, id_cproducto) values ("' + nom_seccion + '", 1)', (err, respuesta, fields) => {
-        if(err){
+        if (err) {
             console.log('Error', err)
-        }else{
+        } else {
             res.redirect('/productosEmp')
         }
     })

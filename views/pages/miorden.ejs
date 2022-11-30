@@ -18,6 +18,8 @@
         <br>
         <br>
 
+        <%respuesta0.forEach((respuesta0)=>{%>
+
         <div class="container">
             <table class="table">
                 <thead>
@@ -29,7 +31,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <%respuesta.forEach((respuesta)=>{%>
+                    <%respuesta.forEach((respuesta)=>{
+                        if(respuesta0.id_mcompra==respuesta.id_mcompra){%>
                         <tr>
                             <td data-label="descripcion">
                                 <%=respuesta.nombre_producto%>
@@ -44,7 +47,13 @@
                                 <%=respuesta.monto_dcarrito%>
                             </td>
                         </tr>
-                        <%})%>
+                        <%}else{ } })%>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Total</td>
+                            <td><%=respuesta0.monto_mcompra%></td>
+                        </tr>
                 </tbody>
             </table>
         </div>
@@ -83,6 +92,8 @@
                 </tbody>
             </table>
         </div>
+        <br><br><br><br>
+        <%})%>
 </body>
 
 </html>
