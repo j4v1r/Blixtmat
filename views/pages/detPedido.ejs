@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Ordenes</title>
+</head>
+
+<body>
+
+    <%- include('../partials/menu-cliente');%>
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+
+
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio <br>(Individual)</th>
+                        <th>Precio <br>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%respuesta.forEach((respuesta)=>{%>
+
+                        <tr>
+                            <td data-label="descripcion">
+                                <%=respuesta.nombre_producto%>
+                            </td>
+                            <td data-label="cantidad">
+                                <%=respuesta.cant_producto%>
+                            </td>
+                            <td data-label="precio">
+                                <%=respuesta.precio_producto%>
+                            </td>
+                            <td data-label="precio total">
+                                <%=respuesta.monto_dcarrito%>
+                            </td>
+                        </tr>
+                        <%})%>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Total: </td>
+                            <td data-label="precio total">
+                                <%=respuesta[0].monto_mcompra%>
+                            </td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <br><br><br><br>
+</body>
+
+</html>

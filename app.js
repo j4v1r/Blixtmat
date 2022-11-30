@@ -686,7 +686,7 @@ app.get('/editEmpleado/:id_musuario', (req, res) => {
 
         res.render('pages/inicioSesion')
     }
-    
+
 })
 
 
@@ -877,6 +877,70 @@ app.get('/miorden', (req, res) => {
         })
 
     } else {
+        res.render('pages/inicioSesion')
+    }
+
+})
+
+app.get('/historial', (req, res) => {
+
+    if (req.isAuthenticated()) {
+
+        let id_musuario = req.user[0].id_musuario;
+
+        con.query('select * from mcompra where id_musuario=' + id_musuario + ' and id_cedocompra=1', (err, respuesta, fields) => {
+            if (err) {
+                console.log('Error', err)
+            } else {
+                res.render('pages/historial', { respuesta: respuesta, credito: req.user[0].credito })
+            }
+        })
+
+    } else if (req.session.logged) {
+
+        let id_musuario = req.session.id_musuario;
+
+        con.query('select * from mcompra where id_musuario=' + id_musuario + ' and id_cedocompra=1', (err, respuesta, fields) => {
+            if (err) {
+                console.log('Error', err)
+            } else {
+                console.log(respuesta)
+                res.render('pages/historial', { respuesta: respuesta, credito: req.session.credito })
+            }
+        })
+
+    } else {
+
+        res.render('pages/inicioSesion')
+    }
+
+})
+
+app.get('/detallePedido/:id_mcompra', (req, res) => {
+    let id_mcompra = req.params.id_mcompra;
+
+    if (req.isAuthenticated()) {
+
+        con.query('select * from vistacarrito where id_mcompra=' + id_mcompra + '', (err, respuesta, fields) => {
+            if (err) {
+                console.log('Error', err)
+            } else {
+                res.render('pages/detPedido', { respuesta: respuesta, credito: req.user[0].credito })
+            }
+        })
+        
+    } else if (req.session.logged) {
+
+        con.query('select * from vistacarrito where id_mcompra=' + id_mcompra + '', (err, respuesta, fields) => {
+            if (err) {
+                console.log('Error', err)
+            } else {
+                res.render('pages/detPedido', { respuesta: respuesta, credito: req.session.credito })
+            }
+        })
+
+    } else {
+
         res.render('pages/inicioSesion')
     }
 
