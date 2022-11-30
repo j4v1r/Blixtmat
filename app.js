@@ -142,9 +142,10 @@ app.post('/registro', (req, res) => {
     let boleta = req.body.identificador;
     let usuario = req.body.nombre_user;
     let password = req.body.password;
+    let celular = req.body.celular;
 
-    con.query('INSERT into musuario (nombre_persona, apellido_persona, fecha_nacimiento, boleta, nombre_usuario, password, id_cusuario, credito) values ("' + nombre_per + '", "' +
-        apellido + '", "' + fecha + '", "' + boleta + '","' + usuario + '", "' + password + '",1,0)', (err, respuesta, fields) => {
+    con.query('INSERT into musuario (nombre_persona, apellido_persona, fecha_nacimiento, boleta, nombre_usuario, password, id_cusuario, credito, celular) values ("' + nombre_per + '", "' +
+        apellido + '", "' + fecha + '", "' + boleta + '","' + usuario + '", "' + password + '",1,0,"' + celular + '")', (err, respuesta, fields) => {
             if (err) return console.log("Error", err);
 
             return res.redirect('/')
@@ -172,6 +173,7 @@ app.post('/iniciarSesion', (req, res) => {
                 req.session.credito = respuesta[0].credito;
                 req.session.nombre = respuesta[0].nombre_persona;
                 req.session.boleta = respuesta[0].boleta;
+                req.session.celular = respuesta[0].celular;
                 console.log(req.session.tipo)
                 console.log(req.session.id_musuario)
                 res.redirect('/menudia')
@@ -699,7 +701,7 @@ app.get('/carrito', (req, res) => {
                         console.log('Error', err)
                     } else {
                         console.log('HA habido un intento de compra en los ultimos 5 minutos')
-                        res.render('pages/carrito', { credito: req.user[0].credito, nombre: req.user[0].nombre, boleta: req.user[0].boleta, respuesta: respuesta, id_mcompra: id_mcompra, hora: respuesta[0].hora_entrega })
+                        res.render('pages/carrito', { credito: req.user[0].credito, nombre: req.user[0].nombre, boleta: req.user[0].boleta, respuesta: respuesta, id_mcompra: id_mcompra, hora: respuesta[0].hora_entrega, celular: req.user[0].celular })
                     }
                 })
             } else {
@@ -743,7 +745,7 @@ app.get('/carrito', (req, res) => {
                         console.log('Error', err)
                     } else {
                         console.log('HA habido un intento de compra en los ultimos 5 minutos')
-                        res.render('pages/carrito', { credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta, respuesta: respuesta, id_mcompra: id_mcompra, hora: respuesta[0].hora_entrega })
+                        res.render('pages/carrito', { credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta, respuesta: respuesta, id_mcompra: id_mcompra, hora: respuesta[0].hora_entrega, celular: req.session.celular })
                     }
                 })
             } else {
@@ -766,7 +768,7 @@ app.get('/miorden', (req, res) => {
                 console.log("Error", err)
             } else {
                 console.log(respuesta);
-                res.render('pages/miorden', { respuesta: respuesta, id: id_musuario, credito: req.user[0].credito, nombre: req.user[0].nombre, boleta: req.user[0].boleta, hora: respuesta[0].hora_entrega, id_mcompra: respuesta[0].id_mcompra })
+                res.render('pages/miorden', { respuesta: respuesta, id: id_musuario, credito: req.user[0].credito, nombre: req.user[0].nombre, boleta: req.user[0].boleta, hora: respuesta[0].hora_entrega, id_mcompra: respuesta[0].id_mcompra, celular: req.user[0].celular })
             }
 
         })
@@ -778,7 +780,7 @@ app.get('/miorden', (req, res) => {
                 console.log("Error", err)
             } else {
                 console.log(respuesta);
-                res.render('pages/miorden', { respuesta: respuesta, id: id_musuario, credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta, hora: respuesta[0].hora_entrega, id_mcompra: respuesta[0].id_mcompra })
+                res.render('pages/miorden', { respuesta: respuesta, id: id_musuario, credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta, hora: respuesta[0].hora_entrega, id_mcompra: respuesta[0].id_mcompra, celular: req.session.celular })
             }
 
         })
@@ -807,8 +809,9 @@ app.post('/actualizarUsuario', (req, res) => {
     let boleta = req.body.boleta;
     let nom_user = req.body.nom_user;
     let contrasena = req.body.password;
+    let celular = req.body.celular;
 
-    con.query('update musuario set nombre_persona="' + nombre_persona + '", apellido_persona="' + apellido_persona + '", boleta=' + boleta + ', nombre_usuario="' + nom_user + '", password="' + contrasena + '" where id_musuario=' + id_musuario + '', (err, respuesta, fields) => {
+    con.query('update musuario set nombre_persona="' + nombre_persona + '", apellido_persona="' + apellido_persona + '", boleta=' + boleta + ', nombre_usuario="' + nom_user + '", password="' + contrasena + '", celular="' + celular + '" where id_musuario=' + id_musuario + '', (err, respuesta, fields) => {
         if (err) {
             console.log('Error', err)
         } else {
@@ -1272,9 +1275,9 @@ app.get('/finalizarPedido/:id_mcompra/:id_musuario', (req, res) => {
                             let nuevo_credito = credito - descontar;
 
                             con.query('update musuario set credito=' + nuevo_credito + ' where id_musuario=' + id_musuario + '', (err3, respuesta3, fields3) => {
-                                if(err3){
+                                if (err3) {
                                     console.log('Error 3 en finalizar pedido', err3)
-                                }else{
+                                } else {
                                     res.redirect('/ordenes')
                                 }
                             })
