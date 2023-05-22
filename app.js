@@ -723,7 +723,7 @@ app.get('/perfil', (req, res) => {
                 console.log("Error", err)
             } else {
                 console.log(respuesta);
-                res.render('pages/perfilCliente', { respuesta: respuesta[0], id: req.user[0].id_musuario, credito: req.user[0].credito })
+                res.render('pages/nuevoperfil', { respuesta: respuesta[0], id: req.user[0].id_musuario, credito: req.user[0].credito })
             }
 
         })
@@ -734,7 +734,7 @@ app.get('/perfil', (req, res) => {
                 console.log("Error", err)
             } else {
                 console.log(respuesta[0].fecha_nacimiento);
-                res.render('pages/perfilCliente', { respuesta: respuesta[0], id: req.session.id_musuario, credito: req.session.credito })
+                res.render('pages/nuevoperfil', { respuesta: respuesta[0], id: req.session.id_musuario, credito: req.session.credito })
             }
 
         })
@@ -956,7 +956,7 @@ app.get('/detallePedido/:id_mcompra', (req, res) => {
             if (err) {
                 console.log('Error', err)
             } else {
-                res.render('pages/detPedido', { respuesta: respuesta, credito: req.user[0].credito })
+                res.render('pages/nuevodetPedido', { respuesta: respuesta, credito: req.user[0].credito })
             }
         })
 
@@ -966,7 +966,7 @@ app.get('/detallePedido/:id_mcompra', (req, res) => {
             if (err) {
                 console.log('Error', err)
             } else {
-                res.render('pages/detPedido', { respuesta: respuesta, credito: req.session.credito })
+                res.render('pages/nuevodetPedido', { respuesta: respuesta, credito: req.session.credito })
             }
         })
 

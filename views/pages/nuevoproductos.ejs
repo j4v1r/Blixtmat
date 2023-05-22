@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Productos</title>
@@ -58,7 +57,7 @@
                                                     <p class="card-text text-center">
                                                         <%=respuesta1.descripcion%>
                                                     </p>
-                                                    <div id="btn3"><button>Comprar</button></div>
+                                                    <div id="btn3"><button onclick="location.href='/ordenarProducto/<%=id%>/<%=respuesta1.id_mproducto%>'">Comprar</button></div>
                                                 </div>
                                 </div>
                             </div>
@@ -68,126 +67,6 @@
             </div>
             <%})%>
 
-                <!--  
-        <h1 class="display-5">Hamburguesas</h1>
-        <div class="container">
-            <div class="new-card">
-                <div class="row" style="margin-top: 50px;">
-                    <div class="col-md-4 py-3 py-md-0">
-                        <div class="card">
-                            <img class="card-image-top"
-                                src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
-                                alt="">
-                            <div class="card-body">
-                                <h2 class="card-title text-center">Hamburguesa de pollo</h2>
-                                <h3 class="card-title text-center">$40.00</h3>
-                                <p class="card-text text-center">Hamburguesa de pollo crujiente con salsa BBQ</p>
-                                <div id="btn3"><button>Comprar</button></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 py-3 py-md-0">
-                        <div class="card">
-                            <img class="card-image-top"
-                                src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
-                                alt="">
-                            <div class="card-body">
-                                <h2 class="card-title text-center">Hamburguesa de pollo</h2>
-                                <h3 class="card-title text-center">$40.00</h3>
-                                <p class="card-text text-center">Hamburguesa de pollo crujiente con salsa BBQ</p>
-                                <div id="btn3"><button>Comprar</button></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 py-3 py-md-0">
-                        <div class="card">
-                            <img class="card-image-top"
-                                src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
-                                alt="">
-                            <div class="card-body">
-                                <h2 class="card-title text-center">Hamburguesa de pollo</h2>
-                                <h3 class="card-title text-center">$40.00</h3>
-                                <p class="card-text text-center">Hamburguesa de pollo crujiente con salsa BBQ</p>
-                                <div id="btn3"><button>Comprar</button></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 py-3 py-md-0">
-                        <div class="card">
-                            <img class="card-image-top"
-                                src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
-                                alt="">
-                            <div class="card-body">
-                                <h2 class="card-title text-center">Hamburguesa sencilla con papás</h2>
-                                <h3 class="card-title text-center">$30.00</h3>
-                                <p class="card-text text-center">Hamburguesa de pollo crujiente con salsa BBQ</p>
-                                <div id="btn3"><button>Comprar</button></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <h1 class="display-5">Pizzas</h1>
-        <div class="container">
-            <div class="new-card">
-                <div class="row">
-                    <div class="col-md-4 py-3 py-md-0">
-                        <div class="card">
-                            <img class="card-image-top"
-                                src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
-                                alt="">
-                            <div class="card-body">
-                                <h2 class="card-title text-center">Hamburguesa Hawaiana</h2>
-                                <h3 class="card-title text-center">$35.00</h3>
-                                <p class="card-text text-center">Hamburguesa de pollo crujiente con salsa BBQ</p>
-                                <div id="btn3"><button>Comprar</button></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 py-3 py-md-0">
-                        <div class="card">
-                            <img class="card-image-top"
-                                src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
-                                alt="">
-                            <div class="card-body">
-                                <h2 class="card-title text-center">Hamburguesa sencilla</h2>
-                                <h3 class="card-title text-center">$25.00</h3>
-                                <p class="card-text text-center">Hamburguesa de pollo crujiente con salsa BBQ</p>
-                                <div id="btn3"><button>Comprar</button></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 py-3 py-md-0">
-                        <div class="card">
-                            <img class="card-image-top"
-                                src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
-                                alt="">
-                            <div class="card-body">
-                                <h2 class="card-title text-center">Hamburguesa de pollo</h2>
-                                <h3 class="card-title text-center">$40.00</h3>
-                                <p class="card-text text-center">Hamburguesa de pollo crujiente con salsa BBQ</p>
-                                <div id="btn3"><button>Comprar</button></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 py-3 py-md-0">
-                        <div class="card">
-                            <img class="card-image-top"
-                                src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
-                                alt="">
-                            <div class="card-body">
-                                <h2 class="card-title text-center">Hamburguesa de pollo</h2>
-                                <h3 class="card-title text-center">$40.00</h3>
-                                <p class="card-text text-center">Hamburguesa de pollo crujiente con salsa BBQ</p>
-                                <div id="btn3"><button>Comprar</button></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    -->
 
                 <div class="banner2">
                     <h1>Disfruta y con Tiempo</h1>
