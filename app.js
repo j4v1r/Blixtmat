@@ -213,7 +213,7 @@ app.get('/', (req, res) => {
                 console.log("Error", err)
             } else {
                 console.log(respuesta);
-                res.render('pages/menudeldia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.user[0].id_cusuario })
+                res.render('pages/nuevomenudia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.user[0].id_cusuario })
             }
         })
     } else if (req.session.logged) {
@@ -222,7 +222,7 @@ app.get('/', (req, res) => {
                 console.log("Error", err)
             } else {
                 console.log(respuesta);
-                res.render('pages/menudeldia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.session.tipo })
+                res.render('pages/nuevomenudia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.session.tipo })
             }
         })
 
@@ -243,7 +243,7 @@ app.get('/menudia', (req, res) => {
                 console.log("Error", err)
             } else {
                 console.log(respuesta);
-                res.render('pages/menudeldia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.user[0].id_cusuario, id: req.user[0].id_musuario, credito: req.user[0].credito })
+                res.render('pages/nuevomenudia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.user[0].id_cusuario, id: req.user[0].id_musuario, credito: req.user[0].credito })
             }
 
         })
@@ -253,7 +253,7 @@ app.get('/menudia', (req, res) => {
                 console.log("Error", err)
             } else {
                 console.log(respuesta);
-                res.render('pages/menudeldia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.session.tipo, id: req.session.id_musuario, credito: req.session.credito })
+                res.render('pages/nuevomenudia', { entrada: respuesta[0], plato: respuesta[1], postre: respuesta[2], bebida: respuesta[3], tipo: req.session.tipo, id: req.session.id_musuario, credito: req.session.credito })
             }
 
         })
@@ -278,7 +278,7 @@ app.get('/productos', (req, res) => {
                     if (err1) {
                         console.log('Error1', err1)
                     } else {
-                        res.render('pages/productos', { respuesta: respuesta, respuesta1: respuesta1, credito: req.user[0].credito, id: req.user[0].id_musuario })
+                        res.render('pages/nuevoproductos', { respuesta: respuesta, respuesta1: respuesta1, credito: req.user[0].credito, id: req.user[0].id_musuario })
                     }
 
                 })
@@ -298,7 +298,7 @@ app.get('/productos', (req, res) => {
                     if (err1) {
                         console.log('Error1', err1)
                     } else {
-                        res.render('pages/productos', { respuesta: respuesta, respuesta1: respuesta1, credito: req.session.credito, id: req.session.id_musuario })
+                        res.render('pages/nuevoproductos', { respuesta: respuesta, respuesta1: respuesta1, credito: req.session.credito, id: req.session.id_musuario })
                     }
 
                 })
@@ -811,7 +811,7 @@ app.get('/carrito', (req, res) => {
                         console.log('Error', err)
                     } else {
                         console.log('HA habido un intento de compra en los ultimos 5 minutos')
-                        res.render('pages/carrito', { credito: req.user[0].credito, nombre: req.user[0].nombre, boleta: req.user[0].boleta, respuesta: respuesta, id_mcompra: id_mcompra, hora: respuesta[0].hora_entrega, celular: req.user[0].celular })
+                        res.render('pages/nuevocarrito', { credito: req.user[0].credito, nombre: req.user[0].nombre, boleta: req.user[0].boleta, respuesta: respuesta, id_mcompra: id_mcompra, hora: respuesta[0].hora_entrega, celular: req.user[0].celular })
                     }
                 })
             } else {
@@ -855,7 +855,7 @@ app.get('/carrito', (req, res) => {
                         console.log('Error', err)
                     } else {
                         console.log('HA habido un intento de compra en los ultimos 5 minutos')
-                        res.render('pages/carrito', { credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta, respuesta: respuesta, id_mcompra: id_mcompra, hora: respuesta[0].hora_entrega, celular: req.session.celular })
+                        res.render('pages/nuevocarrito', { credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta, respuesta: respuesta, id_mcompra: id_mcompra, hora: respuesta[0].hora_entrega, celular: req.session.celular })
                     }
                 })
             } else {
@@ -882,7 +882,7 @@ app.get('/miorden', (req, res) => {
                         console.log("Error", err)
                     } else {
                         console.log(respuesta);
-                        res.render('pages/miorden', { respuesta0: respuesta0, respuesta: respuesta, id: id_musuario, credito: req.user[0].credito, nombre: req.user[0].nombre, boleta: req.user[0].boleta, hora: respuesta[0].hora_entrega, id_mcompra: respuesta[0].id_mcompra, celular: req.user[0].celular })
+                        res.render('pages/nuevomiorden', { respuesta0: respuesta0, respuesta: respuesta, id: id_musuario, credito: req.user[0].credito, nombre: req.user[0].nombre, boleta: req.user[0].boleta, hora: respuesta[0].hora_entrega, id_mcompra: respuesta[0].id_mcompra, celular: req.user[0].celular })
                     }
 
                 })
@@ -900,7 +900,7 @@ app.get('/miorden', (req, res) => {
                         console.log("Error", err)
                     } else {
                         console.log(respuesta);
-                        res.render('pages/miorden', { respuesta0: respuesta0, respuesta: respuesta, id: id_musuario, credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta, hora: respuesta[0].hora_entrega, id_mcompra: respuesta[0].id_mcompra, celular: req.session.celular })
+                        res.render('pages/nuevomiorden', { respuesta0: respuesta0, respuesta: respuesta, id: id_musuario, credito: req.session.credito, nombre: req.session.nombre, boleta: req.session.boleta, hora: respuesta[0].hora_entrega, id_mcompra: respuesta[0].id_mcompra, celular: req.session.celular })
                     }
 
                 })
@@ -1602,6 +1602,6 @@ app.post('/agregarSeccion', (req, res) => {
 
 
 
-app.listen(process.env.PORT || 8080, (req, res) => {
+app.listen(process.env.PORT || 8000, (req, res) => {
     console.log('Escuchando desde el puerto 8080')
 })

@@ -1,20 +1,38 @@
-<nav>
-    <input type="checkbox" id="check">
-    <label for="check" class="checkbtn">
-        <i class="fas fa-bars"></i>
-    </label>
-    <a href="#" class="enlace">
-        <img src="/images/thumbnail.png" alt="" class="logo">
-    </a>
-    <ul class>
-        <li><a href="#">SALDO: <%=credito%></a></li>
-        <li><a href="/menudia">INICIO</a></li>
-        <li><a href="/productos">COMPRAR</a></li>
-        <li><a href="/carrito">CARRITO</a></li>
-        <li><a href="/miorden">MI ORDEN</a></li>
-        <li><a href="/perfil">PERFIL</a></li>
-        <li><a href="/historial">HISTORIAL</a></li>
-        <li><a href="/cerrarSesion">CERRAR SESIÓN</a></li>
-    </ul>
-
-</nav>
+<nav class="navbar navbar-expand-lg navbar" style="background-color: #FFC300;">
+    <div class="container-fluid">
+      <img src="images/thumbnail.png" alt="" class="logo">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Saldo: <%=credito%> </a>
+            </li>
+            <a class="nav-link active" aria-current="page" href="/menudia">Inicio </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/productos">Comprar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/carrito">Carrito</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/historial">Historial</a>
+          </li>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/miorden">Mi Orden</a>
+        </li>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/perfil">Perfil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/cerrarSesion">Cerrar Sesión</a>
+      </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
