@@ -58,7 +58,7 @@ app.use(express.static(__dirname + '/public'))
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://blixtmat.herokuapp.com/google/callback",
+    callbackURL: "http://localhost:8080/google/callback",
     passReqToCallback: true
 },
     function (request, response, accessToken, refreshToken, profile, done) {
@@ -708,6 +708,71 @@ app.get('/agregarSeccion', (req, res) => {
     }
 
 })
+
+app.get('/historialVentas', (req, res)=>{
+    if (req.isAuthenticated() && req.user[0].id_cusuario == 2) {
+
+        let id_musuario = req.user[0].id_musuario;
+
+        con.query('select * from mcompra order by fecha_mcompra desc', (err, respuesta, fields) => {
+            if (err) {
+                console.log('Error', err)
+            } else {
+                res.render('pages/historialVentas', { respuesta: respuesta})
+            }
+        })
+
+    } else if (req.session.logged && req.session.tipo == 2) {
+
+        con.query('select * from mcompra order by fecha_mcompra desc', (err, respuesta, fields) => {
+            if (err) {
+                console.log('Error', err)
+            } else {
+                res.render('pages/historialVentas', {respuesta: respuesta})
+            }
+        })
+
+    } else if ((req.session.logged && req.session.tipo == 1) || (req.session.logged && req.session.tipo == 3)) {
+
+        res.redirect('/menudia')
+
+    } else {
+
+        res.render('pages/inicioSesion')
+    }
+
+})
+
+app.get('/detallePedidoAdmin/:id_mcompra', (req, res) => {
+    let id_mcompra = req.params.id_mcompra;
+
+    if (req.isAuthenticated()) {
+
+        con.query('select * from vistaordenes where id_mcompra=' + id_mcompra + '', (err, respuesta, fields) => {
+            if (err) {
+                console.log('Error', err)
+            } else {
+                res.render('pages/detPedido', { respuesta: respuesta, credito: req.user[0].credito })
+            }
+        })
+
+    } else if (req.session.logged) {
+
+        con.query('select * from vistaordenes where id_mcompra=' + id_mcompra + '', (err, respuesta, fields) => {
+            if (err) {
+                console.log('Error', err)
+            } else {
+                res.render('pages/detPedido', { respuesta: respuesta, credito: req.session.credito })
+            }
+        })
+
+    } else {
+
+        res.render('pages/inicioSesion')
+    }
+
+})
+
 
 
 
@@ -1602,6 +1667,6 @@ app.post('/agregarSeccion', (req, res) => {
 
 
 
-app.listen(process.env.PORT || 8000, (req, res) => {
+app.listen(process.env.PORT || 8080, (req, res) => {
     console.log('Escuchando desde el puerto 8080')
 })

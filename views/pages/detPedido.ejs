@@ -11,7 +11,7 @@
 
 <body>
 
-    <%- include('../partials/menu-cliente');%>
+    <%- include('../partials/menu-admin');%>
 
         <br>
         <br>
@@ -48,18 +48,47 @@
                             </td>
                         </tr>
                         <%})%>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td>Total: </td>
-                            <td data-label="precio total">
-                                <%=respuesta[0].monto_mcompra%>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>Total: </td>
+                                <td data-label="precio total">
+                                    <%=respuesta[0].monto_mcompra%>
+                                </td>
+                            </tr>
                 </tbody>
             </table>
         </div>
-        
+        <div class="container">
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th>Datos del pedido</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Consola">Nombre cliente: <br><br>
+                            <%=respuesta[0].nombre_persona%>
+                        </td>
+                        <td data-label="Precio">Boleta/No. Empleado: <br><br>
+                            <%=respuesta[0].boleta%>
+                        </td>
+                        <td data-label="Ventas">Teléfono: <br><br>
+                            <%=respuesta[0].celular%>
+                        </td>
+                        <td data-label="Fecha de lanzamiento">Hora de entrega: <br><br>
+                            <%=respuesta[0].hora_entrega%>
+                    
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         <br><br><br><br>
 </body>
 
