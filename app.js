@@ -710,11 +710,26 @@ app.get('/agregarSeccion', (req, res) => {
 })
 
 app.get('/historialVentas', (req, res)=>{
+
+    let date_ob = new Date();
+
+    // current day
+    let date = parseInt(("0" + date_ob.getDate()).slice(-2));
+    console.log(date, typeof date)
+
+    // current month
+    let month = parseInt(("0" + (date_ob.getMonth() + 1)).slice(-2));
+    console.log(month, typeof month)
+
+    // current year
+    let year = date_ob.getFullYear();
+    console.log(year, typeof year)
+
     if (req.isAuthenticated() && req.user[0].id_cusuario == 2) {
 
         let id_musuario = req.user[0].id_musuario;
 
-        con.query('select * from mcompra order by fecha_mcompra desc', (err, respuesta, fields) => {
+        con.query('select * from mcompra where fecha_mcompra>"2023-05-16" and id_cedocompra=1 order by fecha_mcompra desc', (err, respuesta, fields) => {
             if (err) {
                 console.log('Error', err)
             } else {
@@ -724,7 +739,7 @@ app.get('/historialVentas', (req, res)=>{
 
     } else if (req.session.logged && req.session.tipo == 2) {
 
-        con.query('select * from mcompra order by fecha_mcompra desc', (err, respuesta, fields) => {
+        con.query('select * from mcompra where fecha_mcompra>"2023-05-16" and id_cedocompra=1 order by fecha_mcompra desc', (err, respuesta, fields) => {
             if (err) {
                 console.log('Error', err)
             } else {
@@ -745,6 +760,7 @@ app.get('/historialVentas', (req, res)=>{
 
 app.get('/detallePedidoAdmin/:id_mcompra', (req, res) => {
     let id_mcompra = req.params.id_mcompra;
+    
 
     if (req.isAuthenticated()) {
 
