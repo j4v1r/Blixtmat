@@ -733,7 +733,7 @@ app.get('/historialVentas', (req, res)=>{
             if (err) {
                 console.log('Error', err)
             } else {
-                res.render('pages/historialVentas', { respuesta: respuesta})
+                res.render('pages/historialVentas', { respuesta: respuesta, tipo: req.user[0].id_cusuario, id: req.user[0].id_musuario})
             }
         })
 
@@ -743,7 +743,7 @@ app.get('/historialVentas', (req, res)=>{
             if (err) {
                 console.log('Error', err)
             } else {
-                res.render('pages/historialVentas', {respuesta: respuesta})
+                res.render('pages/historialVentas', {respuesta: respuesta, tipo: req.session.tipo})
             }
         })
 
