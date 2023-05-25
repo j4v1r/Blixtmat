@@ -58,7 +58,7 @@ app.use(express.static(__dirname + '/public'))
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:8080/google/callback",
+    callbackURL: "https://blixtmat.onrender.com/google/callback",
     passReqToCallback: true
 },
     function (request, response, accessToken, refreshToken, profile, done) {
